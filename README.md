@@ -57,6 +57,7 @@ Etc
 -개선된 AI(유한상태머신)
 -택스쳐 개선
 -UI/UX 개선
+-미니게임
 
 genre
 -Open World
