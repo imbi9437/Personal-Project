@@ -2,7 +2,6 @@
 
 장르
 -오픈월드
--샌드박스
 -아포칼립스
 -생존
 -1인칭 시점
@@ -71,7 +70,6 @@ Etc
 
 genre
 -Open World
--SandBox
 -Survive
 -Apocalypse
 
