@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController),(typeof(Animator)))]
 public class Zombie : MonoBehaviour
 {
-    private CharacterController characterController;
-    private Animator animator;
-    private StateMachine<States, Zombie> stateMachine;
+    public CharacterController characterController;
+    public Animator animator;
+    public StateMachine<States, Zombie> stateMachine;
 
     public enum States { Fall, Idle, Trace, Attack, Hit, Die }
 

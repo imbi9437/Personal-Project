@@ -21,12 +21,19 @@ public class ZombieStates : MonoBehaviour
     {
         public override void Enter(Zombie owner)
         {
+            owner.transform.parent = null;
+            owner.animator.SetBool("Fall", true);
         }
         public override void Exit(Zombie owner)
         {
         }
         public override void Update(Zombie owner)
         {
+            if(owner.characterController.isGrounded ==true)//수정 필요 레이캐스트로 체크하도록 변경
+            {
+                owner.animator.SetBool("Fall", false);
+                owner.ChangeState(Zombie.States.Idle);
+            }
         }
     }
 
