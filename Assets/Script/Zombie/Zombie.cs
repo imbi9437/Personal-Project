@@ -9,7 +9,7 @@ public class Zombie : MonoBehaviour
     private Animator animator;
     private StateMachine<States, Zombie> stateMachine;
 
-    public enum States { Idle, Trace, Attack, Hit, Die }
+    public enum States { Fall, Idle, Trace, Attack, Hit, Die }
 
     private float maxHp = 300f;
     public float MaxHP { get { return maxHp; } }
@@ -34,6 +34,7 @@ public class Zombie : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         stateMachine = new StateMachine<States, Zombie>(this);
+        stateMachine.AddState(States.Fall, new ZombieStates.Fall());
         stateMachine.AddState(States.Idle, new ZombieStates.Idle());
         stateMachine.AddState(States.Trace, new ZombieStates.Trace());
         stateMachine.AddState(States.Attack, new ZombieStates.Attack());
@@ -42,7 +43,7 @@ public class Zombie : MonoBehaviour
     }
     private void OnEnable()
     {
-        stateMachine.ChangeState(States.Idle);
+        stateMachine.ChangeState(States.Fall);
     }
     private void Update()
     {

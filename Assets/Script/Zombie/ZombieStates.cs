@@ -17,6 +17,19 @@ public class ZombieStates : MonoBehaviour
         {
         }
     }
+    public class Fall : BaseState
+    {
+        public override void Enter(Zombie owner)
+        {
+        }
+        public override void Exit(Zombie owner)
+        {
+        }
+        public override void Update(Zombie owner)
+        {
+        }
+    }
+
     public class Idle : BaseState
     {
         public override void Enter(Zombie owner)
