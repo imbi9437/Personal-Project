@@ -39,7 +39,9 @@ public class Zombie : MonoBehaviour
         stateMachine.AddState(States.Attack, new ZombieStates.Attack());
         stateMachine.AddState(States.Hit, new ZombieStates.Hit());
         stateMachine.AddState(States.Die, new ZombieStates.Die());
-
+    }
+    private void OnEnable()
+    {
         stateMachine.ChangeState(States.Idle);
     }
     private void Update()
