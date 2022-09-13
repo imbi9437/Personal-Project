@@ -19,6 +19,9 @@ public class Zombie : MonoBehaviour
     [SerializeField]
     private LayerMask targetLayer;
     public LayerMask TargetLayer { get { return targetLayer; } }
+    [SerializeField]
+    private GameObject target;
+    public GameObject Target { get { return target; } set { target = value; } }
     [SerializeField, Range(0f, 300f)]
     private float hp;
     public float Hp { get { return hp; } set { hp = value; } }
@@ -42,5 +45,10 @@ public class Zombie : MonoBehaviour
     private void Update()
     {
         stateMachine.Update();
+    }
+
+    public void ChangeState(States nextState)
+    {
+        stateMachine.ChangeState(nextState);
     }
 }
