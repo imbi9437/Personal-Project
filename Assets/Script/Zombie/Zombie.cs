@@ -7,10 +7,9 @@ public class Zombie : MonoBehaviour
 {
     private CharacterController characterController;
     private Animator animator;
+    private StateMachine<States, Zombie> stateMachine;
 
     public enum States { Idle, Trace, Attack, Hit, Die }
-    private States curstate = States.Idle;
-    public States State { get { return curstate; } set { curstate = State; } }
 
     private float maxHp = 300f;
     public float MaxHP { get { return maxHp; } }
@@ -23,10 +22,25 @@ public class Zombie : MonoBehaviour
     [SerializeField, Range(0f, 300f)]
     private float hp;
     public float Hp { get { return hp; } set { hp = value; } }
+    [SerializeField, Range(0f, 10f)]
+    private float speed;
+    public float Speed { get { return speed; } set { speed = value; } }
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        stateMachine = new StateMachine<States, Zombie>(this);
+        stateMachine.AddState(States.Idle, new ZombieStates.Idle());
+        stateMachine.AddState(States.Trace, new ZombieStates.Trace());
+        stateMachine.AddState(States.Attack, new ZombieStates.Attack());
+        stateMachine.AddState(States.Hit, new ZombieStates.Hit());
+        stateMachine.AddState(States.Die, new ZombieStates.Die());
+
+        stateMachine.ChangeState(States.Idle);
+    }
+    private void Update()
+    {
+        stateMachine.Update();
     }
 }
