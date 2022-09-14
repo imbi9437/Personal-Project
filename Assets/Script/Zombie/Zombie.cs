@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController),(typeof(Animator)))]
 public class Zombie : MonoBehaviour
 {
+    private GameObject Airplane;
+
     public CharacterController characterController;
     public Animator animator;
     public StateMachine<States, Zombie> stateMachine;
@@ -13,6 +15,8 @@ public class Zombie : MonoBehaviour
 
     private float maxHp = 300f;
     public float MaxHP { get { return maxHp; } }
+    private float curHp;
+    public float CurHp { get { return curHp; } set { curHp = value; } }
     private float maxDamage = 20f;
     public float MaxDamage { get { return maxDamage; } }
 
@@ -23,7 +27,7 @@ public class Zombie : MonoBehaviour
     private GameObject target;
     public GameObject Target { get { return target; } set { target = value; } }
     [SerializeField, Range(0f, 300f)]
-    private float hp;
+    private float hp = 10f;
     public float Hp { get { return hp; } set { hp = value; } }
     [SerializeField, Range(0f, 10f)]
     private float speed;
@@ -43,6 +47,7 @@ public class Zombie : MonoBehaviour
     }
     private void OnEnable()
     {
+        transform.parent = null;
         stateMachine.ChangeState(States.Fall);
     }
     private void Update()
