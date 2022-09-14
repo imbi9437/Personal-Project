@@ -57,6 +57,10 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Update(Zombie owner)
         {
+            if (owner.Target != null)
+            {
+                owner.ChangeState(Zombie.States.Trace);
+            }
         }
     }
     public class Trace : BaseState
@@ -64,6 +68,8 @@ public class ZombieStates : MonoBehaviour
         public override void Enter(Zombie owner)
         {
             owner.animator.SetBool("Walk",true);
+            owner.characterController.Move(owner.Target.transform.position);
+            owner.Target = null;
         }
         public override void Exit(Zombie owner)
         {
@@ -71,6 +77,14 @@ public class ZombieStates : MonoBehaviour
         public override void Update(Zombie owner)
         {
             owner.animator.SetBool("Walk", false);
+            if(owner.Target != null)
+            {
+                owner.ChangeState(Zombie.States.Attack);
+            }
+            else
+            {
+                owner.ChangeState(Zombie.States.Idle);
+            }
         }
     }
     public class Attack : BaseState
@@ -84,7 +98,7 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Update(Zombie owner)
         {
-            if(Physics.)
+            
             owner.ChangeState(Zombie.States.Trace);
         }
     }
