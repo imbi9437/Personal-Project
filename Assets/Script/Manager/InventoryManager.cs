@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
@@ -10,10 +11,23 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         public Item item;
         public int num;
+
+        public SlotItem(Item item, int num)
+        {
+            this.item = item;
+            this.num = num;
+        }
     }
 
     public Dictionary<string,SlotItem> slotItem = new Dictionary<string, SlotItem>();
+    public List<string> slotName = new List<string>();
+    public List<SlotItem> slotItems = new List<SlotItem>();
 
+
+    private void Awake()
+    {
+        InventoryUpdate();
+    }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.I))
@@ -24,6 +38,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void InventoryActive()
     {
+        InventoryUpdate();
         for (int i = 0; i < inventories.Length; i++)
         {
             if (inventories[0].gameObject.activeSelf ==false)
@@ -38,21 +53,58 @@ public class InventoryManager : Singleton<InventoryManager>
             }
         }
     }
-
+    public void InventoryUpdate()
+    {
+        for (int i = 0; i < inventories.Length; i++)
+        {
+            inventories[i].UpdateUI();
+        }
+    }
     public void AddItem(Item item)
     {
-        if (slotItem.ContainsKey(item.Name))
-        {
-
-        }
-        SlotItem curItem = new SlotItem();
-        curItem.item = item;
-        curItem.num = 1;
-        slotItem.Add(curItem.item.Name,curItem);
+        SlotItem curItem = new SlotItem(item,0);
+        slotItem.Add(item.Name,curItem);
+        InventoryUpdate();
     }
-
+    public void AddItem(Item item,int num)
+    {
+        if(FindItem(item))
+        {
+            slotItem[item.Name].num += num;
+        }
+        else
+        {
+            SlotItem curItem = new SlotItem(item,num);
+            slotItem.Add(item.Name, curItem);
+        }
+        InventoryUpdate();
+    }
     public void RemoveItem(Item item)
     {
-
+        slotItem.Remove(item.Name);
+        InventoryUpdate();
+    }
+    public void RemoveItem(Item item,int num)
+    {
+        if (slotItem[item.Name].num<=num)
+        {
+            slotItem.Remove(item.Name);
+        }
+        else
+        {
+            slotItem[item.Name].num -= num;
+        }
+        InventoryUpdate();
+    }
+    public bool FindItem(Item item)
+    {
+        if(slotItem.ContainsKey(item.Name))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

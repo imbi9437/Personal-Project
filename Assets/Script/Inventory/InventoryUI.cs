@@ -11,9 +11,19 @@ public class InventoryUI : MonoBehaviour
         inventorySlots = GetComponentsInChildren<InventorySlot>();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
-        
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            if (i < InventoryManager.instance.slotItem.Count)
+            {
+                inventorySlots[i].AddItem(InventoryManager.instance.slotItem[i])
+            }
+            else
+            {
+
+            }
+        }
     }
 
 }

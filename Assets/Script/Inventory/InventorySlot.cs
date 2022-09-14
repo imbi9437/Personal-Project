@@ -18,25 +18,37 @@ public class InventorySlot : MonoBehaviour
         itemImage = GetComponentInChildren<Image>();
     }
 
-    public void AddItem(Item item)
+    public void AddItem(Item item,int count)
     {
         this.item = item;
         itemImage.sprite = item.Image;
         slot.interactable = true;
-        if (item.Weight == 1)
+        if(count ==0)
         {
             num.text = "";
         }
         else
         {
-            
+            num.text = count.ToString();
         }
-
     }
     public void RemoveItem()
     {
         this.item = null;
         slot.interactable = false;
+        num.text = "";
+    }
 
+    public void RemoveItem(Item item,int num)
+    {
+        //not yet after testing
+    }
+    public void Use()
+    {
+        item.Use();
+    }
+    public void Drop()
+    {
+        item.drop();
     }
 }
