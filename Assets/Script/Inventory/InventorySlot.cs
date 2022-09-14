@@ -10,7 +10,8 @@ public class InventorySlot : MonoBehaviour
     private Button slot;
     [SerializeField]
     private TextMeshProUGUI num;
-    private Item item;
+    private SlotItem item;
+    public SlotItem Item { get { return item; } }
     private Image itemImage;
 
     private void Awake()
@@ -18,10 +19,10 @@ public class InventorySlot : MonoBehaviour
         itemImage = GetComponentInChildren<Image>();
     }
 
-    public void AddItem(Item item,int count)
+    public void AddItem(SlotItem item,int count)
     {
         this.item = item;
-        itemImage.sprite = item.Image;
+        itemImage.sprite = item.item.Image;
         slot.interactable = true;
         if(count ==0)
         {
@@ -36,19 +37,20 @@ public class InventorySlot : MonoBehaviour
     {
         this.item = null;
         slot.interactable = false;
+        itemImage.sprite = null;
         num.text = "";
     }
 
-    public void RemoveItem(Item item,int num)
+    public void RemoveItem(SlotItem item,int num)
     {
         //not yet after testing
     }
     public void Use()
     {
-        item.Use();
+        item.item.Use();
     }
     public void Drop()
     {
-        item.drop();
+        item.item.drop();
     }
 }

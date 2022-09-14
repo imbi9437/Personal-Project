@@ -15,14 +15,15 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            if (i < InventoryManager.instance.slotItem.Count)
-            {
-                
-            }
-            else
+            if (inventorySlots[i].Item == )
+
+
+            foreach(var temp in InventoryManager.instance.slotItem)
             {
 
+                Debug.Log(temp.Value.item.Name);
             }
+  
         }
     }
 
