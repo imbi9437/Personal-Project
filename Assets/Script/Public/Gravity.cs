@@ -31,7 +31,7 @@ public class Gravity : MonoBehaviour
     {
         if(!isGround)
         {
-            moveY -= Physics.gravity.y * Time.deltaTime;
+            moveY += Physics.gravity.y * Time.deltaTime;
         }
         else
         {
