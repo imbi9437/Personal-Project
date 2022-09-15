@@ -15,7 +15,6 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            if (inventorySlots[i].Item == )
 
 
             foreach(var temp in InventoryManager.instance.slotItem)
