@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveX;
     private float moveY;
     private float moveZ;
+    private float mouseX;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         MoveY();
+        Roration();
     }
 
     private void Move()
@@ -69,6 +72,11 @@ public class PlayerMovement : MonoBehaviour
             moveY += Physics.gravity.y * Time.deltaTime;
         }
         player.characterController.Move(Vector3.up * moveY*Time.deltaTime);
+    }
+    private void Roration()
+    {
+        mouseX = player.playerInput.MouseX * player.MouseSensitive * Time.deltaTime;
+        player.gameObject.transform.Rotate(Vector3.up * mouseX);
     }
 
 }
