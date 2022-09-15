@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController),(typeof(Animator)))]
 public class Zombie : MonoBehaviour
 {
-    private GameObject Airplane;
+    [SerializeField]
+    private GameObject airplane;
+    public GameObject Airplane { get { return airplane; } }
 
     public CharacterController characterController;
     public Animator animator;

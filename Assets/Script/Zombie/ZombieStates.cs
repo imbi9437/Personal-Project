@@ -134,6 +134,8 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Update(Zombie owner)
         {
+            owner.transform.parent = owner.Airplane.transform;
+            owner.gameObject.SetActive(false);
         }
     }
 }
