@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class ZombieAction : MonoBehaviour
 {
@@ -23,22 +25,25 @@ public class ZombieAction : MonoBehaviour
     {
         transform.parent = null;
         zombie.Hp = Random.Range(10, zombie.MaxHp);
+        zombie.CurHp = zombie.Hp;
         zombie.Speed = Random.Range(1f, 10f);
         stateMachine.ChangeState(Zombie.States.Fall);
     }
     private void Update()
     {
         stateMachine.Update();
-        
+        Gravity();
     }
+    
     private void Gravity()
     {
-
+        if(!zombie.GroundChecker.isGround)
+        {
+            zombie.CharacterController.Move(Vector3.up * Physics.gravity.y * Time.deltaTime);
+        }
     }
-
     public void ChangeState(Zombie.States state)
     {
         stateMachine.ChangeState(state);
     }
-
 }

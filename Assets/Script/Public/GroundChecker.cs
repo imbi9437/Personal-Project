@@ -5,12 +5,13 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour
 {
     private CharacterController characterController;
-    private float distance = 0.1f;
+    private float distance = 0.01f;
 
     [SerializeField]
     LayerMask layerMask;
     [SerializeField]
     private Transform point;
+    public Transform Point { get { return point; } }
 
     public bool isGround { get; private set; }
 
