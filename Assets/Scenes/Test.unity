@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3537728383933267301, guid: dd45b5187f73f5248a391eee6bee093a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3600796163913508271, guid: dd45b5187f73f5248a391eee6bee093a, type: 3}
       propertyPath: m_Convex
@@ -836,7 +836,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 24
   distance: 50000
-  point: {fileID: 1548970391}
+  point: {fileID: 2010585764}
 --- !u!1 &1209844889
 GameObject:
   m_ObjectHideFlags: 0
