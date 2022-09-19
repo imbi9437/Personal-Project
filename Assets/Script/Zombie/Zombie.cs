@@ -5,10 +5,16 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController),(typeof(Animator)))]
 public class Zombie : MonoBehaviour
 {
-    private GameObject airplane;
+    public enum States { Fall, Idle, Trace, Attack, Hit, Die}
 
+    private GameObject airplane;
+    public GameObject Airplane { get { return airplane; } }
     private CharacterController characterController;
+    public CharacterController CharacterController { get { return characterController; } }
     private Animator animator;
+    public Animator Animator { get { return animator; } }
+    private ZombieAction zombieAction;
+    public ZombieAction ZombieAction { get { return zombieAction; } set { zombieAction = value; } }
 
     private float maxHp;
     public float MaxHp { get { return maxHp; } set { maxHp = value; } }
@@ -25,5 +31,7 @@ public class Zombie : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        maxHp = 300f;
+        maxDamage = 20f;
     }
 }
