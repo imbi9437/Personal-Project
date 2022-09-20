@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public Animator animator { get; set; }
     private PlayerInput _playerInput;
     public PlayerInput playerInput { get; set; }
+    private PlayerAction playerAction;
+    public PlayerAction PlayerAction { get; set; }
     private Camera _playerCam;
     public Camera playerCamera { get; set; }
     private GroundChecker _playerGroundChecker;
@@ -22,6 +24,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 10f;
     public float Speed { get { return speed; } }
+    [SerializeField]
+    private float def;
+    public float Def { get { return def; } set { def = value; } }
     [SerializeField,Range(0f,200f)]
     private float mouseSensitive;
     public float MouseSensitive { get { return mouseSensitive; } }
@@ -30,6 +35,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
+        playerAction = GetComponent<PlayerAction>();
         playerGroundChecker = GetComponent<GroundChecker>();
     }
 }

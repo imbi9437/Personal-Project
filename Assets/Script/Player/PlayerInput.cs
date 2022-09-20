@@ -21,6 +21,10 @@ public class PlayerInput : MonoBehaviour
     public bool Run { get { return run; } }
     private bool kneel;
     public bool Kneel { get { return kneel; } }
+    private bool interAction;
+    public bool InterAction { get { return interAction; } }
+    private bool mouseClick;
+    public bool MouseClick { get { return mouseClick; } }
 
     private void Awake()
     {
@@ -36,5 +40,7 @@ public class PlayerInput : MonoBehaviour
         jump = Input.GetButtonDown("Jump");
         run = Input.GetButton("Run");
         //Kneel = Input.GetButton("Kneel");
+        interAction = Input.GetButtonDown("InterAction");
+        mouseClick = Input.GetButtonDown("Fire1");
     }
 }
