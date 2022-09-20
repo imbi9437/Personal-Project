@@ -5,60 +5,44 @@ using UnityEngine;
 [RequireComponent (typeof(CharacterController),(typeof(Animator)))]
 public class Zombie : MonoBehaviour
 {
+    public enum States { Fall, Idle, Trace, Attack, Hit, Die}
+
     [SerializeField]
     private GameObject airplane;
     public GameObject Airplane { get { return airplane; } }
 
-    public CharacterController characterController;
-    public Animator animator;
-    public StateMachine<States, Zombie> stateMachine;
-
-    public enum States { Fall, Idle, Trace, Attack, Hit, Die }
-
-    private float maxHp = 300f;
-    public float MaxHP { get { return maxHp; } }
-    private float curHp;
-    public float CurHp { get { return curHp; } set { curHp = value; } }
-    private float maxDamage = 20f;
-    public float MaxDamage { get { return maxDamage; } }
+    private Player target;
+    public Player Target { get { return target; } set { target = value; } }
+    private CharacterController characterController;
+    public CharacterController CharacterController { get { return characterController; } }
+    private Animator animator;
+    public Animator Animator { get { return animator; } }
+    private ZombieAction zombieAction;
+    public ZombieAction ZombieAction { get { return zombieAction; } set { zombieAction = value; } }
+    private GroundChecker groundChecker;
+    public GroundChecker GroundChecker { get { return groundChecker; } }
 
     [SerializeField]
     private LayerMask targetLayer;
-    public LayerMask TargetLayer { get { return targetLayer; } }
-    [SerializeField]
-    private GameObject target;
-    public GameObject Target { get { return target; } set { target = value; } }
-    [SerializeField, Range(0f, 300f)]
-    private float hp = 10f;
-    public float Hp { get { return hp; } set { hp = value; } }
-    [SerializeField, Range(0f, 10f)]
+    public LayerMask TargetLayer { get { return targetLayer; } set { targetLayer = value; } }
+
+    private float maxHp;
+    public float MaxHp { get { return maxHp; } set { maxHp = value; } }
+    private float curHp;
+    public float CurHp { get { return curHp; } set { curHp = value; } }
     private float speed;
     public float Speed { get { return speed; } set { speed = value; } }
+    private float hp;
+    public float Hp { get { return hp; } set { hp = value; } }
+    private float maxDamage;
+    public float MaxDamage { get { return maxDamage; } set { maxDamage = value; } }
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        stateMachine = new StateMachine<States, Zombie>(this);
-        stateMachine.AddState(States.Fall, new ZombieStates.Fall());
-        stateMachine.AddState(States.Idle, new ZombieStates.Idle());
-        stateMachine.AddState(States.Trace, new ZombieStates.Trace());
-        stateMachine.AddState(States.Attack, new ZombieStates.Attack());
-        stateMachine.AddState(States.Hit, new ZombieStates.Hit());
-        stateMachine.AddState(States.Die, new ZombieStates.Die());
-    }
-    private void OnEnable()
-    {
-        transform.parent = null;
-        stateMachine.ChangeState(States.Fall);
-    }
-    private void Update()
-    {
-        stateMachine.Update();
-    }
-
-    public void ChangeState(States nextState)
-    {
-        stateMachine.ChangeState(nextState);
+        groundChecker = GetComponent<GroundChecker>();
+        maxHp = 300f;
+        maxDamage = 20f;
     }
 }
