@@ -7,12 +7,17 @@ public class FindTarget : MonoBehaviour
     private GameObject target;
     public GameObject Target { get { return target; } }
     private Vector3 position;
+    public Vector3 Position { get { return position; } }
+    [SerializeField]
     private LayerMask layerMask;
+    [SerializeField]
     private LayerMask obsticalLayer;
+    [SerializeField]
     private float rad;
+    [SerializeField,Range(0f,360f)]
     private float angle;
 
-    private void ViewFind()
+    public void ViewFind()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, rad, layerMask);
 
@@ -29,9 +34,18 @@ public class FindTarget : MonoBehaviour
                 target = colliders[i].gameObject;
             }
         }
+        if (target != null && Vector3.Distance(transform.position, target.transform.position) > rad)
+        {
+            target = null;
+        }
     }
     public void SoundFind(Vector3 value)
     {
         position = value;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, rad);
     }
 }

@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class SoundGenerator : MonoBehaviour
 {
+    [SerializeField]
     private float soundRange;
+    [SerializeField]
     private float remainSound;
+    [SerializeField]
     private LayerMask remainLayer;
 
-    private void SoundGen()
+    public void SoundGen()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, soundRange);
         for (int i = 0; i < colliders.Length; i++)
