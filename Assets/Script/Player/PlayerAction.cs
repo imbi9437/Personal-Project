@@ -33,7 +33,7 @@ public class PlayerAction : MonoBehaviour
             if (hit.transform.gameObject == collider[i].gameObject)
             {
                 IInteratable target = collider[i].GetComponent<IInteratable>();
-                target?.Interaction();
+                target?.Interaction(player);
             }
         }
     }

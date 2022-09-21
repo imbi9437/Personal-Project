@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu (menuName="ScriptableObject/Item/Weapon")]
-public class Weapon : Item
+public class Weapon : ItemData
 {
+    public enum weaponType { Gun, Melee }
+    public weaponType itemType;
     [SerializeField]
     private float damage;
     public float Damage { get { return damage; } }
-    public override void Use()
-    {
-        Debug.Log("무기 사용");
-    }
 }
