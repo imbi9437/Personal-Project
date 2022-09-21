@@ -4,8 +4,10 @@ using TreeEditor;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class ZombieAction : MonoBehaviour
+public class ZombieAction : MonoBehaviour,IDamagable
 {
+    [SerializeField]
+    private Transform point;
     private Zombie zombie;
 
     private StateMachine<Zombie.States, Zombie> stateMachine;
@@ -45,5 +47,26 @@ public class ZombieAction : MonoBehaviour
     public void ChangeState(Zombie.States state)
     {
         stateMachine.ChangeState(state);
+    }
+    public void Attack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(point.position, 1f);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject==zombie.FindTarget.Target)
+            {
+                IDamagable damagable = colliders[i].GetComponent<IDamagable>();
+                Player player = colliders[i].GetComponent<Player>();
+                damagable?.GetDamage(Random.Range(5f,zombie.MaxDamage));
+                if(player !=null&&player.Hp<=0)
+                {
+                    zombie.Animator.SetTrigger("Kill");
+                }
+            }
+        }
+    }
+    public void GetDamage(float damage)
+    {
+        zombie.Hp -= damage;
     }
 }

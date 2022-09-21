@@ -21,7 +21,7 @@ public class ZombieStates : MonoBehaviour
             {
                 ChangeState(owner, Zombie.States.Die);
             }
-            if (owner.CurHp < owner.Hp)
+            if (owner.CurHp > owner.Hp)
             {
                 ChangeState(owner, Zombie.States.Hit);
             }
@@ -54,13 +54,18 @@ public class ZombieStates : MonoBehaviour
     {
         public override void Enter(Zombie owner)
         {
-            
+            owner.Animator.SetBool("Trace", false);
         }
         public override void Update(Zombie owner)
         {
             base.Update(owner);
-            //타겟 추적
-            if(owner.Target !=null)
+            if(owner.FindTarget.Position !=null)
+            {
+                Vector3 moveVec = (owner.transform.position - owner.FindTarget.Position).normalized;
+                owner.CharacterController.Move(moveVec*owner.Speed*Time.deltaTime);
+            }
+            owner.FindTarget.ViewFind();
+            if(owner.FindTarget.Target !=null)
             {
                 ChangeState(owner, Zombie.States.Trace);
             }
@@ -80,13 +85,13 @@ public class ZombieStates : MonoBehaviour
         public override void Update(Zombie owner)
         {
             base.Update(owner);
-            float distance = Vector3.Distance(owner.transform.position, owner.Target.transform.position);
-            if (distance > 50f)
+            owner.FindTarget.ViewFind();
+            float distance = Vector3.Distance(owner.transform.position, owner.FindTarget.Target.transform.position);
+            if (owner.FindTarget.Target ==null)
             {
-                owner.Target = null;
                 ChangeState(owner, Zombie.States.Idle);
             }
-            else if(distance>0&&distance<2f)
+            else if(distance <0.5f)
             {
                 ChangeState(owner, Zombie.States.Attack);
             }
@@ -107,10 +112,8 @@ public class ZombieStates : MonoBehaviour
         public override void Update(Zombie owner)
         {
             base.Update(owner);
-            float distance = Vector3.Distance(owner.transform.position, owner.Target.transform.position);
-            if(distance > 50f)
+            if(owner.FindTarget.Target == null)
             {
-                owner.Target = null;
                 ChangeState(owner, Zombie.States.Idle);
             }
             else
@@ -120,7 +123,8 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Exit(Zombie owner)
         {
-            //데미지 주기
+            owner.ZombieAction.Attack();
+            
         }
     }
     public class HitState : BaseState
@@ -133,10 +137,8 @@ public class ZombieStates : MonoBehaviour
         public override void Update(Zombie owner)
         {
             base.Update(owner);
-            float distance = Vector3.Distance(owner.transform.position, owner.Target.transform.position);
-            if (distance > 50f)
+            if (owner.FindTarget.Target == null)
             {
-                owner.Target = null;
                 ChangeState(owner, Zombie.States.Idle);
             }
             else

@@ -10,21 +10,16 @@ public class Zombie : MonoBehaviour
     [SerializeField]
     private GameObject airplane;
     public GameObject Airplane { get { return airplane; } }
-
-    private Player target;
-    public Player Target { get { return target; } set { target = value; } }
     private CharacterController characterController;
     public CharacterController CharacterController { get { return characterController; } }
     private Animator animator;
     public Animator Animator { get { return animator; } }
     private ZombieAction zombieAction;
     public ZombieAction ZombieAction { get { return zombieAction; } set { zombieAction = value; } }
+    private FindTarget findTarget;
+    public FindTarget FindTarget { get { return findTarget; } set { findTarget = value; } }
     private GroundChecker groundChecker;
     public GroundChecker GroundChecker { get { return groundChecker; } }
-
-    [SerializeField]
-    private LayerMask targetLayer;
-    public LayerMask TargetLayer { get { return targetLayer; } set { targetLayer = value; } }
 
     private float maxHp;
     public float MaxHp { get { return maxHp; } set { maxHp = value; } }

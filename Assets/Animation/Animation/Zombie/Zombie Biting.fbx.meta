@@ -6,6 +6,9 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: Kill
+  - first:
+      74: 6708911037228035857
+    second: kill
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,7 +39,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Kill
+      name: kill
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
