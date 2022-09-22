@@ -5,28 +5,16 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public Player player;
-    public bool curState;
-    public GameObject curUI;
-    
-    public void ChangeCurUI()
+    public Player player;   
+    public void ChangeTimeScale()
     {
-        switch (curState)
+        if(Time.timeScale ==1)
         {
-            case true:
-                {
-                    curState = false;
-                    Time.timeScale = 1;
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
-                break;
-            case false:
-                {
-                    curState = true;
-                    Time.timeScale = 0;
-                    Cursor.lockState = CursorLockMode.None;
-                }
-                break;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 }

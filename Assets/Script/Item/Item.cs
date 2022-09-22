@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour,IInteratable
 {
+    [SerializeField]
     private int count;
     public int Count { get { return count; } set { count = value; } }
     private ParticleSystem particle;
