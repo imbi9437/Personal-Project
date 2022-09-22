@@ -7,7 +7,9 @@ public class Item : MonoBehaviour,IInteratable
     [SerializeField]
     private int count;
     public int Count { get { return count; } set { count = value; } }
+    [SerializeField]
     private ParticleSystem particle;
+    private Animator animator;
 
     [SerializeField]
     private ItemData itemData;
@@ -29,7 +31,7 @@ public class Item : MonoBehaviour,IInteratable
     }
     public void Use()
     {
-
+        itemData.Use();
     }
     public void Drop(int value)
     {

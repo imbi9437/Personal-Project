@@ -7,4 +7,9 @@ public class Ingredient : ItemData
 {
     public enum ingredientType { ModulePart, Ingredient }
     public ingredientType itemType;
+
+    public override void Use()
+    {
+        Debug.Log("재료 사용");
+    }
 }

@@ -10,4 +10,9 @@ public class Armor : ItemData
     [SerializeField]
     private float def;
     public float Def { get { return def; } }
+
+    public override void Use()
+    {
+        Debug.Log("방어구 사용");
+    }
 }

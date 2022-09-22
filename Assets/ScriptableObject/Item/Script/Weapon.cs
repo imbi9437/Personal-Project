@@ -5,9 +5,8 @@ using UnityEngine;
 [CreateAssetMenu (menuName="ScriptableObject/Item/Weapon")]
 public class Weapon : ItemData
 {
-    public enum weaponType { Gun, Melee }
-    public weaponType itemType;
-    [SerializeField]
-    private float damage;
-    public float Damage { get { return damage; } }
+    public override void Use()
+    {
+        
+    }
 }

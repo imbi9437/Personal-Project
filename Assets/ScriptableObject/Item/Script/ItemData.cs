@@ -16,4 +16,6 @@ public abstract class ItemData : ScriptableObject
     [SerializeField]
     protected int maxCount;
     public int MaxCount { get { return maxCount; } }
+
+    public abstract void Use();
 }
