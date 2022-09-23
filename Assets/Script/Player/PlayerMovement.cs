@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveY;
     private float moveZ;
     private float mouseX;
+    private bool sound;
 
     private void Awake()
     {
@@ -52,6 +53,10 @@ public class PlayerMovement : MonoBehaviour
                 curspeed = 0.5f;
             }
         }
+        if (Vector3.Magnitude(moveVec) > 0.2f&&sound)
+        {
+            StartCoroutine(soundGenerate());
+        }
         moveVec = transform.forward * moveZ + transform.right * moveX;
 
         player.characterController.Move(moveVec*Time.deltaTime*player.Speed);
@@ -60,6 +65,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if(player.playerGroundChecker.isGround)
         {
+            if(moveY>5f)
+            {
+                StartCoroutine(soundGenerate());
+            }
             moveY = 0;
             if(player.playerInput.Jump)
             {
@@ -78,5 +87,11 @@ public class PlayerMovement : MonoBehaviour
         mouseX = player.playerInput.MouseX * player.MouseSensitive * Time.deltaTime;
         player.gameObject.transform.Rotate(Vector3.up * mouseX);
     }
-
+    IEnumerator soundGenerate()
+    {
+        sound = false;
+        player.PlayerSoundGenerator.SoundGen();
+        yield return new WaitForSeconds(1f);
+        sound = true;
+    }
 }

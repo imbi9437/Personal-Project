@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public Camera playerCamera { get; set; }
     private GroundChecker _playerGroundChecker;
     public GroundChecker playerGroundChecker { get; set; }
+    private SoundGenerator playerSoundGenerator;
+    public SoundGenerator PlayerSoundGenerator { get; set; }
 
     [SerializeField,Range(0f,500f)]
     private float hp = 500f;
@@ -37,5 +39,6 @@ public class Player : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerAction = GetComponent<PlayerAction>();
         playerGroundChecker = GetComponent<GroundChecker>();
+        playerSoundGenerator = GetComponent<SoundGenerator>();
     }
 }

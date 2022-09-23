@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAction : MonoBehaviour
+public class PlayerAction : MonoBehaviour,IDamagable
 {
     private Player player;
     [SerializeField]
@@ -41,5 +41,9 @@ public class PlayerAction : MonoBehaviour
     {
         if (!player.playerInput.MouseClick)
             return;
+    }
+    public void GetDamage(float damage)
+    {
+        player.Hp -= (damage / player.Def) ;
     }
 }
