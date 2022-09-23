@@ -8,8 +8,11 @@ public class Zombie : MonoBehaviour
     public enum States { Fall, Idle, Trace, Attack, Hit, Die}
 
     [SerializeField]
-    private GameObject airplane;
-    public GameObject Airplane { get { return airplane; } }
+    private GameObject airplaneDrop;
+    public GameObject AirplaneDrop { get { return airplaneDrop; } }
+    [SerializeField]
+    private GameObject[] zombieChar;
+    public GameObject[] ZombieChar { get { return zombieChar; } }
     private CharacterController characterController;
     public CharacterController CharacterController { get { return characterController; } }
     private Animator animator;
@@ -37,6 +40,8 @@ public class Zombie : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         groundChecker = GetComponent<GroundChecker>();
+        zombieAction = GetComponent<ZombieAction>();
+        findTarget = GetComponent<FindTarget>();
         maxHp = 300f;
         maxDamage = 20f;
     }

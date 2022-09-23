@@ -21,6 +21,13 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
     private int count;
     public int Count { get { return count; } set { count = value; } }
 
+    public void SetItem(Item item)
+    {
+        slotItem = item;
+        image.sprite = item.ItemData.ItemImage;
+        count = item.Count;
+        countText.text = ""+count;
+    }
     public void AddItem(Item item,int value)
     {
         if(slotItem !=null)

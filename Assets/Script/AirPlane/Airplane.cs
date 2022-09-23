@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent (typeof(Animator),typeof(CharacterController))]
-public class Ariplane : MonoBehaviour
+[RequireComponent (typeof(Animator),typeof(CharacterController),typeof(AudioSource))]
+public class Airplane : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject zombie;
+    [SerializeField]
+    private GameObject supplyItem;
+
     private GameObject dropObject;
     private Animator animator;
     private CharacterController characterController;
     private GroundChecker groundChecker;
+    private AudioSource audioSource;
 
-    [SerializeField]
-    private Transform point;
-    [SerializeField]
-    private LayerMask layerMask;
     [SerializeField]
     private Transform targetTransform;
     [SerializeField]
@@ -25,6 +28,7 @@ public class Ariplane : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         groundChecker = GetComponent<GroundChecker>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -33,12 +37,31 @@ public class Ariplane : MonoBehaviour
         lookTarget.x = targetTransform.position.x - transform.position.x;
         lookTarget.z = targetTransform.position.z - transform.position.z;
         transform.forward = lookTarget;
+        audioSource.Play();
+        CheckOut();
         StartCoroutine(Drop());
     }
 
     private void Update()
     {
         characterController.Move(transform.forward * Time.deltaTime * speed);
+    }
+    private void OnDisable()
+    {
+        audioSource.Stop();
+    }
+    private void CheckOut()
+    {
+        Collider[] drop = dropObject.GetComponentsInChildren<Collider>(true);
+        if(drop.Length<20)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                GameObject zombieObject = Instantiate(zombie);
+                zombieObject.transform.SetParent(dropObject.transform, false);
+                zombieObject.SetActive(false);
+            }
+        }
     }
 
     IEnumerator Drop()
@@ -55,7 +78,9 @@ public class Ariplane : MonoBehaviour
                 break;
             }
         }
-        yield return new WaitForSeconds(5f);
         animator.SetTrigger("Close");
+        yield return new WaitUntil(() => groundChecker.isGround == false);
+        yield return new WaitForSeconds(10f);
+        gameObject.SetActive(false);
     }
 }

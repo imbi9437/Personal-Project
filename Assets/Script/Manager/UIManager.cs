@@ -9,7 +9,7 @@ public class UIManager : Singleton<UIManager>
 
     public GameObject[] UI;
 
-    private void Update()
+    private void LateUpdate()
     {
         UImanage();
     }
@@ -26,6 +26,12 @@ public class UIManager : Singleton<UIManager>
             ChangeUI(UI[1].name);
         if (Input.GetButtonDown("Inventory"))
             ChangeUI(UI[2].name);
+        if (Input.GetButtonDown("Interaction"))
+        {
+            InventoryManager.instance.interactionSlot.gameObject.SetActive(true);
+            ChangeUI(UI[2].name);
+        }
+            
     }
 
     public void ChangeUI(string UIname)

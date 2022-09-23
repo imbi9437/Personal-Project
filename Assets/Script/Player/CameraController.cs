@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Transform playerTransform;
     [SerializeField]
+    private GameObject cameraGameObject;
+    [SerializeField]
     private Player player;
     private float mouseX;
     private float mouseY;
@@ -28,9 +30,9 @@ public class CameraController : MonoBehaviour
         mouseY = player.playerInput.MouseY*player.MouseSensitive*Time.deltaTime;
 
         xRoration -= mouseY;
-        xRoration = Mathf.Clamp(xRoration, -90, 70);
+        xRoration = Mathf.Clamp(xRoration, -70, 70);
 
-        transform.localRotation = Quaternion.Euler(xRoration, 0f, 0f);
+        cameraGameObject.transform.localRotation = Quaternion.Euler(xRoration, 0, 0);
         playerTransform.Rotate(Vector3.up * mouseX);
     }
 }

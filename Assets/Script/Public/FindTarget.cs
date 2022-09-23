@@ -7,7 +7,7 @@ public class FindTarget : MonoBehaviour
     private GameObject target;
     public GameObject Target { get { return target; } }
     private Vector3 position;
-    public Vector3 Position { get { return position; } }
+    public Vector3 Position { get { return position; } set { position = value; } }
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField]

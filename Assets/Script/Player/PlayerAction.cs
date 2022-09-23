@@ -6,7 +6,7 @@ public class PlayerAction : MonoBehaviour,IDamagable
 {
     private Player player;
     [SerializeField]
-    private Transform point;
+    private Transform interactionPoint;
     [SerializeField]
     private LayerMask targetLayer;
     private void Awake()
@@ -18,6 +18,7 @@ public class PlayerAction : MonoBehaviour,IDamagable
     {
         Interaction();
         ItemUse();
+        //Attack();
     }
 
     private void Interaction()
@@ -25,7 +26,7 @@ public class PlayerAction : MonoBehaviour,IDamagable
         if(!player.playerInput.InterAction)
             return;
 
-        Collider[] collider = Physics.OverlapSphere(point.position, 1f, targetLayer);
+        Collider[] collider = Physics.OverlapSphere(interactionPoint.position, 1f, targetLayer);
         for (int i = 0; i < collider.Length; i++)
         {
             RaycastHit hit;
@@ -45,5 +46,18 @@ public class PlayerAction : MonoBehaviour,IDamagable
     public void GetDamage(float damage)
     {
         player.Hp -= (damage / player.Def) ;
+    }
+    private void Attack()
+    {
+        if(!Input.GetButtonDown("Fire1"))
+        {
+            return;
+        }
+        Collider[] target = Physics.OverlapSphere(transform.position, 20);
+        for (int i = 0; i < target.Length; i++)
+        {
+            IDamagable damagable = target[i].GetComponent<IDamagable>();
+            damagable?.GetDamage(50);
+        }
     }
 }

@@ -39,10 +39,19 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Update(Zombie owner)
         {
-            if(Physics.Raycast(owner.GroundChecker.Point.position,Vector3.down,0.9f))
+            if(!owner.Animator.GetBool("Fall")&&!owner.ZombieAction.IsDelay)
+            {
+                ChangeState(owner, Zombie.States.Idle);
+                return;
+            }
+            if(owner.GroundChecker.isGround)
             {
                 owner.Animator.SetBool("Fall", false);
-                ChangeState(owner, Zombie.States.Idle);
+                owner.ZombieAction.TimeDelay(7f);
+            }
+            if(owner.ZombieAction.IsDelay)
+            {
+                return;
             }
         }
         public override void Exit(Zombie owner)
@@ -59,16 +68,27 @@ public class ZombieStates : MonoBehaviour
         public override void Update(Zombie owner)
         {
             base.Update(owner);
-            if(owner.FindTarget.Position !=null)
+
+            
+            if(owner.FindTarget.Position != Vector3.zero)
             {
                 Vector3 moveVec = (owner.transform.position - owner.FindTarget.Position).normalized;
-                owner.CharacterController.Move(moveVec*owner.Speed*Time.deltaTime);
+                if(owner.transform.position == owner.FindTarget.Position)
+                {
+                    owner.FindTarget.Position = Vector3.zero;
+                }
+                else
+                {
+                    owner.CharacterController.Move(moveVec*owner.Speed*Time.deltaTime);
+                }
             }
+            
             owner.FindTarget.ViewFind();
             if(owner.FindTarget.Target !=null)
             {
                 ChangeState(owner, Zombie.States.Trace);
             }
+            
         }
         public override void Exit(Zombie owner)
         {
@@ -86,16 +106,20 @@ public class ZombieStates : MonoBehaviour
         {
             base.Update(owner);
             owner.FindTarget.ViewFind();
-            float distance = Vector3.Distance(owner.transform.position, owner.FindTarget.Target.transform.position);
-            if (owner.FindTarget.Target ==null)
+            if (owner.FindTarget.Target == null)
             {
                 ChangeState(owner, Zombie.States.Idle);
+                return;
             }
-            else if(distance <0.5f)
+            float distance = Vector3.Distance(owner.transform.position, owner.FindTarget.Target.transform.position);
+            if(distance <1f)
             {
                 ChangeState(owner, Zombie.States.Attack);
+                return;
             }
-
+            Vector3 moveVec = (owner.FindTarget.Target.transform.position - owner.transform.position).normalized;
+            owner.CharacterController.Move(moveVec * owner.Speed * Time.deltaTime);
+            owner.transform.forward = moveVec;
         }
         public override void Exit(Zombie owner)
         {
@@ -106,13 +130,19 @@ public class ZombieStates : MonoBehaviour
     {
         public override void Enter(Zombie owner)
         {
-            owner.Animator.SetInteger("Attacktype", Random.Range(0, 2));
+            owner.Animator.SetInteger("AttackType", Random.Range(0, 2));
             owner.Animator.SetTrigger("Attack");
+            owner.ZombieAction.Attack();
         }
         public override void Update(Zombie owner)
         {
             base.Update(owner);
-            if(owner.FindTarget.Target == null)
+            owner.FindTarget.ViewFind();
+            if(owner.ZombieAction.IsDelay)
+            {
+                return;
+            }
+            if (owner.FindTarget.Target == null)
             {
                 ChangeState(owner, Zombie.States.Idle);
             }
@@ -123,20 +153,25 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Exit(Zombie owner)
         {
-            owner.ZombieAction.Attack();
-            
+
         }
     }
     public class HitState : BaseState
     {
         public override void Enter(Zombie owner)
         {
+            owner.Animator.SetBool("Trace", false);
             owner.Animator.SetTrigger("Hit");
             owner.CurHp = owner.Hp;
+            owner.ZombieAction.TimeDelay(2f);
         }
         public override void Update(Zombie owner)
         {
             base.Update(owner);
+            if(owner.ZombieAction.IsDelay)
+            {
+                return;
+            }
             if (owner.FindTarget.Target == null)
             {
                 ChangeState(owner, Zombie.States.Idle);
@@ -152,13 +187,17 @@ public class ZombieStates : MonoBehaviour
         public override void Enter(Zombie owner)
         {
             owner.Animator.SetTrigger("Die");
-            owner.transform.SetParent(owner.Airplane.transform);
-            owner.transform.position = owner.Airplane.transform.position;
-            owner.gameObject.SetActive(false);
+            owner.ZombieAction.TimeDelay(10f);
         }
         public override void Update(Zombie owner)
         {
-            
+            if(owner.ZombieAction.IsDelay)
+            {
+                return;
+            }
+            owner.transform.SetParent(owner.AirplaneDrop.transform);
+            owner.transform.position = owner.AirplaneDrop.transform.position;
+            owner.gameObject.SetActive(false);
         }
         public override void Exit(Zombie owner)
         {
