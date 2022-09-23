@@ -5,11 +5,10 @@ using UnityEngine;
 public class Item : MonoBehaviour,IInteratable
 {
     [SerializeField]
-    private int count;
+    private int count = 1;
     public int Count { get { return count; } set { count = value; } }
     [SerializeField]
     private ParticleSystem particle;
-    private Animator animator;
 
     [SerializeField]
     private ItemData itemData;

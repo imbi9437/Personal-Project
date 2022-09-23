@@ -13,12 +13,16 @@ public class Gun : Weapon
     private int MaxMagazine;
     [SerializeField]
     private Item needAmmo;
-    [SerializeField]
-    private ParticleSystem particle;
+
 
     public override void Use()
     {
-        Debug.Log("ÃÑ »ç¿ë");
-        
+        RaycastHit hit;
+        if(Physics.Raycast(itemPrefeb.transform.position,Vector3.forward,out hit,Mathf.Infinity))
+        {
+            IDamagable target = hit.transform.GetComponent<IDamagable>();
+            target?.GetDamage(10f);
+            itemPrefeb.GetComponent<Weapon>();
+        }
     }
 }
