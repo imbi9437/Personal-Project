@@ -49,6 +49,18 @@ public class UIManager : Singleton<UIManager>
             GameManager.instance.ChangeTimeScale();
             curUI.SetActive(!curUI.activeSelf);
         }
+        else if (curUI.name != UIname && !curUI.activeSelf)
+        {
+            for (int i = 0; i < UI.Length; i++)
+            {
+                if(UIname == UI[i].name)
+                {
+                    curUI = UI[i];
+                    curUI.SetActive(true);
+                    GameManager.instance.ChangeTimeScale();
+                }
+            }
+        }
         else
         {
             for (int i = 0; i < UI.Length; i++)
@@ -66,7 +78,7 @@ public class UIManager : Singleton<UIManager>
     {
         if(curState)
         {
-            ItemCheckEffect.text = "G를 눌러 상호작용";
+            ItemCheckEffect.text = "Press 'G'";
         }
         else
         {

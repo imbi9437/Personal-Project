@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Potion
   itemImage: {fileID: 21300000, guid: ac2360d615e71f14cb700228438b9e87, type: 3}
-  itemPrefeb: {fileID: 1979001051842680, guid: 793e66759a6eca24898d38e3d28fbc62, type: 3}
+  itemPrefeb: {fileID: 8239431295589464665, guid: 793e66759a6eca24898d38e3d28fbc62, type: 3}
   maxCount: 50
   itemType: 0
   heal: 20

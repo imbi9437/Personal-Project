@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(CharacterController),(typeof(Animator)))]
+[RequireComponent(typeof(CharacterController), (typeof(Animator)))]
 public class Player : MonoBehaviour
 {
     private CharacterController _characterController;
@@ -20,18 +20,11 @@ public class Player : MonoBehaviour
     public GroundChecker playerGroundChecker { get; set; }
     private SoundGenerator playerSoundGenerator;
     public SoundGenerator PlayerSoundGenerator { get { return playerSoundGenerator; } set { playerSoundGenerator = value; } } // 에러나는 이유 질문
+    [SerializeField]
     private Inventory inventory;
-    public Inventory Inventory 
-    {
-        get { return inventory; } 
-        set 
-        {
-            inventory = value;
-            InventoryManager.instance.playerInventory.SettingInventory(inventory);
-        } 
-    }
+    public Inventory Inventory { get { return inventory; } set { inventory = value; } }
 
-    [SerializeField,Range(0f,500f)]
+    [SerializeField, Range(0f, 500f)]
     private float hp = 500f;
     public float Hp { get { return hp; } set { hp = value; } }
     [SerializeField]
@@ -40,7 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float def;
     public float Def { get { return def; } set { def = value; } }
-    [SerializeField,Range(0f,200f)]
+    [SerializeField, Range(0f, 200f)]
     private float mouseSensitive;
     public float MouseSensitive { get { return mouseSensitive; } }
     private void Awake()

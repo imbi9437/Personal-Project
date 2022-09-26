@@ -9,14 +9,17 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private int slotCount;
     public int SlotCount { get { return slotCount; } set { slotCount = value; } }
+    public Item[] items;
 
-    private Item[] items;
-    public Item[] Items { get { return items; } set { items = value; } }
-
-    private void Start()
+    private void Awake()
     {
         items = new Item[slotCount];
+        for (int i = 0; i < items.Length; i++)
+        {
+            items[i] = new Item();
+        }
     }
+
     public void GetItem(Item item)
     {
         int count = CountSlots(item);
@@ -27,14 +30,14 @@ public class Inventory : MonoBehaviour
         else if (count == 1)
         {
             int slot = GetNumSlot(item);
-            if (items[slot].Count + item.Count <= item.ItemData.MaxCount)
+            if (items[slot].count + item.count <= item.itemData.MaxCount)
             {
-                items[slot].Count += item.Count;
+                items[slot].count += item.count;
             }
             else
             {
-                item.Count -= item.ItemData.MaxCount - items[slot].Count;
-                items[slot].Count = item.ItemData.MaxCount; //질문 해야됨
+                item.count -= item.itemData.MaxCount - items[slot].count; //질문
+                items[slot].count = item.itemData.MaxCount;
                 GetItemEmpty(item);
             }
         }
@@ -43,18 +46,18 @@ public class Inventory : MonoBehaviour
             for (int i = 0; i < count; i++)
             {
                 int slot = GetNumSlot(item);
-                if (items[slot].Count + item.Count <= item.ItemData.MaxCount)
+                if (items[slot].count + item.count <= item.itemData.MaxCount)
                 {
-                    items[slot].Count += item.Count;
+                    items[slot].count += item.count;
                     return;
                 }
                 else
                 {
-                    item.Count -= item.ItemData.MaxCount - items[slot].Count;
-                    items[slot].Count = item.ItemData.MaxCount;
+                    item.count -= item.itemData.MaxCount - items[slot].count;
+                    items[slot].count = item.itemData.MaxCount;
                 }
             }
-            if(item.Count > 0)
+            if(item.count > 0)
             {
                 GetItemEmpty(item);
             }
@@ -70,7 +73,7 @@ public class Inventory : MonoBehaviour
             {
                 continue;
             }
-            if (items[i].ItemData == item.ItemData && items[i].Count < item.ItemData.MaxCount)
+            if (items[i].itemData == item.itemData && items[i].count < item.itemData.MaxCount)
             {
                 count++;
             }
@@ -81,7 +84,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < items.Length; i++)
         {
-            if (items[i].ItemData == item.ItemData && items[i].Count <item.ItemData.MaxCount)
+            if (items[i].itemData == item.itemData && items[i].count < item.itemData.MaxCount)
             {
                 return i;
             }
@@ -92,11 +95,18 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < items.Length; i++)
         {
-            if (items[i] == null)
+            if (items[i].itemData == null)
             {
-                items[i] = item;
+                items[i] = SetItem(item);
                 break;
             }
         }
+    }
+    private Item SetItem(Item item)
+    {
+        Item newItem = new Item();
+        newItem.itemData = item.itemData;
+        newItem.count = item.count;
+        return newItem;
     }
 }

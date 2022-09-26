@@ -13,9 +13,9 @@ public class InventoryUI : MonoBehaviour
     }
     public void SettingInventory(Inventory inventory)
     {
-        for (int i = 0; i < inventory.Items.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].SetItem(inventory.Items[i]);
+            slots[i].SetItem(inventory.items[i]);
         }
     }
 }

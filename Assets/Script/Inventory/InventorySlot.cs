@@ -20,13 +20,27 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
     [SerializeField]
     private int count;
     public int Count { get { return count; } set { count = value; } }
+    [SerializeField]
+    private Sprite empty;
+    public Sprite Empty { get { return empty; } }
 
     public void SetItem(Item item)
     {
-        slotItem = item;
-        image.sprite = item.ItemData.ItemImage;
-        count = item.Count;
-        countText.text = ""+count;
+        if(item.count >0 && item.itemData !=null)
+        {
+            slotItem = item;
+            image.sprite = item.itemData.ItemImage;
+            count = item.count;
+            countText.text = "" + count;
+        }
+        else
+        {
+            slotItem = null;
+            image.sprite = empty;
+            count = 0;
+            countText.text = "";
+        }
+
     }
     public void AddItem(Item item,int value)
     {
@@ -39,7 +53,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             slotItem = item;
             count = value;
-            image.sprite = item.ItemData.ItemImage;
+            image.sprite = item.itemData.ItemImage;
             image.gameObject.SetActive(true);
             countText.text = ""+count;
         }
@@ -65,7 +79,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
 
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData) // 클릭이벤트
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
@@ -78,7 +92,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             //아이템 퀵슬롯 이동 또는 장비창 이동
         }
     }
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData) // 드래그 시작 이벤트
     {
         InventoryManager.instance.usingSlot.transform.position = eventData.position;
         InventoryManager.instance.usingSlot.SlotItem = this.slotItem;
@@ -87,16 +101,16 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         InventoryManager.instance.usingSlot.CountText.text = this.countText.text;
         InventoryManager.instance.usingSlot.gameObject.SetActive(true);
     }
-    public void OnDrag(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData) //드래그중 이벤트
     {
         InventoryManager.instance.usingSlot.gameObject.transform.position = eventData.position;
     }
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData) // 드래그 종료 이벤트
     {
         InventoryManager.instance.usingSlot.gameObject.SetActive(false);
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData) // 드래그 종료 이벤트
     {
         
     }

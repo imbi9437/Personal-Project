@@ -11,7 +11,6 @@ public class ItemBox : MonoBehaviour, IInteratable
     {
         inventory = GetComponent<Inventory>();
     }
-
     public void Interaction(Player player)
     {
         InventoryManager.instance.interactionSlot.SettingInventory(inventory);
