@@ -16,7 +16,8 @@ public class Item : MonoBehaviour,IInteratable
 
     public void Interaction(Player player)
     {
-        //æ∆¿Ã≈€ »πµÊ
+        player.Inventory.GetItem(this);
+        //Destroy(this.gameObject);
     }
 
     public void OnFoucus()
@@ -28,12 +29,13 @@ public class Item : MonoBehaviour,IInteratable
     {
         particle.Stop();
     }
-    public void Use()
+    public void Use(Player player)
     {
-        itemData.Use();
+        itemData.Use(player);
     }
     public void Drop(int value)
     {
-        
+        count = value;
+        Instantiate(itemData.ItemPrefeb,transform.position,Quaternion.identity);
     }
 }

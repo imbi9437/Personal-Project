@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Player player = null;
+    private Player player;
     private float curspeed = 0.5f;
     private float moveX;
     private float moveY;
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Vector3.Magnitude(moveVec) > 0.2f&&sound)
         {
-            StartCoroutine(soundGenerate());
+            StartCoroutine(SoundGenerate());
         }
         moveVec = transform.forward * moveZ + transform.right * moveX;
 
@@ -65,9 +65,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if(player.playerGroundChecker.isGround)
         {
-            if(moveY>5f)
+            if(moveY<-2f)
             {
-                StartCoroutine(soundGenerate());
+                StartCoroutine(SoundGenerate());
             }
             moveY = 0;
             if(player.playerInput.Jump)
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         mouseX = player.playerInput.MouseX * player.MouseSensitive * Time.deltaTime;
         player.gameObject.transform.Rotate(Vector3.up * mouseX);
     }
-    IEnumerator soundGenerate()
+    IEnumerator SoundGenerate()
     {
         sound = false;
         player.PlayerSoundGenerator.SoundGen();

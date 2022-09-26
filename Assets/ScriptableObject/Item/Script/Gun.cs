@@ -15,7 +15,7 @@ public class Gun : Weapon
     private Item needAmmo;
 
 
-    public override void Use()
+    public override void Use(Player player)
     {
         RaycastHit hit;
         if(Physics.Raycast(itemPrefeb.transform.position,Vector3.forward,out hit,Mathf.Infinity))

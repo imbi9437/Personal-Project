@@ -18,11 +18,21 @@ public class PlayerAction : MonoBehaviour,IDamagable
     {
         Interaction();
         ItemUse();
-        //Attack();
     }
 
     private void Interaction()
     {
+        //RaycastHit check;
+        //Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out check, 1.5f,targetLayer);
+        //IInteratable checkObject = check.transform.GetComponent<IInteratable>();
+        //if(checkObject != null)
+        //{
+        //    UIManager.instance.UpdateCheckUI(true);
+        //}
+        //else
+        //{
+        //    UIManager.instance.UpdateCheckUI(false);
+        //}
         if(!player.playerInput.InterAction)
             return;
 
@@ -30,8 +40,8 @@ public class PlayerAction : MonoBehaviour,IDamagable
         for (int i = 0; i < collider.Length; i++)
         {
             RaycastHit hit;
-            Physics.Raycast(player.playerCamera.transform.position, Vector3.forward, out hit, 3f, targetLayer);
-            if (hit.transform.gameObject == collider[i].gameObject)
+            Physics.SphereCast(player.PlayerCam.transform.position,0.3f,player.PlayerCam.transform.forward, out hit,2f,targetLayer);
+            if (collider[i] == hit.collider)
             {
                 IInteratable target = collider[i].GetComponent<IInteratable>();
                 target?.Interaction(player);
@@ -46,18 +56,5 @@ public class PlayerAction : MonoBehaviour,IDamagable
     public void GetDamage(float damage)
     {
         player.Hp -= (damage / player.Def) ;
-    }
-    private void Attack()
-    {
-        if(!Input.GetButtonDown("Fire1"))
-        {
-            return;
-        }
-        Collider[] target = Physics.OverlapSphere(transform.position, 20);
-        for (int i = 0; i < target.Length; i++)
-        {
-            IDamagable damagable = target[i].GetComponent<IDamagable>();
-            damagable?.GetDamage(50);
-        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu (menuName="ScriptableObject/Item/Weapon")]
 public class Weapon : ItemData
 {
-    public override void Use()
+    public override void Use(Player player)
     {
         
     }

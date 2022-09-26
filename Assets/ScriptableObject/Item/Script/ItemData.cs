@@ -17,5 +17,5 @@ public abstract class ItemData : ScriptableObject
     protected int maxCount;
     public int MaxCount { get { return maxCount; } }
 
-    public abstract void Use();
+    public abstract void Use(Player player);
 }

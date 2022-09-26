@@ -67,6 +67,7 @@ public class Airplane : MonoBehaviour
     IEnumerator Drop()
     {
         yield return new WaitUntil(() => groundChecker.isGround==true);
+        yield return new WaitForSeconds(2f);
         animator.SetTrigger("Open");
         Collider[] drop = dropObject.GetComponentsInChildren<Collider>(true);
         for (int i = 0; i < drop.Length; i++)

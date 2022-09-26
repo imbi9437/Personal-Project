@@ -11,7 +11,7 @@ public class Armor : ItemData
     private float def;
     public float Def { get { return def; } }
 
-    public override void Use()
+    public override void Use(Player player)
     {
         Debug.Log("방어구 사용");
     }

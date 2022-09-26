@@ -13,12 +13,23 @@ public class Player : MonoBehaviour
     public PlayerInput playerInput { get; set; }
     private PlayerAction playerAction;
     public PlayerAction PlayerAction { get; set; }
-    private Camera _playerCam;
-    public Camera playerCamera { get; set; }
+    [SerializeField]
+    private Camera playerCam;
+    public Camera PlayerCam { get { return playerCam; } set { playerCam = value; } }
     private GroundChecker _playerGroundChecker;
     public GroundChecker playerGroundChecker { get; set; }
     private SoundGenerator playerSoundGenerator;
-    public SoundGenerator PlayerSoundGenerator { get; set; }
+    public SoundGenerator PlayerSoundGenerator { get { return playerSoundGenerator; } set { playerSoundGenerator = value; } } // 에러나는 이유 질문
+    private Inventory inventory;
+    public Inventory Inventory 
+    {
+        get { return inventory; } 
+        set 
+        {
+            inventory = value;
+            InventoryManager.instance.playerInventory.SettingInventory(inventory);
+        } 
+    }
 
     [SerializeField,Range(0f,500f)]
     private float hp = 500f;
@@ -40,5 +51,6 @@ public class Player : MonoBehaviour
         playerAction = GetComponent<PlayerAction>();
         playerGroundChecker = GetComponent<GroundChecker>();
         playerSoundGenerator = GetComponent<SoundGenerator>();
+        inventory = GetComponent<Inventory>();
     }
 }

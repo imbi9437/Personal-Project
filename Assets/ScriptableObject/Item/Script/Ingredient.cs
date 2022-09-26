@@ -8,7 +8,7 @@ public class Ingredient : ItemData
     public enum ingredientType { ModulePart, Ingredient }
     public ingredientType itemType;
 
-    public override void Use()
+    public override void Use(Player player)
     {
         Debug.Log("재료 사용");
     }

@@ -2,6 +2,7 @@ using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.iOS;
 
 public class SoundGenerator : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class SoundGenerator : MonoBehaviour
     public void SoundGen()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, soundRange);
+        if(colliders.Length <=0)
+        {
+            return;
+        }
         for (int i = 0; i < colliders.Length; i++)
         {
             Vector3 dirVec = (colliders[i].transform.position - transform.position).normalized;
