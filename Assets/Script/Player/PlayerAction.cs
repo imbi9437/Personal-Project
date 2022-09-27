@@ -16,27 +16,13 @@ public class PlayerAction : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        CheckInteraction();
         Interaction();
         ItemUse();
-        InventoryOpen();
     }
 
     private void Interaction()
     {
-        RaycastHit check;
-        Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out check, 1.5f, targetLayer);
-        if (check.collider != null)
-        {
-            IInteratable target = check.collider.GetComponent<IInteratable>();
-            if (target != null)
-            {
-                UIManager.instance.UpdateCheckUI(true);
-            }
-        }
-        else
-        {
-            UIManager.instance.UpdateCheckUI(false);
-        }
         if (!player.playerInput.InterAction)
             return;
 
@@ -52,16 +38,31 @@ public class PlayerAction : MonoBehaviour, IDamagable
             }
         }
     }
+    private void CheckInteraction()
+    {
+        RaycastHit check;
+        Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out check, 2f, targetLayer);
+        if (check.collider != null)
+        {
+            IInteratable target = check.collider.GetComponent<IInteratable>();
+            if (target != null)
+            {
+                UIManager.instance.UpdateCheckUI(true);
+            }
+        }
+        else
+        {
+            UIManager.instance.UpdateCheckUI(false);
+        }
+    }
     private void ItemUse()
     {
         if (!player.playerInput.MouseClick)
             return;
     }
-    private void InventoryOpen()
+    public void Die()
     {
-        if (!Input.GetButtonDown("Inventory"))
-            return;
-        InventoryManager.instance.playerInventory.SettingInventory(player.Inventory);
+        player.animator.SetTrigger("Die");
     }
     public void GetDamage(float damage)
     {

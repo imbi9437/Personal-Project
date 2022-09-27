@@ -18,26 +18,30 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
     private TextMeshProUGUI countText;
     public TextMeshProUGUI CountText { get { return countText; } set { countText = value; } }
     [SerializeField]
-    private int count;
-    public int Count { get { return count; } set { count = value; } }
-    [SerializeField]
     private Sprite empty;
     public Sprite Empty { get { return empty; } }
+    [SerializeField]
+    private InventoryUI parentUI;
 
     public void SetItem(Item item)
     {
-        if(item.count >0 && item.itemData !=null)
+        if(item == null)
+        {
+            slotItem = null;
+            image.sprite = empty;
+            countText.text = "";
+        }
+        else if(item.count >0 && item.itemData !=null)
         {
             slotItem = item;
             image.sprite = item.itemData.ItemImage;
-            count = item.count;
-            countText.text = "" + count;
+
+            countText.text = "" + item.count;
         }
         else
         {
             slotItem = null;
             image.sprite = empty;
-            count = 0;
             countText.text = "";
         }
     }
@@ -48,7 +52,6 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             if(slotItem != null)
             {
                 GameManager.instance.player.Inventory.DropItem(slotItem);
-                GetComponentInParent<InventoryUI>().SettingInventory(GameManager.instance.player.Inventory);
             }    
         }
         if(eventData.button == PointerEventData.InputButton.Left)
@@ -56,31 +59,50 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             if (slotItem != null)
             {
                 slotItem.Use(GameManager.instance.player);
-                GetComponentInParent<InventoryUI>().SettingInventory(GameManager.instance.player.Inventory);
             }
         }
     }
     public void OnBeginDrag(PointerEventData eventData) // 드래그 시작 이벤트
     {
-        //InventoryManager.instance.usingSlot.transform.position = eventData.position;
-        //InventoryManager.instance.usingSlot.SlotItem = this.slotItem;
-        //InventoryManager.instance.usingSlot.Count = this.count;
-        //InventoryManager.instance.usingSlot.Image.sprite = this.image.sprite;
-        //InventoryManager.instance.usingSlot.CountText.text = this.countText.text;
-        //InventoryManager.instance.usingSlot.gameObject.SetActive(true);
+        if(slotItem !=null)
+        {
+            InventoryManager.instance.usingSlot.transform.position = eventData.position;
+            InventoryManager.instance.usingSlot.SlotItem = this.slotItem;
+            InventoryManager.instance.usingSlot.Image.sprite = slotItem.itemData.ItemImage;
+            InventoryManager.instance.usingSlot.CountText.text = slotItem.count.ToString();
+            InventoryManager.instance.usingSlot.gameObject.SetActive(true);
+        }
     }
     public void OnDrag(PointerEventData eventData) //드래그중 이벤트
     {
-        //InventoryManager.instance.usingSlot.gameObject.transform.position = eventData.position;
+        if(slotItem!=null)
+        {
+            InventoryManager.instance.usingSlot.gameObject.transform.position = eventData.position;
+        }
     }
-    public void OnEndDrag(PointerEventData eventData) // 드래그 종료 이벤트
+    public void OnEndDrag(PointerEventData eventData)
     {
-        //InventoryManager.instance.usingSlot.gameObject.SetActive(false);
+        Item item = InventoryManager.instance.usingSlot.SlotItem;
+        InventoryManager.instance.usingSlot.gameObject.SetActive(false);
+        SetItem(item);
+        parentUI.SettingInventory();
     }
 
-    public void OnDrop(PointerEventData eventData) // 드래그 종료 이벤트
+    public void OnDrop(PointerEventData eventData)
     {
-        
+        Item item = InventoryManager.instance.usingSlot.SlotItem;
+        if(slotItem == null&&item != null)
+        {
+            SetItem(item);
+            InventoryManager.instance.usingSlot.SlotItem = null;
+        }
+        else if(slotItem!=null&&item!=null)
+        {
+            Item temp = slotItem;
+            SetItem(item);
+            InventoryManager.instance.usingSlot.SlotItem = temp;
+        }
+        parentUI.SettingInventory();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

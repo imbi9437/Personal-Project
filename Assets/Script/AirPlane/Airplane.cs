@@ -39,7 +39,14 @@ public class Airplane : MonoBehaviour
         transform.forward = lookTarget;
         audioSource.Play();
         CheckOut();
-        StartCoroutine(Drop());
+        if (GameManager.instance.drop < 10)
+        {
+            StartCoroutine(DropZombie());
+        }
+        else if(GameManager.instance.drop==10)
+        {
+
+        }
     }
 
     private void Update()
@@ -64,7 +71,7 @@ public class Airplane : MonoBehaviour
         }
     }
 
-    IEnumerator Drop()
+    IEnumerator DropZombie()
     {
         yield return new WaitUntil(() => groundChecker.isGround==true);
         yield return new WaitForSeconds(2f);
@@ -83,5 +90,13 @@ public class Airplane : MonoBehaviour
         yield return new WaitUntil(() => groundChecker.isGround == false);
         yield return new WaitForSeconds(10f);
         gameObject.SetActive(false);
+    }
+    IEnumerator DropItem()
+    {
+        yield return new WaitUntil(() => groundChecker.isGround == true);
+        yield return new WaitForSeconds(2f);
+        animator.SetTrigger("Open");
+        yield return new WaitForSeconds(Random.Range(0,30f));
+        
     }
 }

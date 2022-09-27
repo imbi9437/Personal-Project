@@ -195,6 +195,8 @@ public class ZombieStates : MonoBehaviour
             {
                 return;
             }
+            Vector3 vec = owner.transform.position + owner.transform.up;
+            Instantiate(owner.ItemBox, vec, Quaternion.identity);
             owner.transform.SetParent(owner.AirplaneDrop.transform);
             owner.transform.position = owner.AirplaneDrop.transform.position;
             owner.gameObject.SetActive(false);

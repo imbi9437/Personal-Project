@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MoveSlot : MonoBehaviour
+public class MoveSlot : MonoBehaviour,IDropHandler
 {
     [SerializeField]
     private Item slotItem;
@@ -15,7 +16,9 @@ public class MoveSlot : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI countText;
     public TextMeshProUGUI CountText { get { return countText; } set { countText = value; } }
-    [SerializeField]
-    private int count;
-    public int Count { get { return count; } set { count = value; } }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        Debug.Log(gameObject.name);
+    }
 }

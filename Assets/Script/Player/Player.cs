@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,9 +25,29 @@ public class Player : MonoBehaviour
     private Inventory inventory;
     public Inventory Inventory { get { return inventory; } set { inventory = value; } }
 
+    public Action<float> StatusUpdate;
+
     [SerializeField, Range(0f, 500f)]
     private float hp = 500f;
-    public float Hp { get { return hp; } set { hp = value; } }
+    public float Hp 
+    { 
+        get
+        { return hp; }
+        set 
+        { 
+            hp = value;
+            if (hp > 500)
+            { 
+                hp = 500f;
+            }
+            else if (hp<=0)
+            {
+                PlayerAction.Die();
+                return;
+            }
+            StatusUpdate(hp);
+        }
+    }
     [SerializeField]
     private float speed = 10f;
     public float Speed { get { return speed; } }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
@@ -15,13 +16,13 @@ public class UIManager : Singleton<UIManager>
 
     private void LateUpdate()
     {
+        if (!Input.anyKey)
+            return;
         UImanage();
     }
 
     public void UImanage()
     {
-        if (!Input.anyKey)
-            return;
         if (curUI == null)
             curUI = UI[0];
         if (Input.GetButtonDown("Cancel"))
@@ -30,12 +31,11 @@ public class UIManager : Singleton<UIManager>
             ChangeUI(UI[1].name);
         if (Input.GetButtonDown("Inventory"))
             ChangeUI(UI[2].name);
-        //if (Input.GetButtonDown("InterAction"))
-        //{
-        //    InventoryManager.instance.interactionSlot.gameObject.SetActive(true);
-        //    ChangeUI(UI[2].name);
-        //}
-            
+    }
+    public void InteractionUImanage()
+    {
+        InventoryManager.instance.interactionSlot.gameObject.SetActive(true);
+        ChangeUI(UI[2].name);
     }
     public void ChangeUI(string UIname)
     {
@@ -49,8 +49,8 @@ public class UIManager : Singleton<UIManager>
         if (curUI.name == UIname)
         {
             GameManager.instance.ChangeTimeScale();
-            UIOutside.SetActive(!UIOutside);
             curUI.SetActive(!curUI.activeSelf);
+            UIOutside.SetActive(!UIOutside.activeSelf);
         }
         else if (curUI.name != UIname && !curUI.activeSelf)
         {

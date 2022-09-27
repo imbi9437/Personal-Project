@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
     public Player player;   
     public Airplane airplane;
+    public int drop;
     public void ChangeTimeScale()
     {
         if(Time.timeScale ==1)
@@ -35,6 +36,7 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitForSeconds(30f);
             if(airplane.gameObject.activeSelf == false)
             {
+                drop = Random.Range(1, 10);
                 airplane.gameObject.SetActive(true);
             }
             yield return new WaitForSeconds(Random.Range(30f, 120f));

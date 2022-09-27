@@ -13,6 +13,9 @@ public class Zombie : MonoBehaviour
     [SerializeField]
     private GameObject[] zombieChar;
     public GameObject[] ZombieChar { get { return zombieChar; } }
+    [SerializeField]
+    private GameObject itemBox;
+    public GameObject ItemBox { get { return itemBox; } }
     private CharacterController characterController;
     public CharacterController CharacterController { get { return characterController; } }
     private Animator animator;
