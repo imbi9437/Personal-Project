@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEndDragHandler,IBeginDragHandler,IDropHandler
+public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEndDragHandler,IBeginDragHandler,IDropHandler,IPointerEnterHandler,IPointerExitHandler
 {
     [SerializeField]
     private Item slotItem;
@@ -40,78 +40,56 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             count = 0;
             countText.text = "";
         }
-
     }
-    public void AddItem(Item item,int value)
-    {
-        if(slotItem !=null)
-        {
-            count += value;
-            countText.text = ""+count;
-        }
-        else
-        {
-            slotItem = item;
-            count = value;
-            image.sprite = item.itemData.ItemImage;
-            image.gameObject.SetActive(true);
-            countText.text = ""+count;
-        }
-    }
-    public void RemoveItem(int value)
-    {
-        if(count==value)
-        {
-            countText.text = "";
-            count = 0;
-            image.sprite = null;
-            image.gameObject.SetActive(false);
-            slotItem = null;
-        }
-        else if (count>value)
-        {
-            count -= value;
-            countText.text = "" + count;
-        }
-    }
-    public void ChangeItem(Item item, int value)
-    {
-
-    }
-
     public void OnPointerClick(PointerEventData eventData) // 클릭이벤트
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("아이템 정보");
-            //아이템 정보 띄우기
+            if(slotItem != null)
+            {
+                GameManager.instance.player.Inventory.DropItem(slotItem);
+                GetComponentInParent<InventoryUI>().SettingInventory(GameManager.instance.player.Inventory);
+            }    
         }
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log("아이템 이동");
-            //아이템 퀵슬롯 이동 또는 장비창 이동
+            if (slotItem != null)
+            {
+                slotItem.Use(GameManager.instance.player);
+                GetComponentInParent<InventoryUI>().SettingInventory(GameManager.instance.player.Inventory);
+            }
         }
     }
     public void OnBeginDrag(PointerEventData eventData) // 드래그 시작 이벤트
     {
-        InventoryManager.instance.usingSlot.transform.position = eventData.position;
-        InventoryManager.instance.usingSlot.SlotItem = this.slotItem;
-        InventoryManager.instance.usingSlot.Count = this.count;
-        InventoryManager.instance.usingSlot.Image.sprite = this.image.sprite;
-        InventoryManager.instance.usingSlot.CountText.text = this.countText.text;
-        InventoryManager.instance.usingSlot.gameObject.SetActive(true);
+        //InventoryManager.instance.usingSlot.transform.position = eventData.position;
+        //InventoryManager.instance.usingSlot.SlotItem = this.slotItem;
+        //InventoryManager.instance.usingSlot.Count = this.count;
+        //InventoryManager.instance.usingSlot.Image.sprite = this.image.sprite;
+        //InventoryManager.instance.usingSlot.CountText.text = this.countText.text;
+        //InventoryManager.instance.usingSlot.gameObject.SetActive(true);
     }
     public void OnDrag(PointerEventData eventData) //드래그중 이벤트
     {
-        InventoryManager.instance.usingSlot.gameObject.transform.position = eventData.position;
+        //InventoryManager.instance.usingSlot.gameObject.transform.position = eventData.position;
     }
     public void OnEndDrag(PointerEventData eventData) // 드래그 종료 이벤트
     {
-        InventoryManager.instance.usingSlot.gameObject.SetActive(false);
+        //InventoryManager.instance.usingSlot.gameObject.SetActive(false);
     }
 
     public void OnDrop(PointerEventData eventData) // 드래그 종료 이벤트
     {
         
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //툴팁 온
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //툴팁 오프
     }
 }

@@ -13,4 +13,8 @@ public class Item
         count--;
         itemData.Use(player);
     }
+    public void Drop(Transform parent)
+    {
+        itemData.Drop(parent, count);
+    }
 }

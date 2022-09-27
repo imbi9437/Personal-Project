@@ -64,6 +64,19 @@ public class Inventory : MonoBehaviour
         }
 
     }
+    public void DropItem(Item item)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i]==item)
+            {
+                items[i].Drop(GameManager.instance.player.transform);
+                items[i].itemData = null;
+                items[i].count = 0;
+
+            }
+        }
+    }
     private int CountSlots(Item item)
     {
         int count = 0;
@@ -97,16 +110,10 @@ public class Inventory : MonoBehaviour
         {
             if (items[i].itemData == null)
             {
-                items[i] = SetItem(item);
+                items[i].itemData = item.itemData;
+                items[i].count = item.count;
                 break;
             }
         }
-    }
-    private Item SetItem(Item item)
-    {
-        Item newItem = new Item();
-        newItem.itemData = item.itemData;
-        newItem.count = item.count;
-        return newItem;
     }
 }

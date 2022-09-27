@@ -8,6 +8,7 @@ public class UIManager : Singleton<UIManager>
 {
     public GameObject curUI;
 
+    public GameObject UIOutside;
     public GameObject[] UI;
 
     public TextMeshProUGUI ItemCheckEffect;
@@ -41,12 +42,14 @@ public class UIManager : Singleton<UIManager>
         if (UIname == UI[0].name && curUI.activeSelf)
         {
             curUI.SetActive(false);
+            UIOutside.SetActive(false);
             GameManager.instance.ChangeTimeScale();
             return;
         }
         if (curUI.name == UIname)
         {
             GameManager.instance.ChangeTimeScale();
+            UIOutside.SetActive(!UIOutside);
             curUI.SetActive(!curUI.activeSelf);
         }
         else if (curUI.name != UIname && !curUI.activeSelf)
@@ -57,6 +60,7 @@ public class UIManager : Singleton<UIManager>
                 {
                     curUI = UI[i];
                     curUI.SetActive(true);
+                    UIOutside.SetActive(true);
                     GameManager.instance.ChangeTimeScale();
                 }
             }

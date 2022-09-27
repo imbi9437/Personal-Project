@@ -18,4 +18,10 @@ public abstract class ItemData : ScriptableObject
     public int MaxCount { get { return maxCount; } }
 
     public abstract void Use(Player player);
+    public void Drop(Transform value,int count)
+    {
+        Vector3 point = value.position + value.forward + value.up;
+        GameObject item = Instantiate(itemPrefeb, point, Quaternion.identity);
+        item.GetComponent<ItemController>().Item.count = count;
+    }
 }
