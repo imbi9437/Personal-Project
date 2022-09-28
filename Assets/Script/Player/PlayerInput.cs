@@ -19,12 +19,12 @@ public class PlayerInput : MonoBehaviour
     public bool Jump { get { return jump; } }
     private bool run;
     public bool Run { get { return run; } }
-    private bool kneel;
-    public bool Kneel { get { return kneel; } }
     private bool interAction;
     public bool InterAction { get { return interAction; } }
     private bool mouseClick;
     public bool MouseClick { get { return mouseClick; } }
+    private bool mousePush;
+    public bool MousePush { get { return mousePush; } }
 
     private void Awake()
     {
@@ -39,8 +39,36 @@ public class PlayerInput : MonoBehaviour
         mouseY = Input.GetAxis("Mouse Y");
         jump = Input.GetButtonDown("Jump");
         run = Input.GetButton("Run");
-        //Kneel = Input.GetButton("Kneel");
         interAction = Input.GetButtonDown("InterAction");
         mouseClick = Input.GetButtonDown("Fire1");
+        mousePush = Input.GetButton("Fire1");
+        NumPad();
+    }
+    private void NumPad()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            player.QuickSlotNum = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            player.QuickSlotNum = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            player.QuickSlotNum = 3;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            player.QuickSlotNum = 4;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            player.QuickSlotNum = 5;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            player.QuickSlotNum = 6;
+        }
     }
 }

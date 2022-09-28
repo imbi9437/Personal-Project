@@ -46,6 +46,6 @@ public class Zombie : MonoBehaviour
         zombieAction = GetComponent<ZombieAction>();
         findTarget = GetComponent<FindTarget>();
         maxHp = 300f;
-        maxDamage = 20f;
+        maxDamage = 40f;
     }
 }

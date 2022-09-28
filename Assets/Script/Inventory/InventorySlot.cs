@@ -25,24 +25,19 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
 
     public void SetItem(Item item)
     {
-        if(item == null)
+        if(item.itemData == null||item.count<=0)
         {
-            slotItem = null;
+            slotItem.itemData = null;
+            SlotItem.count = 0;
             image.sprite = empty;
             countText.text = "";
-        }
-        else if(item.count >0 && item.itemData !=null)
-        {
-            slotItem = item;
-            image.sprite = item.itemData.ItemImage;
-
-            countText.text = "" + item.count;
         }
         else
         {
-            slotItem = null;
-            image.sprite = empty;
-            countText.text = "";
+            slotItem.itemData = item.itemData;
+            slotItem.count = item.count;
+            image.sprite = item.itemData.ItemImage;
+            countText.text = ""+item.count;
         }
     }
     public void OnPointerClick(PointerEventData eventData) // 클릭이벤트
@@ -58,16 +53,20 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             if (slotItem != null)
             {
-                slotItem.Use(GameManager.instance.player);
+                if(slotItem.canUseInventory)
+                {
+                    slotItem.Use(GameManager.instance.player);
+                }
             }
         }
     }
     public void OnBeginDrag(PointerEventData eventData) // 드래그 시작 이벤트
     {
-        if(slotItem !=null)
+        if(slotItem.itemData !=null)
         {
+            InventoryManager.instance.usingSlot.SlotItem.itemData = slotItem.itemData;
+            InventoryManager.instance.usingSlot.SlotItem.count = slotItem.count;
             InventoryManager.instance.usingSlot.transform.position = eventData.position;
-            InventoryManager.instance.usingSlot.SlotItem = this.slotItem;
             InventoryManager.instance.usingSlot.Image.sprite = slotItem.itemData.ItemImage;
             InventoryManager.instance.usingSlot.CountText.text = slotItem.count.ToString();
             InventoryManager.instance.usingSlot.gameObject.SetActive(true);
@@ -75,7 +74,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
     }
     public void OnDrag(PointerEventData eventData) //드래그중 이벤트
     {
-        if(slotItem!=null)
+        if(slotItem.itemData!=null)
         {
             InventoryManager.instance.usingSlot.gameObject.transform.position = eventData.position;
         }
@@ -85,24 +84,38 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         Item item = InventoryManager.instance.usingSlot.SlotItem;
         InventoryManager.instance.usingSlot.gameObject.SetActive(false);
         SetItem(item);
-        parentUI.SettingInventory();
     }
 
     public void OnDrop(PointerEventData eventData)
     {
         Item item = InventoryManager.instance.usingSlot.SlotItem;
-        if(slotItem == null&&item != null)
+        if(slotItem.itemData == null&&item.itemData != null)
         {
             SetItem(item);
-            InventoryManager.instance.usingSlot.SlotItem = null;
+            InventoryManager.instance.usingSlot.SlotItem.itemData = null;
+            InventoryManager.instance.usingSlot.SlotItem.count = 0;
         }
-        else if(slotItem!=null&&item!=null)
+        else if(slotItem.itemData !=null&&item.itemData !=null)
         {
-            Item temp = slotItem;
-            SetItem(item);
-            InventoryManager.instance.usingSlot.SlotItem = temp;
+            Item temp = new Item();
+            temp.count = slotItem.count;
+            temp.itemData = slotItem.itemData;
+            if (slotItem.itemData != item.itemData)
+            {
+                SetItem(item);
+                InventoryManager.instance.usingSlot.SlotItem.itemData = temp.itemData;
+                InventoryManager.instance.usingSlot.SlotItem.count = temp.count;
+            }
+            else
+            {
+                if(slotItem.count+item.count>item.itemData.MaxCount)
+                {
+                    InventoryManager.instance.usingSlot.SlotItem.count = slotItem.itemData.MaxCount-temp.count;
+                    temp.count = item.itemData.MaxCount;
+                    SetItem(temp);
+                }
+            }
         }
-        parentUI.SettingInventory();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

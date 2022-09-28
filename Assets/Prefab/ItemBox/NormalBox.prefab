@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6115152318007030861}
   - component: {fileID: 6099163106437526829}
   - component: {fileID: 6089343811189678831}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Prop_Crate_Small_01_Lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 4595260136019234003}
   - component: {fileID: 8137943510110545907}
   - component: {fileID: 4640530617730837254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NormalBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

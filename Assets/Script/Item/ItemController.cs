@@ -23,8 +23,4 @@ public class ItemController : MonoBehaviour, IInteratable
     {
         
     }
-    public void Use(Player player)
-    {
-        item.Use(player);
-    }
 }

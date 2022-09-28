@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MoveSlot : MonoBehaviour,IDropHandler
+public class MoveSlot : MonoBehaviour
 {
     [SerializeField]
     private Item slotItem;
@@ -16,9 +16,4 @@ public class MoveSlot : MonoBehaviour,IDropHandler
     [SerializeField]
     private TextMeshProUGUI countText;
     public TextMeshProUGUI CountText { get { return countText; } set { countText = value; } }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        Debug.Log(gameObject.name);
-    }
 }

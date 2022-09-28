@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class PlayerAction : MonoBehaviour, IDamagable
 {
@@ -9,16 +10,18 @@ public class PlayerAction : MonoBehaviour, IDamagable
     private Transform interactionPoint;
     [SerializeField]
     private LayerMask targetLayer;
+    [SerializeField]
+    private Item curItem;
     private void Awake()
     {
         player = GetComponent<Player>();
     }
-
     private void Update()
     {
         CheckInteraction();
         Interaction();
         ItemUse();
+        ChangeQuickSlot(player.QuickSlotNum);
     }
 
     private void Interaction()
@@ -57,8 +60,16 @@ public class PlayerAction : MonoBehaviour, IDamagable
     }
     private void ItemUse()
     {
+        if (Time.timeScale == 0)
+            return;
         if (!player.playerInput.MouseClick)
             return;
+        if (curItem == null)
+            return;
+        if (curItem.itemData != null)
+        {
+        curItem.Use(player);
+        }
     }
     public void Die()
     {
@@ -67,5 +78,14 @@ public class PlayerAction : MonoBehaviour, IDamagable
     public void GetDamage(float damage)
     {
         player.Hp -= (damage / player.Def);
+    }
+
+    public void ChangeQuickSlot(int value)
+    {
+        if(curItem == player.QuickSlot.items[value - 1])
+        {
+            return;
+        }
+        curItem = player.QuickSlot.items[value - 1];
     }
 }

@@ -18,7 +18,7 @@ public class Status : MonoBehaviour
 
     private void HpTextUPdate(float value)
     {
-        hpText.text = value.ToString();
+        hpText.text = string.Format("{0:0}", value);
     }
     private void HpSliderUpdate(float value)
     {

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2108958404747373215}
   - component: {fileID: 7038829475624425313}
   - component: {fileID: 6328837652114399244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DropBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

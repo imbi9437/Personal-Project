@@ -45,7 +45,7 @@ public class Airplane : MonoBehaviour
         }
         else if(GameManager.instance.drop==10)
         {
-
+            StartCoroutine(DropItem());
         }
     }
 
@@ -97,6 +97,11 @@ public class Airplane : MonoBehaviour
         yield return new WaitForSeconds(2f);
         animator.SetTrigger("Open");
         yield return new WaitForSeconds(Random.Range(0,30f));
-        
+        Instantiate(supplyItem, dropObject.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
+        animator.SetTrigger("Close");
+        yield return new WaitUntil(() => groundChecker.isGround == false);
+        yield return new WaitForSeconds(10f);
+        gameObject.SetActive(false);
     }
 }

@@ -258,7 +258,6 @@ GameObject:
   - component: {fileID: 7114893980062551598}
   - component: {fileID: 7114893980062551599}
   - component: {fileID: 7114893980062551596}
-  - component: {fileID: 7114893978865597984}
   - component: {fileID: 7114893980062551597}
   - component: {fileID: 7114893980062551593}
   - component: {fileID: 7114893978865598007}
@@ -384,20 +383,6 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &7114893978865597984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245383058808801243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 249af8c2b8185d64ba118b710c440c4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotCount: 24
-  items: []
 --- !u!114 &7114893980062551597
 MonoBehaviour:
   m_ObjectHideFlags: 0

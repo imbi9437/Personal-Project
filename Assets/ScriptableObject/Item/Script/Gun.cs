@@ -10,19 +10,41 @@ public class Gun : Weapon
     [SerializeField]
     private GunType gunType;
     [SerializeField]
-    private int MaxMagazine;
+    private int maxMagazine;
+    public int MaxMagazine { get { return maxMagazine; } }
     [SerializeField]
-    private Item needAmmo;
+    private Used needAmmo;
+    public Used NeedAmmo { get { return needAmmo; } }
 
 
     public override void Use(Player player)
     {
+        for (int i = 0; i < player.Inventory.items.Length; i++)
+        {
+            if (player.Inventory.items[i].itemData==needAmmo)
+            {
+                player.Inventory.items[i].count--;
+                Shoot(player);
+                return;
+            }
+        }
+        for (int i = 0; i < player.QuickSlot.items.Length; i++)
+        {
+            if (player.Inventory.items[i].itemData == needAmmo)
+            {
+                player.Inventory.items[i].count--;
+                Shoot(player);
+                return;
+            }
+        }
+    }
+    private void Shoot(Player player)
+    {
         RaycastHit hit;
-        if(Physics.Raycast(itemPrefeb.transform.position,Vector3.forward,out hit,Mathf.Infinity))
+        if (Physics.Raycast(player.PlayerCam.transform.position, player.PlayerCam.transform.forward, out hit, Mathf.Infinity))
         {
             IDamagable target = hit.transform.GetComponent<IDamagable>();
-            target?.GetDamage(10f);
-            itemPrefeb.GetComponent<Weapon>();
+            target?.GetDamage(needAmmo.damage);
         }
     }
 }

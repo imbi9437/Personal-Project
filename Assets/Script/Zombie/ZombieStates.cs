@@ -72,14 +72,14 @@ public class ZombieStates : MonoBehaviour
             
             if(owner.FindTarget.Position != Vector3.zero)
             {
-                Vector3 moveVec = (owner.transform.position - owner.FindTarget.Position).normalized;
-                if(owner.transform.position == owner.FindTarget.Position)
+                Vector3 ownerVec = new Vector3(owner.transform.position.x, 0, owner.transform.position.z);
+                Vector3 targetVec = new Vector3(owner.FindTarget.Position.x, 0, owner.FindTarget.Position.z);
+                float distance = Vector3.Distance(ownerVec, targetVec);
+                Vector3 moveVec = (targetVec - ownerVec).normalized;
+                if(distance>1f)
                 {
-                    owner.FindTarget.Position = Vector3.zero;
-                }
-                else
-                {
-                    owner.CharacterController.Move(moveVec*owner.Speed*Time.deltaTime);
+                    owner.transform.forward = moveVec;
+                    owner.CharacterController.Move(moveVec * owner.Speed * Time.deltaTime);
                 }
             }
             

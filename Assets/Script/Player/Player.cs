@@ -20,12 +20,18 @@ public class Player : MonoBehaviour
     private GroundChecker _playerGroundChecker;
     public GroundChecker playerGroundChecker { get; set; }
     private SoundGenerator playerSoundGenerator;
-    public SoundGenerator PlayerSoundGenerator { get { return playerSoundGenerator; } set { playerSoundGenerator = value; } } // 에러나는 이유 질문
+    public SoundGenerator PlayerSoundGenerator { get { return playerSoundGenerator; } set { playerSoundGenerator = value; } }
     [SerializeField]
     private Inventory inventory;
     public Inventory Inventory { get { return inventory; } set { inventory = value; } }
+    [SerializeField]
+    private Inventory quickSlot;
+    public Inventory QuickSlot { get { return quickSlot; }set { quickSlot = value; } }
+    private int quickSlotNum = 1;
+    public int QuickSlotNum { get { return quickSlotNum; } set { quickSlotNum = value; QuickSlotChange(quickSlotNum); } }
 
     public Action<float> StatusUpdate;
+    public Action<int> QuickSlotChange;
 
     [SerializeField, Range(0f, 500f)]
     private float hp = 500f;
@@ -65,6 +71,5 @@ public class Player : MonoBehaviour
         playerAction = GetComponent<PlayerAction>();
         playerGroundChecker = GetComponent<GroundChecker>();
         playerSoundGenerator = GetComponent<SoundGenerator>();
-        inventory = GetComponent<Inventory>();
     }
 }

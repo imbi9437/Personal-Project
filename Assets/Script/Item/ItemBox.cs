@@ -40,7 +40,7 @@ public class ItemBox : MonoBehaviour, IInteratable
         int itemCount = Random.Range(0, inventory.SlotCount);
         for (int i = 0; i < itemCount; i++)
         {
-            int rarity = level + Random.Range(0, 101);
+            int rarity = level + Random.Range(0, 100);
             rarity = Mathf.Clamp(rarity, 0, 100);
             Item item = ItemManager.instance.ChooseItem(rarity);
             if(item == null)
