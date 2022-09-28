@@ -19,14 +19,14 @@ RenderSettings:
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 1
-  m_LinearFogEnd: 40
-  m_AmbientSkyColor: {r: 0.18431373, g: 0.0882353, b: 0.09019608, a: 1}
+  m_LinearFogEnd: 100
+  m_AmbientSkyColor: {r: 0.092156865, g: 0.043137256, b: 0.04509804, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.46226418, g: 0.13146254, b: 0.07631719, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,6 +258,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 863956123}
@@ -356,6 +359,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 799489203}
@@ -2484,6 +2490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1533317460}
@@ -2790,6 +2799,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 619167103}
@@ -3023,6 +3035,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 924215839}
@@ -3307,6 +3322,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1055115491}
@@ -3846,6 +3864,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 895731310}
@@ -4165,6 +4186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1325661}
@@ -4285,6 +4309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1661578452}
@@ -4472,6 +4499,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 917534785}
@@ -4570,6 +4600,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1859295294}
@@ -6529,6 +6562,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 824396260}
@@ -6632,6 +6668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 852014203}
@@ -7152,6 +7191,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1073767631}
@@ -7804,6 +7846,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 626516414}
@@ -8948,6 +8993,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 2077725450}
@@ -9181,6 +9229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1337295400}
@@ -9279,6 +9330,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1703813560}
@@ -9649,6 +9703,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 813911367}
@@ -9896,6 +9953,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 590508345}
@@ -10500,6 +10560,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1882327744}
@@ -10574,6 +10637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1318913862}
@@ -11687,6 +11753,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1460235934}
@@ -11937,6 +12006,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1398637658}
@@ -12153,20 +12225,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalItems:
-  - count: 0
-    itemData: {fileID: 11400000, guid: d18d7232d3e766b4b87f96b0a99312b1, type: 2}
-  - count: 0
-    itemData: {fileID: 11400000, guid: 78073f1ecdf98a14486f535f388c51c8, type: 2}
-  - count: 0
-    itemData: {fileID: 11400000, guid: 3dcb2a48584cac94ab9e27667cc51259, type: 2}
+  - itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
+    count: 0
+    itemData: {fileID: 0}
+  - itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
+    count: 0
+    itemData: {fileID: 0}
+  - itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
+    count: 0
+    itemData: {fileID: 0}
   rareItems:
-  - count: 0
-    itemData: {fileID: 11400000, guid: 5a8b3dd3390071443b8d6c19b2e33e37, type: 2}
-  - count: 0
-    itemData: {fileID: 11400000, guid: 65bfff4c94fcaaf4c818d51b0de0fb9d, type: 2}
+  - itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
+    count: 0
+    itemData: {fileID: 0}
+  - itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
+    count: 0
+    itemData: {fileID: 0}
   uniqeItems:
-  - count: 0
-    itemData: {fileID: 11400000, guid: 694050c4fd8d0834c9090ae5a6f9b7ca, type: 2}
+  - itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
+    count: 0
+    itemData: {fileID: 0}
   legenderyItems: []
 --- !u!4 &1698840097 stripped
 Transform:
@@ -12303,6 +12393,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 422934052}
@@ -12536,6 +12629,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 143219087}
@@ -12753,6 +12849,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 803611301}
@@ -12829,6 +12928,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 138740887}
@@ -13244,6 +13346,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1577933178}
@@ -13477,6 +13582,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1639042452}
@@ -13749,6 +13857,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 521028132}
@@ -13847,6 +13958,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 359982587}
@@ -14527,6 +14641,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1789708949}
@@ -15113,6 +15230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1674778257}
@@ -15211,6 +15331,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 383995439}
@@ -15596,6 +15719,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1393848277}
@@ -15677,6 +15803,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotItem:
+    itemtype: 0
+    canUseOnClick: 0
+    canUseInventory: 0
     count: 0
     itemData: {fileID: 0}
   image: {fileID: 1595400346}
