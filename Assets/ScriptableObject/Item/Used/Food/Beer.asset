@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
   m_Name: Beer
   m_EditorClassIdentifier: 
+  itemType: 0
+  canUseOnClick: 0
+  canuseInventory: 1
   itemName: Beer
   itemImage: {fileID: 21300000, guid: f392bf3e10ee613428bfedf052853a8e, type: 3}
   itemPrefeb: {fileID: 86391705072952740, guid: d425d8964abd5824c93399ced7cf3050, type: 3}
   maxCount: 3
-  itemType: 0
+  usedType: 0
   heal: 7
   damage: 0

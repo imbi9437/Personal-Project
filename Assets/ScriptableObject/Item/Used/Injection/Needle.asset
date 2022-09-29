@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
   m_Name: Needle
   m_EditorClassIdentifier: 
+  itemType: 0
+  canUseOnClick: 0
+  canuseInventory: 1
   itemName: Needle
   itemImage: {fileID: 21300000, guid: 3eb917a4ab5114b45b7d649158fc24b0, type: 3}
   itemPrefeb: {fileID: 1561191133139936501, guid: 2858bcc05010d8e4ba387800c6b550c9, type: 3}
   maxCount: 2
-  itemType: 0
+  usedType: 0
   heal: 100
   damage: 0

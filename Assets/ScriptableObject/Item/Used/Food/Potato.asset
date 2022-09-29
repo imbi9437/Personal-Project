@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
   m_Name: Potato
   m_EditorClassIdentifier: 
+  itemType: 0
+  canUseOnClick: 0
+  canuseInventory: 1
   itemName: Potato
   itemImage: {fileID: 21300000, guid: 0cc56a8de7f31ee4f89b7f6eae9b5c6d, type: 3}
   itemPrefeb: {fileID: 2973797216373619172, guid: e2908ff2cccde244f80be5cba8b8c10b, type: 3}
   maxCount: 50
-  itemType: 0
+  usedType: 0
   heal: 5
   damage: 0

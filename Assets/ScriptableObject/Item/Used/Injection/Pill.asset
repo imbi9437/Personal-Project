@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
   m_Name: Pill
   m_EditorClassIdentifier: 
+  itemType: 0
+  canUseOnClick: 0
+  canuseInventory: 1
   itemName: Pill
   itemImage: {fileID: 21300000, guid: a129fe9fd7c3a354780455cb112d642a, type: 3}
   itemPrefeb: {fileID: 3082564507578141395, guid: c6cd2038ca2727c4c9efec393cca0d33, type: 3}
   maxCount: 5
-  itemType: 1
+  usedType: 0
   heal: 30
   damage: 0
