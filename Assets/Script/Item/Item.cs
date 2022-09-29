@@ -9,6 +9,7 @@ public class Item
     public ItemData itemData;
 
     public int curAmmo;
+    public bool coolTime = true;
 
     public void Use(Player player)
     {
@@ -31,10 +32,14 @@ public class Item
                 itemData.Use(player);
                 break;
         }
+        Debug.Log(itemData.UsingSound);
+        Debug.Log(SoundManager.instance);
+        SoundManager.instance.SetClip(itemData.UsingSound);
+        ItemManager.instance.StartCoolTime(this);
     }
     public void Drop(Transform parent)
     {
-        itemData.Drop(parent, count);
+        itemData.Drop(parent, count, curAmmo);
     }
     public void Reroad(Player player)
     {
@@ -45,22 +50,39 @@ public class Item
             {
                 if (player.Inventory.items[i].itemData == gundata.NeedAmmo)
                 {
-                    if(player.Inventory.items[i].count+curAmmo>gundata.MaxMagazine)
+                    if (player.Inventory.items[i].count+curAmmo>=gundata.MaxMagazine)
                     {
                         player.Inventory.items[i].count -= gundata.MaxMagazine - curAmmo;
+                        curAmmo = gundata.MaxMagazine;
+                        return;
                     }
-                    return;
+                    else
+                    {
+                        curAmmo += player.Inventory.items[i].count;
+                        player.Inventory.items[i].itemData = null;
+                        player.Inventory.items[i].count = 0;
+                    }
                 }
             }
             for (int i = 0; i < player.QuickSlot.items.Length; i++)
             {
-                if (player.Inventory.items[i].itemData == gundata.NeedAmmo)
+                if (player.QuickSlot.items[i].itemData == gundata.NeedAmmo)
                 {
-                    
-                    return;
+                    if (player.QuickSlot.items[i].count + curAmmo >= gundata.MaxMagazine)
+                    {
+                        player.QuickSlot.items[i].count -= gundata.MaxMagazine - curAmmo;
+                        curAmmo = gundata.MaxMagazine;
+                        return;
+                    }
+                    else
+                    {
+                        curAmmo += player.QuickSlot.items[i].count;
+                        player.QuickSlot.items[i].itemData = null;
+                        player.QuickSlot.items[i].count = 0;
+                    }
                 }
             }
-            curAmmo = gundata.MaxMagazine;
         }
     }
+    
 }

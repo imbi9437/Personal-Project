@@ -6,14 +6,16 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), (typeof(Animator)))]
 public class Player : MonoBehaviour
 {
-    private CharacterController _characterController;
-    public CharacterController characterController { get; set; }
-    private Animator _animator;
-    public Animator animator { get; set; }
-    private PlayerInput _playerInput;
-    public PlayerInput playerInput { get; set; }
+    private CharacterController characterController;
+    public CharacterController CharacterController { get { return characterController; } set { characterController = value; } }
+    private Animator animator;
+    public Animator Animator { get { return animator; } set { animator = value; } }
+    private PlayerInput playerInput;
+    public PlayerInput PlayerInput { get { return playerInput; } }
     private PlayerAction playerAction;
-    public PlayerAction PlayerAction { get; set; }
+    public PlayerAction PlayerAction { get { return playerAction; } set { playerAction = value; } }
+    private PlayerHand playerHand;
+    public PlayerHand PlayerHand {get;set;}
     [SerializeField]
     private Camera playerCam;
     public Camera PlayerCam { get { return playerCam; } set { playerCam = value; } }
@@ -62,14 +64,15 @@ public class Player : MonoBehaviour
     public float Def { get { return def; } set { def = value; } }
     [SerializeField, Range(0f, 200f)]
     private float mouseSensitive;
-    public float MouseSensitive { get { return mouseSensitive; } }
+    public float MouseSensitive { get { return mouseSensitive; } set { mouseSensitive = value; } }
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        CharacterController = GetComponent<CharacterController>();
+        Animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         playerAction = GetComponent<PlayerAction>();
         playerGroundChecker = GetComponent<GroundChecker>();
         playerSoundGenerator = GetComponent<SoundGenerator>();
+        playerHand = GetComponent<PlayerHand>();
     }
 }

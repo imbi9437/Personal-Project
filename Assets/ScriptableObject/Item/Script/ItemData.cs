@@ -5,7 +5,8 @@ using UnityEngine;
 
 public abstract class ItemData : ScriptableObject
 {
-    public enum ITEMTYPE { USED, ARMOR, GUN, SWORD, INGERDIENT}
+    public enum ITEMTYPE { GUN, SWORD, ARMOR, USED, INGERDIENT }
+
 
     [SerializeField]
     private ITEMTYPE itemType;
@@ -14,8 +15,8 @@ public abstract class ItemData : ScriptableObject
     private bool canUseOnClick;
     public bool CanUseOnClick { get { return canUseOnClick; } }
     [SerializeField]
-    private bool canuseInventory;
-    public bool CanUseInventory { get { return canuseInventory; } }
+    private bool canUseInventory;
+    public bool CanUseInventory { get { return canUseInventory; } }
     [SerializeField]
     protected string itemName;
     public string ItemName { get { return itemName; } }
@@ -28,12 +29,20 @@ public abstract class ItemData : ScriptableObject
     [SerializeField]
     protected int maxCount;
     public int MaxCount { get { return maxCount; } }
+    [SerializeField]
+    private float coolTime;
+    public float CoolTime { get { return coolTime; } }
+
+    [SerializeField]
+    private AudioClip usingSound;
+    public AudioClip UsingSound { get { return usingSound; } }
 
     public abstract void Use(Player player);
-    public void Drop(Transform value,int count)
+    public void Drop(Transform value,int count,int ammo)
     {
         Vector3 point = value.position + value.forward + value.up;
         GameObject item = Instantiate(itemPrefeb, point, Quaternion.identity);
         item.GetComponent<ItemController>().Item.count = count;
+        item.GetComponent<ItemController>().Item.curAmmo = ammo;
     }
 }

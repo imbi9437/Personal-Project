@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(CharacterController),(typeof(Animator)))]
+[RequireComponent (typeof(CharacterController),(typeof(Animator)),typeof(AudioSource))]
 public class Zombie : MonoBehaviour
 {
     public enum States { Fall, Idle, Trace, Attack, Hit, Die}
@@ -20,6 +20,8 @@ public class Zombie : MonoBehaviour
     public CharacterController CharacterController { get { return characterController; } }
     private Animator animator;
     public Animator Animator { get { return animator; } }
+    private AudioSource zombieAudio;
+    public AudioSource ZombieAudio { get { return zombieAudio; } set { zombieAudio = value; } }
     private ZombieAction zombieAction;
     public ZombieAction ZombieAction { get { return zombieAction; } set { zombieAction = value; } }
     private FindTarget findTarget;
@@ -38,11 +40,14 @@ public class Zombie : MonoBehaviour
     private float maxDamage;
     public float MaxDamage { get { return maxDamage; } set { maxDamage = value; } }
 
+    public AudioClip[] zombieSound;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         groundChecker = GetComponent<GroundChecker>();
+        zombieAudio = GetComponent<AudioSource>();
         zombieAction = GetComponent<ZombieAction>();
         findTarget = GetComponent<FindTarget>();
         maxHp = 300f;

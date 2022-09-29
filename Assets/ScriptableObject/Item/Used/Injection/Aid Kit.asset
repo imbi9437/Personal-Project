@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
   m_Name: Aid Kit
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 3
   canUseOnClick: 0
-  canuseInventory: 1
+  canUseInventory: 1
   itemName: Aid Kit
   itemImage: {fileID: 21300000, guid: 5d6b823b75b24e947bb927546a7d5c2b, type: 3}
   itemPrefeb: {fileID: 1859316979357067168, guid: 62eaa8f53208df14cbeafe80447a0edc, type: 3}
   maxCount: 1
-  usedType: 0
+  coolTime: 0
+  usingSound: {fileID: 0}
+  usedType: 1
   heal: 200
   damage: 0

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
+  m_Name: 5.56mmAmmo
+  m_EditorClassIdentifier: 
+  itemType: 3
+  canUseOnClick: 0
+  canUseInventory: 0
+  itemName: 5.56mm Ammo
+  itemImage: {fileID: 21300000, guid: 8014788940df5a4478c53e45214ede6e, type: 3}
+  itemPrefeb: {fileID: 8339086682232525752, guid: a141a2acd6a874149b1c9057910df67a, type: 3}
+  maxCount: 120
+  coolTime: 0
+  usingSound: {fileID: 0}
+  usedType: 2
+  heal: 0
+  damage: 20

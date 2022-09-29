@@ -47,6 +47,8 @@ public class ZombieStates : MonoBehaviour
             if(owner.GroundChecker.isGround)
             {
                 owner.Animator.SetBool("Fall", false);
+                owner.ZombieAudio.clip = owner.zombieSound[0];
+                owner.ZombieAudio.Play();
                 owner.ZombieAction.TimeDelay(7f);
             }
             if(owner.ZombieAction.IsDelay)
@@ -64,11 +66,14 @@ public class ZombieStates : MonoBehaviour
         public override void Enter(Zombie owner)
         {
             owner.Animator.SetBool("Trace", false);
+            owner.ZombieAudio.clip = owner.zombieSound[1];
+            owner.ZombieAudio.loop = true;
         }
         public override void Update(Zombie owner)
         {
             base.Update(owner);
 
+            
             
             if(owner.FindTarget.Position != Vector3.zero)
             {
@@ -92,7 +97,7 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Exit(Zombie owner)
         {
-
+            owner.ZombieAudio.Stop();
         }
     }
     public class TraceState : BaseState
@@ -101,9 +106,18 @@ public class ZombieStates : MonoBehaviour
         {
             owner.Animator.SetBool("Trace", true);
             owner.Animator.SetFloat("Speed",owner.Speed);
+            owner.ZombieAudio.clip = owner.zombieSound[2];
+            owner.ZombieAudio.loop = true;
+            owner.ZombieAudio.Play();
         }
         public override void Update(Zombie owner)
         {
+            if (!owner.ZombieAudio.isPlaying)
+            {
+                owner.ZombieAudio.clip = owner.zombieSound[1];
+                owner.ZombieAudio.Play();
+                owner.ZombieAudio.loop = true;
+            }
             base.Update(owner);
             owner.FindTarget.ViewFind();
             if (owner.FindTarget.Target == null)
@@ -123,7 +137,7 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Exit(Zombie owner)
         {
-
+            owner.ZombieAudio.Stop();
         }
     }
     public class AttackState : BaseState
@@ -132,6 +146,9 @@ public class ZombieStates : MonoBehaviour
         {
             owner.Animator.SetInteger("AttackType", Random.Range(0, 2));
             owner.Animator.SetTrigger("Attack");
+            owner.ZombieAudio.clip = owner.zombieSound[3];
+            owner.ZombieAudio.loop = false;
+            owner.ZombieAudio.Play();
             owner.ZombieAction.Attack();
         }
         public override void Update(Zombie owner)
@@ -162,6 +179,9 @@ public class ZombieStates : MonoBehaviour
         {
             owner.Animator.SetBool("Trace", false);
             owner.Animator.SetTrigger("Hit");
+            owner.ZombieAudio.clip = owner.zombieSound[4];
+            owner.ZombieAudio.loop = false;
+            owner.ZombieAudio.Play();
             owner.CurHp = owner.Hp;
             owner.ZombieAction.TimeDelay(2f);
         }
@@ -187,6 +207,9 @@ public class ZombieStates : MonoBehaviour
         public override void Enter(Zombie owner)
         {
             owner.Animator.SetTrigger("Die");
+            owner.ZombieAudio.clip = owner.zombieSound[5];
+            owner.ZombieAudio.loop = false;
+            owner.ZombieAudio.Play();
             owner.ZombieAction.TimeDelay(10f);
         }
         public override void Update(Zombie owner)

@@ -20,32 +20,39 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void GetItem(Item item)
+    public void SetItem(Item item)
     {
-        int count = CountSlots(item);
+        int count = SameItemSltCount(item);
         if (count == 0)
         {
-            GetItemEmpty(item);
-        }
-        else if (count == 1)
-        {
-            int slot = GetNumSlot(item);
-            if (items[slot].count + item.count <= item.itemData.MaxCount)
+            if(CheckEmptySlotCount())
             {
-                items[slot].count += item.count;
+            SetItemToEmptySlot(item);
             }
             else
             {
-                item.count -= item.itemData.MaxCount - items[slot].count; //질문
-                items[slot].count = item.itemData.MaxCount;
-                GetItemEmpty(item);
+                return;
+            }
+        }
+        else if (count == 1)
+        {
+            int slotNum = GetSlotNum(item);
+            if (items[slotNum].count + item.count <= item.itemData.MaxCount)
+            {
+                items[slotNum].count += item.count;
+            }
+            else
+            {
+                item.count -= item.itemData.MaxCount - items[slotNum].count; //질문
+                items[slotNum].count = item.itemData.MaxCount;
+                SetItemToEmptySlot(item);
             }
         }
         else if (count >= 2)
         {
             for (int i = 0; i < count; i++)
             {
-                int slot = GetNumSlot(item);
+                int slot = GetSlotNum(item);
                 if (items[slot].count + item.count <= item.itemData.MaxCount)
                 {
                     items[slot].count += item.count;
@@ -59,7 +66,7 @@ public class Inventory : MonoBehaviour
             }
             if(item.count > 0)
             {
-                GetItemEmpty(item);
+                SetItemToEmptySlot(item);
             }
         }
 
@@ -77,7 +84,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private int CountSlots(Item item)
+    private int SameItemSltCount(Item item)
     {
         int count = 0;
         for (int i = 0; i < items.Length; i++)
@@ -93,7 +100,7 @@ public class Inventory : MonoBehaviour
         }
         return count;
     }
-    private int GetNumSlot(Item item)
+    private int GetSlotNum(Item item)
     {
         for (int i = 0; i < items.Length; i++)
         {
@@ -104,7 +111,7 @@ public class Inventory : MonoBehaviour
         }
         return -1;
     }
-    private void GetItemEmpty(Item item)
+    private void SetItemToEmptySlot(Item item)
     {
         for (int i = 0; i < items.Length; i++)
         {
@@ -118,5 +125,16 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
+    }
+    private bool CheckEmptySlotCount()
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].itemData == null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

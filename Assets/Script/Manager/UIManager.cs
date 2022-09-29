@@ -4,9 +4,15 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    public Image crossHair;
+
+    public Sprite curCrossHair;
+    public Sprite[] crossHairImages;
+
     public GameObject curUI;
 
     public GameObject UIOutside;
@@ -14,6 +20,10 @@ public class UIManager : Singleton<UIManager>
 
     public TextMeshProUGUI ItemCheckEffect;
 
+    private void Start()
+    {
+        curCrossHair = crossHairImages[1];
+    }
     private void LateUpdate()
     {
         if (!Input.anyKey)

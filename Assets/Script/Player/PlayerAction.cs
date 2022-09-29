@@ -8,10 +8,13 @@ public class PlayerAction : MonoBehaviour, IDamagable
     private Player player;
     [SerializeField]
     private Transform interactionPoint;
+    public Transform InteractionPoint { get { return interactionPoint; } }
     [SerializeField]
     private LayerMask targetLayer;
+    public LayerMask TargetLayer { get { return targetLayer; } }
     [SerializeField]
     private Item curItem;
+    public Item CurItem { get { return curItem; } }
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -27,10 +30,9 @@ public class PlayerAction : MonoBehaviour, IDamagable
 
     private void Interaction()
     {
-        if (!player.playerInput.InterAction)
+        if (!player.PlayerInput.InterAction)
             return;
-
-        Collider[] collider = Physics.OverlapSphere(interactionPoint.position, 1f, targetLayer);
+        Collider[] collider = Physics.OverlapSphere(interactionPoint.position, 1.5f, targetLayer);
         for (int i = 0; i < collider.Length; i++)
         {
             RaycastHit hit;
@@ -63,28 +65,29 @@ public class PlayerAction : MonoBehaviour, IDamagable
     {
         if (Time.timeScale == 0)
             return;
-        if (curItem == null)
-            return;
         if(curItem.itemData == null)
         {
             return;
         }
         if (curItem.itemData.CanUseOnClick)
         {
-            if (!player.playerInput.MousePush&&!player.playerInput.MouseClick)
+            if (!player.PlayerInput.MousePush&&!player.PlayerInput.MouseClick)
                 return;
         }
         else
         {
-            if (!player.playerInput.MouseClick)
+            if (!player.PlayerInput.MouseClick)
                 return;
         }
+        if (!curItem.coolTime)
+            return;
         curItem.Use(player);
-
     }
     private void ReroadItem()
     {
         if(!Input.GetKeyDown(KeyCode.R))
+            return;
+        if (curItem.itemData == null)
             return;
         if (curItem.itemData.ItemType != ItemData.ITEMTYPE.GUN)
             return;
@@ -92,7 +95,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
     }
     public void Die()
     {
-        player.animator.SetTrigger("Die");
+        player.Animator.SetTrigger("Die");
     }
     public void GetDamage(float damage)
     {
@@ -101,6 +104,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
 
     public void ChangeQuickSlot(int value)
     {
+
         if(curItem == player.QuickSlot.items[value - 1])
         {
             return;

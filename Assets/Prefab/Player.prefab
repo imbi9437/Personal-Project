@@ -383,6 +383,11 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  curItem:
+    count: 0
+    itemData: {fileID: 0}
+    curAmmo: 0
+    coolTime: 1
 --- !u!114 &7114893980062551597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCam: {fileID: 0}
   inventory: {fileID: 0}
+  quickSlot: {fileID: 0}
   hp: 500
   speed: 5
   def: 5
@@ -2118,7 +2124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5493223658827984947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.039, z: 0.013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

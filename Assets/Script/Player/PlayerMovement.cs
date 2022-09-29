@@ -30,14 +30,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        moveX = player.playerInput.Horizontal*curspeed;
-        moveZ = player.playerInput.Vertical*curspeed;
+        moveX = player.PlayerInput.Horizontal*curspeed;
+        moveZ = player.PlayerInput.Vertical*curspeed;
         Vector3 moveVec = new Vector3(moveX,0f,moveZ);
 
-        player.animator.SetFloat("HorizonSpeed",moveX);
-        player.animator.SetFloat("VerticalSpeed", moveZ);
+        player.Animator.SetFloat("HorizonSpeed",moveX);
+        player.Animator.SetFloat("VerticalSpeed", moveZ);
 
-        if (player.playerInput.Run)
+        if (player.PlayerInput.Run)
         {
             curspeed += Time.deltaTime;
             if (curspeed > 1f)
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         }
         moveVec = transform.forward * moveZ + transform.right * moveX;
 
-        player.characterController.Move(moveVec*Time.deltaTime*player.Speed);
+        player.CharacterController.Move(moveVec*Time.deltaTime*player.Speed);
     }
     private void MoveY()
     {
@@ -70,21 +70,21 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(SoundGenerate());
             }
             moveY = 0;
-            if(player.playerInput.Jump)
+            if(player.PlayerInput.Jump)
             {
                 moveY = 4f;
-                player.animator.SetTrigger("Jump");
+                player.Animator.SetTrigger("Jump");
             }
         }
         else
         {
             moveY += Physics.gravity.y * Time.deltaTime;
         }
-        player.characterController.Move(Vector3.up * moveY*Time.deltaTime);
+        player.CharacterController.Move(Vector3.up * moveY*Time.deltaTime);
     }
     private void Roration()
     {
-        mouseX = player.playerInput.MouseX * player.MouseSensitive * Time.deltaTime;
+        mouseX = player.PlayerInput.MouseX * player.MouseSensitive * Time.deltaTime;
         player.gameObject.transform.Rotate(Vector3.up * mouseX);
     }
     IEnumerator SoundGenerate()

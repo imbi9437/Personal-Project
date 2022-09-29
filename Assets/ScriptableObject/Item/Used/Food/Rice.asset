@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf59817eff615294c8e8f446665969e2, type: 3}
   m_Name: Rice
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 3
   canUseOnClick: 0
-  canuseInventory: 1
+  canUseInventory: 1
   itemName: Rice
   itemImage: {fileID: 21300000, guid: 879ea890fdb6ce44682f5373ef7677e2, type: 3}
   itemPrefeb: {fileID: 6508455419260244112, guid: 2b4c94681596aa54d9fa93cb1d97ca00, type: 3}
   maxCount: 10
+  coolTime: 0
+  usingSound: {fileID: 0}
   usedType: 0
   heal: 20
   damage: 0

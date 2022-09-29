@@ -10,6 +10,16 @@ public class Sword : Weapon
     public float Damage { get { return damage; } }
     public override void Use(Player player)
     {
-        
+        Collider[] colliders = Physics.OverlapSphere(player.transform.position, 1f);
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Vector3 dirVec = (colliders[i].transform.position - player.transform.position).normalized;
+            if (Vector3.Dot(player.transform.forward, dirVec) > Mathf.Cos(60f * 0.5f * Mathf.Deg2Rad))
+            {
+                IDamagable target = colliders[i].transform.GetComponent<IDamagable>();
+                target?.GetDamage(damage);
+            }
+        }
     }
 }

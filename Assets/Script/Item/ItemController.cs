@@ -10,7 +10,7 @@ public class ItemController : MonoBehaviour, IInteratable
 
     public void Interaction(Player target)
     {
-        target.Inventory.GetItem(item);
+        target.Inventory.SetItem(item);
         Destroy(this.gameObject);
     }
 

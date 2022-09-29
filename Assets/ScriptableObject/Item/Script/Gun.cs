@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Item/Weapon/Gun")]
 public class Gun : Weapon
 {
-    public enum GunType { AssaltRifle, HandGun, Shotgun, VoltActionRifle, HeavyMachine}
+    public enum GunType { AssaltRifle, HandGun, Shotgun, VoltActionRifle, HeavyMachine }
 
     [SerializeField]
     private GunType gunType;
@@ -15,7 +15,6 @@ public class Gun : Weapon
     [SerializeField]
     private Used needAmmo;
     public Used NeedAmmo { get { return needAmmo; } }
-
 
     public override void Use(Player player)
     {

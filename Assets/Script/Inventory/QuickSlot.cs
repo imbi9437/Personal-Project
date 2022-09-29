@@ -9,7 +9,6 @@ public class QuickSlot : MonoBehaviour
     public void ShowCurSlot(int value)
     {
         gameObject.transform.position = quickslot[value-1].transform.position;
-        
     }
     private void Start()
     {

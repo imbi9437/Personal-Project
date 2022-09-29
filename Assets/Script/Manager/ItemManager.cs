@@ -29,4 +29,14 @@ public class ItemManager : Singleton<ItemManager>
         }
         return null;
     }
+    public void StartCoolTime(Item item)
+    {
+        StartCoroutine(CoolTime(item));
+    }
+    IEnumerator CoolTime(Item item)
+    {
+        item.coolTime = false;
+        yield return new WaitForSeconds(item.itemData.CoolTime);
+        item.coolTime = true;
+    }
 }

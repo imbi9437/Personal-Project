@@ -28,7 +28,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         if(item.itemData == null||item.count<=0)
         {
             slotItem.itemData = null;
-            SlotItem.count = 0;
+            slotItem.count = 0;
             image.sprite = empty;
             countText.text = "";
         }
@@ -52,14 +52,14 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            if(slotItem != null)
+            if(slotItem.itemData != null)
             {
                 GameManager.instance.player.Inventory.DropItem(slotItem);
             }    
         }
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            if (slotItem != null)
+            if (slotItem.itemData != null)
             {
                 if(slotItem.itemData.CanUseInventory)
                 {

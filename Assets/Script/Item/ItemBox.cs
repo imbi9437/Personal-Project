@@ -7,17 +7,21 @@ public class ItemBox : MonoBehaviour, IInteratable
 {
     [SerializeField]
     private int level;
-    private Animator animator;
+    [SerializeField]
+    private GameObject Parachute;
     private Inventory inventory;
+    private Rigidbody rigidBody;
+    private GroundChecker groundChecker;
 
     private void Awake()
     {
         inventory = GetComponent<Inventory>();
+        rigidBody = GetComponent<Rigidbody>();
     }
     private void OnEnable()
     {
         SetItem();
-
+        StartCoroutine("SlowFall");
     }
     public void Interaction(Player player)
     {
@@ -61,10 +65,14 @@ public class ItemBox : MonoBehaviour, IInteratable
         InventoryManager.instance.interactionSlot.gameObject.SetActive(false);
         Destroy(this.gameObject);
     }
-    IEnumerator DestroyBox()
+    IEnumerator SlowFall()
     {
-        yield return new WaitForSeconds(120f);
-        InventoryManager.instance.interactionSlot.gameObject.SetActive(false);
-        Destroy(this.gameObject);
+        rigidBody.drag = 5;
+        if(!groundChecker.isGround)
+        {
+            Parachute.SetActive(true);
+        }
+        yield return new WaitUntil(() => groundChecker.isGround);
+        rigidBody.drag = 0;
     }
 }
