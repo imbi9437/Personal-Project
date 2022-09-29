@@ -6,20 +6,20 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "ScriptableObject/Item/Used")]
 public class Used : ItemData
 {
-    public enum usedType { Food, Injection, Etc }
-    public usedType itemType;
+    public enum USEDTYPE { Food, Injection, Etc }
+    public USEDTYPE usedType;
     public float heal;
     public float damage;
     public override void Use(Player player)
     {
-        switch(itemType)
+        switch(usedType)
         {
-            case usedType.Food:
+            case USEDTYPE.Food:
                 {
                     player.Hp += heal;
                 }
                 break;
-            case usedType.Injection:
+            case USEDTYPE.Injection:
                 {
                     player.Hp += heal;
                 }

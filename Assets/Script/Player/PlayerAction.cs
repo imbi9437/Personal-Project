@@ -22,6 +22,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
         Interaction();
         ItemUse();
         ChangeQuickSlot(player.QuickSlotNum);
+        ReroadItem();
     }
 
     private void Interaction()
@@ -62,14 +63,32 @@ public class PlayerAction : MonoBehaviour, IDamagable
     {
         if (Time.timeScale == 0)
             return;
-        if (!player.playerInput.MouseClick)
-            return;
         if (curItem == null)
             return;
-        if (curItem.itemData != null)
+        if(curItem.itemData == null)
         {
-        curItem.Use(player);
+            return;
         }
+        if (curItem.itemData.CanUseOnClick)
+        {
+            if (!player.playerInput.MousePush&&!player.playerInput.MouseClick)
+                return;
+        }
+        else
+        {
+            if (!player.playerInput.MouseClick)
+                return;
+        }
+        curItem.Use(player);
+
+    }
+    private void ReroadItem()
+    {
+        if(!Input.GetKeyDown(KeyCode.R))
+            return;
+        if (curItem.itemData.ItemType != ItemData.ITEMTYPE.GUN)
+            return;
+        curItem.Reroad(player);
     }
     public void Die()
     {

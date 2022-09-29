@@ -19,24 +19,7 @@ public class Gun : Weapon
 
     public override void Use(Player player)
     {
-        for (int i = 0; i < player.Inventory.items.Length; i++)
-        {
-            if (player.Inventory.items[i].itemData==needAmmo)
-            {
-                player.Inventory.items[i].count--;
-                Shoot(player);
-                return;
-            }
-        }
-        for (int i = 0; i < player.QuickSlot.items.Length; i++)
-        {
-            if (player.Inventory.items[i].itemData == needAmmo)
-            {
-                player.Inventory.items[i].count--;
-                Shoot(player);
-                return;
-            }
-        }
+        Shoot(player);
     }
     private void Shoot(Player player)
     {

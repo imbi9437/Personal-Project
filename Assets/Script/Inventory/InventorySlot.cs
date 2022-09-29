@@ -36,8 +36,16 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             slotItem.itemData = item.itemData;
             slotItem.count = item.count;
+            slotItem.curAmmo = item.curAmmo;
             image.sprite = item.itemData.ItemImage;
+            if (item.itemData.ItemType == ItemData.ITEMTYPE.GUN)
+            {
+                countText.text = "" + item.curAmmo;
+            }
+            else
+            {
             countText.text = ""+item.count;
+            }
         }
     }
     public void OnPointerClick(PointerEventData eventData) // 클릭이벤트
@@ -53,7 +61,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             if (slotItem != null)
             {
-                if(slotItem.canUseInventory)
+                if(slotItem.itemData.CanUseInventory)
                 {
                     slotItem.Use(GameManager.instance.player);
                 }
@@ -66,6 +74,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             InventoryManager.instance.usingSlot.SlotItem.itemData = slotItem.itemData;
             InventoryManager.instance.usingSlot.SlotItem.count = slotItem.count;
+            InventoryManager.instance.usingSlot.SlotItem.curAmmo = slotItem.curAmmo;
             InventoryManager.instance.usingSlot.transform.position = eventData.position;
             InventoryManager.instance.usingSlot.Image.sprite = slotItem.itemData.ItemImage;
             InventoryManager.instance.usingSlot.CountText.text = slotItem.count.ToString();
@@ -93,6 +102,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             SetItem(item);
             InventoryManager.instance.usingSlot.SlotItem.itemData = null;
+            InventoryManager.instance.usingSlot.SlotItem.curAmmo = 0;
             InventoryManager.instance.usingSlot.SlotItem.count = 0;
         }
         else if(slotItem.itemData !=null&&item.itemData !=null)
@@ -100,19 +110,36 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             Item temp = new Item();
             temp.count = slotItem.count;
             temp.itemData = slotItem.itemData;
+            temp.curAmmo = slotItem.curAmmo;
             if (slotItem.itemData != item.itemData)
             {
                 SetItem(item);
                 InventoryManager.instance.usingSlot.SlotItem.itemData = temp.itemData;
                 InventoryManager.instance.usingSlot.SlotItem.count = temp.count;
+                InventoryManager.instance.usingSlot.SlotItem.curAmmo = temp.curAmmo;
             }
             else
             {
-                if(slotItem.count+item.count>item.itemData.MaxCount)
+                if(item.itemData.MaxCount == 1)
+                {
+                    SetItem(item);
+                    InventoryManager.instance.usingSlot.SlotItem.itemData = temp.itemData;
+                    InventoryManager.instance.usingSlot.SlotItem.count = temp.count;
+                    InventoryManager.instance.usingSlot.SlotItem.curAmmo = temp.curAmmo;
+                }
+                else if(slotItem.count+item.count>item.itemData.MaxCount)
                 {
                     InventoryManager.instance.usingSlot.SlotItem.count = slotItem.itemData.MaxCount-temp.count;
                     temp.count = item.itemData.MaxCount;
                     SetItem(temp);
+                }
+                else
+                {
+                    temp.count += item.count;
+                    SetItem(temp);
+                    InventoryManager.instance.usingSlot.SlotItem.itemData = null;
+                    InventoryManager.instance.usingSlot.SlotItem.curAmmo = 0;
+                    InventoryManager.instance.usingSlot.SlotItem.count = 0;
                 }
             }
         }

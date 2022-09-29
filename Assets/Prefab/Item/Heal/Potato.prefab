@@ -113,6 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
+    itemtype: 1
+    canUseOnClick: 0
+    canUseInventory: 1
     count: 0
     itemData: {fileID: 11400000, guid: d18d7232d3e766b4b87f96b0a99312b1, type: 2}
 --- !u!54 &7041549224269001646

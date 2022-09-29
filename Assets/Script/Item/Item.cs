@@ -5,31 +5,31 @@ using UnityEngine;
 [System.Serializable]
 public class Item
 {
-    public enum ITEMTYPE { EQUIPMENT, USED, WEAPON }
-
-    public ITEMTYPE itemtype;
-    public bool canUseOnClick;
-    public bool canUseInventory;
     public int count;
     public ItemData itemData;
 
-    private int curAmmo;
+    public int curAmmo;
 
     public void Use(Player player)
     {
-        if (itemtype == ITEMTYPE.USED)
+        switch(itemData.ItemType)
         {
-            itemData.Use(player);
-            count--;
-        }
-        else if (itemtype == ITEMTYPE.EQUIPMENT)
-        {
-
-        }
-        else if (curAmmo>0)
-        {
-            itemData.Use(player);
-            curAmmo--;
+            case ItemData.ITEMTYPE.USED:
+                itemData.Use(player);
+                count--;
+                break;
+            case ItemData.ITEMTYPE.ARMOR:
+                break;
+            case ItemData.ITEMTYPE.GUN:
+                if(curAmmo > 0)
+                {
+                    itemData.Use(player);
+                    curAmmo--;
+                }
+                break;
+            case ItemData.ITEMTYPE.SWORD:
+                itemData.Use(player);
+                break;
         }
     }
     public void Drop(Transform parent)
@@ -38,7 +38,7 @@ public class Item
     }
     public void Reroad(Player player)
     {
-        if(itemtype == ITEMTYPE.WEAPON)
+        if(itemData.ItemType == ItemData.ITEMTYPE.GUN)
         {
             Gun gundata = (Gun)itemData;
             for (int i = 0; i < player.Inventory.items.Length; i++)

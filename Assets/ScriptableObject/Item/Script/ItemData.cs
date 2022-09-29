@@ -1,9 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public abstract class ItemData : ScriptableObject
 {
+    public enum ITEMTYPE { USED, ARMOR, GUN, SWORD, INGERDIENT}
+
+    [SerializeField]
+    private ITEMTYPE itemType;
+    public ITEMTYPE ItemType { get { return itemType; } }
+    [SerializeField]
+    private bool canUseOnClick;
+    public bool CanUseOnClick { get { return canUseOnClick; } }
+    [SerializeField]
+    private bool canuseInventory;
+    public bool CanUseInventory { get { return canuseInventory; } }
     [SerializeField]
     protected string itemName;
     public string ItemName { get { return itemName; } }
