@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Item/Weapon/Gun")]
 public class Gun : Weapon
 {
-    public enum GunType { AssaltRifle, HandGun, Shotgun, VoltActionRifle, HeavyMachine }
+    public enum GUNTYPE { AssaltRifle, HeavyMachine, Shotgun, VoltActionRifle, HandGun }
 
     [SerializeField]
-    private GunType gunType;
+    private GUNTYPE gunType;
+    public GUNTYPE GunType { get { return gunType; } }
     [SerializeField]
     private int maxMagazine;
     public int MaxMagazine { get { return maxMagazine; } }

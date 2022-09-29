@@ -80,6 +80,7 @@ public class Inventory : MonoBehaviour
                 items[i].Drop(GameManager.instance.player.transform);
                 items[i].itemData = null;
                 items[i].count = 0;
+                items[i].curAmmo = 0;
 
             }
         }
@@ -122,6 +123,7 @@ public class Inventory : MonoBehaviour
             {
                 items[i].itemData = item.itemData;
                 items[i].count = item.count;
+                items[i].curAmmo = item.curAmmo;
                 break;
             }
         }

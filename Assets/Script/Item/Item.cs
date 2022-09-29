@@ -16,6 +16,10 @@ public class Item
         switch(itemData.ItemType)
         {
             case ItemData.ITEMTYPE.USED:
+                if(count > 0)
+                {
+                    SoundManager.instance.SetClip(itemData.UsingSound);
+                }
                 itemData.Use(player);
                 count--;
                 break;
@@ -25,16 +29,16 @@ public class Item
                 if(curAmmo > 0)
                 {
                     itemData.Use(player);
+                    SoundManager.instance.SetClip(itemData.UsingSound);
                     curAmmo--;
                 }
                 break;
             case ItemData.ITEMTYPE.SWORD:
                 itemData.Use(player);
+                SoundManager.instance.SetClip(itemData.UsingSound);
                 break;
         }
-        Debug.Log(itemData.UsingSound);
-        Debug.Log(SoundManager.instance);
-        SoundManager.instance.SetClip(itemData.UsingSound);
+        
         ItemManager.instance.StartCoolTime(this);
     }
     public void Drop(Transform parent)

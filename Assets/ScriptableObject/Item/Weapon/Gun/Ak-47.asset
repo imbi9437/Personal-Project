@@ -20,7 +20,7 @@ MonoBehaviour:
   itemPrefeb: {fileID: 2498897722279998982, guid: ba90de21a812c7c4587dd87b9971d477, type: 3}
   maxCount: 1
   coolTime: 0.2
-  usingSound: {fileID: 0}
+  usingSound: {fileID: 8300000, guid: f99ab7cc47561b9419ea5a4bf0a4e1b4, type: 3}
   gunType: 0
   maxMagazine: 30
   needAmmo: {fileID: 11400000, guid: 9cfaf8e160ffe0f49877e830d4b9871a, type: 2}

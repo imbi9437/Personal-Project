@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float moveZ;
     private float mouseX;
     private bool sound;
+    private bool footStep = true;
 
     private void Awake()
     {
@@ -58,6 +59,10 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(SoundGenerate());
         }
         moveVec = transform.forward * moveZ + transform.right * moveX;
+        if (moveVec.magnitude>0.3f && footStep&&player.playerGroundChecker.isGround)
+        {
+            StartCoroutine(FootSteps(0.25f/curspeed));
+        }
 
         player.CharacterController.Move(moveVec*Time.deltaTime*player.Speed);
     }
@@ -93,5 +98,13 @@ public class PlayerMovement : MonoBehaviour
         player.PlayerSoundGenerator.SoundGen();
         yield return new WaitForSeconds(1f);
         sound = true;
+    }
+    IEnumerator FootSteps(float value)
+    {
+        footStep = false;
+        player.AudioSource.clip = player.PlayerAudio[0];
+        player.AudioSource.Play();
+        yield return new WaitForSeconds(value);
+        footStep = true;
     }
 }

@@ -63,6 +63,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
     }
     private void ItemUse()
     {
+        player.Animator.SetBool("Fire", false);
         if (Time.timeScale == 0)
             return;
         if(curItem.itemData == null)
@@ -81,6 +82,11 @@ public class PlayerAction : MonoBehaviour, IDamagable
         }
         if (!curItem.coolTime)
             return;
+        if (curItem.count <= 0)
+            return;
+        if (curItem.itemData.ItemType == ItemData.ITEMTYPE.GUN && curItem.curAmmo <= 0)
+            return;
+        player.Animator.SetBool("Fire", true);
         curItem.Use(player);
     }
     private void ReroadItem()
@@ -96,6 +102,8 @@ public class PlayerAction : MonoBehaviour, IDamagable
     public void Die()
     {
         player.Animator.SetTrigger("Die");
+        player.AudioSource.clip = player.PlayerAudio[1];
+        player.AudioSource.Play();
     }
     public void GetDamage(float damage)
     {

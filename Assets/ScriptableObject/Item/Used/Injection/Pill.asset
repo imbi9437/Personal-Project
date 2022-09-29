@@ -20,7 +20,7 @@ MonoBehaviour:
   itemPrefeb: {fileID: 3082564507578141395, guid: c6cd2038ca2727c4c9efec393cca0d33, type: 3}
   maxCount: 5
   coolTime: 0
-  usingSound: {fileID: 0}
+  usingSound: {fileID: 8300000, guid: 5aaa4c6ef97dab84abedb19818a8612e, type: 3}
   usedType: 1
   heal: 30
   damage: 0

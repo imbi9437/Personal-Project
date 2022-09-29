@@ -112,12 +112,6 @@ public class ZombieStates : MonoBehaviour
         }
         public override void Update(Zombie owner)
         {
-            if (!owner.ZombieAudio.isPlaying)
-            {
-                owner.ZombieAudio.clip = owner.zombieSound[1];
-                owner.ZombieAudio.Play();
-                owner.ZombieAudio.loop = true;
-            }
             base.Update(owner);
             owner.FindTarget.ViewFind();
             if (owner.FindTarget.Target == null)
@@ -146,10 +140,20 @@ public class ZombieStates : MonoBehaviour
         {
             owner.Animator.SetInteger("AttackType", Random.Range(0, 2));
             owner.Animator.SetTrigger("Attack");
-            owner.ZombieAudio.clip = owner.zombieSound[3];
-            owner.ZombieAudio.loop = false;
-            owner.ZombieAudio.Play();
-            owner.ZombieAction.Attack();
+            if(owner.Animator.GetFloat("AttackType")==0)
+            {
+                owner.ZombieAudio.clip = owner.zombieSound[3];
+                owner.ZombieAudio.loop = false;
+                owner.ZombieAudio.Play();
+                owner.ZombieAction.Attack();
+            }
+            else
+            {
+                owner.ZombieAudio.clip = owner.zombieSound[4];
+                owner.ZombieAudio.loop = false;
+                owner.ZombieAudio.Play();
+                owner.ZombieAction.Attack();
+            }
         }
         public override void Update(Zombie owner)
         {
@@ -179,7 +183,7 @@ public class ZombieStates : MonoBehaviour
         {
             owner.Animator.SetBool("Trace", false);
             owner.Animator.SetTrigger("Hit");
-            owner.ZombieAudio.clip = owner.zombieSound[4];
+            owner.ZombieAudio.clip = owner.zombieSound[5];
             owner.ZombieAudio.loop = false;
             owner.ZombieAudio.Play();
             owner.CurHp = owner.Hp;
@@ -207,7 +211,7 @@ public class ZombieStates : MonoBehaviour
         public override void Enter(Zombie owner)
         {
             owner.Animator.SetTrigger("Die");
-            owner.ZombieAudio.clip = owner.zombieSound[5];
+            owner.ZombieAudio.clip = owner.zombieSound[6];
             owner.ZombieAudio.loop = false;
             owner.ZombieAudio.Play();
             owner.ZombieAction.TimeDelay(10f);

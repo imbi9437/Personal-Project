@@ -25,7 +25,14 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
 
     public void SetItem(Item item)
     {
-        if(item.itemData == null||item.count<=0)
+        if(item == null)
+        {
+            slotItem.itemData = null;
+            slotItem.count = 0;
+            image.sprite = empty;
+            countText.text = "";
+        }
+        else if(item.itemData == null||item.count<=0)
         {
             slotItem.itemData = null;
             slotItem.count = 0;

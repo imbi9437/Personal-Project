@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,24 +13,27 @@ public class ItemBox : MonoBehaviour, IInteratable
     private Inventory inventory;
     private Rigidbody rigidBody;
     private GroundChecker groundChecker;
+    private Item item;
 
     private void Awake()
     {
         inventory = GetComponent<Inventory>();
         rigidBody = GetComponent<Rigidbody>();
+        groundChecker = GetComponent<GroundChecker>();
+        item = new Item();
     }
     private void OnEnable()
     {
-        SetItem();
-        StartCoroutine("SlowFall");
+        StartCoroutine(SlowFall());
+        StartCoroutine(SetItemCo());
     }
     public void Interaction(Player player)
     {
         InventoryManager.instance.interactionSlot.CurMapping = inventory;
+        
         UIManager.instance.InteractionUImanage();
         StartCoroutine(DestroyInteractionBox());
     }
-
     public void OnFoucus()
     {
         
@@ -42,19 +46,22 @@ public class ItemBox : MonoBehaviour, IInteratable
     public void SetItem()
     {
         int itemCount = Random.Range(0, inventory.SlotCount);
-        for (int i = 0; i < itemCount; i++)
+        for (int i = 0; i < inventory.items.Length; i++)
         {
             int rarity = level + Random.Range(0, 100);
             rarity = Mathf.Clamp(rarity, 0, 100);
-            Item item = ItemManager.instance.ChooseItem(rarity);
-            if(item == null)
-            {
-                continue;
-            }
-            else
+            item.itemData = ItemManager.instance.ChooseItem(rarity).itemData;
+            item.count = ItemManager.instance.ChooseItem(rarity).count;
+            item.curAmmo = ItemManager.instance.ChooseItem(rarity).curAmmo;
+            if (item.itemData != null)
             {
                 inventory.items[i].itemData = item.itemData;
                 inventory.items[i].count = Random.Range(0, item.itemData.MaxCount + 1);
+                inventory.items[i].curAmmo = item.curAmmo;
+            }
+            else
+            {
+                continue;
             }
         }
     }
@@ -73,6 +80,12 @@ public class ItemBox : MonoBehaviour, IInteratable
             Parachute.SetActive(true);
         }
         yield return new WaitUntil(() => groundChecker.isGround);
+        Parachute.SetActive(false);
         rigidBody.drag = 0;
+    }
+    IEnumerator SetItemCo()
+    {
+        yield return new WaitForSeconds(2f);
+        SetItem();
     }
 }

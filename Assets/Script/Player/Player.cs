@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public PlayerAction PlayerAction { get { return playerAction; } set { playerAction = value; } }
     private PlayerHand playerHand;
     public PlayerHand PlayerHand {get;set;}
+    private AudioSource audioSource;
+    public AudioSource AudioSource { get { return audioSource; } set { audioSource = value; } }
     [SerializeField]
     private Camera playerCam;
     public Camera PlayerCam { get { return playerCam; } set { playerCam = value; } }
@@ -31,6 +33,10 @@ public class Player : MonoBehaviour
     public Inventory QuickSlot { get { return quickSlot; }set { quickSlot = value; } }
     private int quickSlotNum = 1;
     public int QuickSlotNum { get { return quickSlotNum; } set { quickSlotNum = value; QuickSlotChange(quickSlotNum); } }
+
+    [SerializeField]
+    private AudioClip[] playerAudio;
+    public AudioClip[] PlayerAudio { get { return playerAudio; } set { playerAudio = value; } }
 
     public Action<float> StatusUpdate;
     public Action<int> QuickSlotChange;
@@ -74,5 +80,6 @@ public class Player : MonoBehaviour
         playerGroundChecker = GetComponent<GroundChecker>();
         playerSoundGenerator = GetComponent<SoundGenerator>();
         playerHand = GetComponent<PlayerHand>();
+        audioSource = GetComponent<AudioSource>();
     }
 }

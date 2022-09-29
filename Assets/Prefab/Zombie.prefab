@@ -321,7 +321,13 @@ MonoBehaviour:
   - {fileID: 8587238609167842141}
   - {fileID: 8588034276372152715}
   itemBox: {fileID: 6113605513683036027, guid: a2ad84ae4f93002409a33a1b20825b7a, type: 3}
-  zombieSound: []
+  zombieSound:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &4949900697205810770
 MonoBehaviour:
   m_ObjectHideFlags: 0

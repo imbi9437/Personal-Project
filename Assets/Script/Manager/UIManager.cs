@@ -13,12 +13,15 @@ public class UIManager : Singleton<UIManager>
     public Sprite curCrossHair;
     public Sprite[] crossHairImages;
 
+    public Image MenuScene;
+
     public GameObject curUI;
 
     public GameObject UIOutside;
     public GameObject[] UI;
 
     public TextMeshProUGUI ItemCheckEffect;
+    public AudioClip[] UIsound;
 
     private void Start()
     {
@@ -49,6 +52,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void ChangeUI(string UIname)
     {
+        SoundManager.instance.SetClip(UIsound[0]);
         if (UIname == UI[0].name && curUI.activeSelf)
         {
             curUI.SetActive(false);

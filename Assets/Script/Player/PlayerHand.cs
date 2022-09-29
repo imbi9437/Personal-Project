@@ -45,6 +45,18 @@ public class PlayerHand : MonoBehaviour
         ItemData itemData = player.PlayerAction.CurItem.itemData;
         if(itemData != null)
         {
+            if(itemData.ItemType == ItemData.ITEMTYPE.GUN)
+            {
+                Gun item = (Gun)itemData;
+                if((int)item.GunType<=3)
+                {
+                    player.Animator.SetTrigger("Rifle");
+                }
+                else
+                {
+                    player.Animator.SetTrigger("Other");
+                }
+            }
             player.Animator.SetInteger("Item", (int)itemData.ItemType);
             player.Animator.SetBool("Hand", true);
             

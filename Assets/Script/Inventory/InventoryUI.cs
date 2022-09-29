@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField]
     private Inventory curMapping;
-    public Inventory CurMapping { get{ return curMapping; } set { curMapping = value; } }
+    public Inventory CurMapping { get{ return curMapping; } set { curMapping = value; SettingInventoryUI(); } }
 
     private void Awake()
     {
@@ -19,6 +19,7 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         SettingInventoryUI();
+        
     }
     private void LateUpdate()
     {
@@ -28,7 +29,14 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].SetItem(curMapping.items[i]);
+            if(i>= curMapping.items.Length)
+            {
+                slots[i].SetItem(null);
+            }
+            else
+            {
+                slots[i].SetItem(curMapping.items[i]);
+            }
         }
     }
     public void SettingInventory()
