@@ -31,6 +31,10 @@ public class SettingControll : MonoBehaviour
     {
         audioMixer.SetFloat("effect", effectSound.value);
     }
+    public void ExitButton()
+    {
+        Application.Quit();
+    }
     public void MouseSensitiveSet()
     {
         GameManager.instance.player.MouseSensitive = 200*mouseSensitiveSlider.value;
