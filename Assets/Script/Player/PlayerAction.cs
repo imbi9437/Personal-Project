@@ -30,7 +30,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
 
     private void Interaction()
     {
-        if (!player.PlayerInput.InterAction)
+        if (!InputManager.instance.InterAction)
             return;
         Collider[] collider = Physics.OverlapSphere(interactionPoint.position, 1.5f, targetLayer);
         for (int i = 0; i < collider.Length; i++)
@@ -53,12 +53,12 @@ public class PlayerAction : MonoBehaviour, IDamagable
             IInteratable target = check.collider.GetComponent<IInteratable>();
             if (target != null)
             {
-                UIManager.instance.UpdateCheckUI(true);
+                GameManager.instance.curSceneData.uiChange.CheckOutInteraction(true);
             }
         }
         else
         {
-            UIManager.instance.UpdateCheckUI(false);
+            GameManager.instance.curSceneData.uiChange.CheckOutInteraction(false);
         }
     }
     private void ItemUse()
@@ -72,12 +72,12 @@ public class PlayerAction : MonoBehaviour, IDamagable
         }
         if (curItem.itemData.CanUseOnClick)
         {
-            if (!player.PlayerInput.MousePush&&!player.PlayerInput.MouseClick)
+            if (!InputManager.instance.MousePush&&!InputManager.instance.MouseLeftClick)
                 return;
         }
         else
         {
-            if (!player.PlayerInput.MouseClick)
+            if (!InputManager.instance.MouseLeftClick)
                 return;
         }
         if (!curItem.coolTime)

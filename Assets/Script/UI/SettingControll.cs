@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class SettingControll : MonoBehaviour
 {
     public Slider masterSound;
@@ -16,7 +16,7 @@ public class SettingControll : MonoBehaviour
 
     private void Start()
     {
-        mouseSensitiveSlider.value = GameManager.instance.player.MouseSensitive / 200;
+        mouseSensitiveSlider.value = SettingManager.instance.mouseSensitive / 1000;
     }
 
     public void SoundSet()
@@ -37,6 +37,6 @@ public class SettingControll : MonoBehaviour
     }
     public void MouseSensitiveSet()
     {
-        GameManager.instance.player.MouseSensitive = 200*mouseSensitiveSlider.value;
+        SettingManager.instance.mouseSensitive = 1000*mouseSensitiveSlider.value;
     }
 }

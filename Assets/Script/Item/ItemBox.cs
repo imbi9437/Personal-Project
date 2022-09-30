@@ -10,6 +10,8 @@ public class ItemBox : MonoBehaviour, IInteratable
     private int level;
     [SerializeField]
     private GameObject Parachute;
+    [SerializeField]
+    private ItemList itemList;
     private Inventory inventory;
     private Rigidbody rigidBody;
     private GroundChecker groundChecker;
@@ -24,14 +26,17 @@ public class ItemBox : MonoBehaviour, IInteratable
     }
     private void OnEnable()
     {
+        transform.parent = null;
+        itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
         StartCoroutine(SlowFall());
         StartCoroutine(SetItemCo());
+
     }
     public void Interaction(Player player)
     {
         InventoryManager.instance.interactionSlot.CurMapping = inventory;
         
-        UIManager.instance.InteractionUImanage();
+        //UIManager.instance.InteractionUImanage();
         StartCoroutine(DestroyInteractionBox());
     }
     public void OnFoucus()
@@ -50,13 +55,13 @@ public class ItemBox : MonoBehaviour, IInteratable
         {
             int rarity = level + Random.Range(0, 100);
             rarity = Mathf.Clamp(rarity, 0, 100);
-            item.itemData = ItemManager.instance.ChooseItem(rarity).itemData;
-            item.count = ItemManager.instance.ChooseItem(rarity).count;
-            item.curAmmo = ItemManager.instance.ChooseItem(rarity).curAmmo;
+            item.itemData = itemList.ChooseItem(rarity).itemData;
+            item.count = itemList.ChooseItem(rarity).count;
+            item.curAmmo = itemList.ChooseItem(rarity).curAmmo;
             if (item.itemData != null)
             {
                 inventory.items[i].itemData = item.itemData;
-                inventory.items[i].count = Random.Range(0, item.itemData.MaxCount + 1);
+                inventory.items[i].count = Random.Range(0, item.itemData.MaxCount/4 + 1);
                 inventory.items[i].curAmmo = item.curAmmo;
             }
             else
@@ -67,7 +72,7 @@ public class ItemBox : MonoBehaviour, IInteratable
     }
     IEnumerator DestroyInteractionBox()
     {
-        yield return new WaitUntil(() => !UIManager.instance.UI[2].activeSelf);
+        //yield return new WaitUntil(() => !GameManager.instance.curSceneData.uiChange.ui[2].activeSelf);
         InventoryManager.instance.interactionSlot.gameObject.SetActive(false);
         yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);

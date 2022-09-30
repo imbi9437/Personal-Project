@@ -6,6 +6,9 @@ public class PlayerHand : MonoBehaviour
 {
     [SerializeField]
     private Player player;
+    [SerializeField]
+    private AudioSource itemSound;
+    public AudioSource ItemSound { get { return ItemSound; } set { itemSound = value; } }
     
     public GameObject curHand;
     public GameObject handItem;
@@ -20,8 +23,9 @@ public class PlayerHand : MonoBehaviour
     }
     private void Update()
     {
-        CheckCrossHair();
-        HandAnimation();
+        ChangeCurHand();
+        //CheckCrossHair();
+        //HandAnimation();
     }
     private void CheckCrossHair()
     {
@@ -39,7 +43,6 @@ public class PlayerHand : MonoBehaviour
             UIManager.instance.crossHair.sprite = UIManager.instance.crossHairImages[0];
         }
     }
-
     private void HandAnimation()
     {
         ItemData itemData = player.PlayerAction.CurItem.itemData;
@@ -67,5 +70,45 @@ public class PlayerHand : MonoBehaviour
             
         }
     }
-    
+    public void SetClip(AudioClip clip)
+    {
+        if (itemSound.clip == clip)
+        {
+            itemSound.Play();
+        }
+        else
+        {
+            itemSound.clip = clip;
+            itemSound.Play();
+        }
+    }
+
+    private void ChangeCurHand()
+    {
+        if(InputManager.instance.Alpha1)
+        {
+            player.QuickSlotNum = 1;
+        }
+        if (InputManager.instance.Alpha2)
+        {
+            player.QuickSlotNum = 2;
+        }
+        if (InputManager.instance.Alpha3)
+        {
+            player.QuickSlotNum = 3;
+        }
+        if (InputManager.instance.Alpha4)
+        {
+            player.QuickSlotNum = 4;
+        }
+        if (InputManager.instance.Alpha5)
+        {
+            player.QuickSlotNum = 5;
+        }
+        if (InputManager.instance.Alpha6)
+        {
+            player.QuickSlotNum = 6;
+        }
+    }
+
 }

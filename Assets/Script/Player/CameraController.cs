@@ -26,8 +26,9 @@ public class CameraController : MonoBehaviour
 
     private void MouseMovement()
     {
-        mouseX = player.PlayerInput.MouseX*player.MouseSensitive*Time.deltaTime;
-        mouseY = player.PlayerInput.MouseY*player.MouseSensitive*Time.deltaTime;
+        float sensitive = SettingManager.instance.mouseSensitive;
+        mouseX = InputManager.instance.MouseX * sensitive * Time.deltaTime;
+        mouseY = InputManager.instance.MouseY * sensitive * Time.deltaTime;
 
         xRoration -= mouseY;
         xRoration = Mathf.Clamp(xRoration, -70, 70);

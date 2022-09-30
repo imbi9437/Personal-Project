@@ -26,19 +26,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         MoveY();
-        Roration();
     }
 
     private void Move()
     {
-        moveX = player.PlayerInput.Horizontal*curspeed;
-        moveZ = player.PlayerInput.Vertical*curspeed;
+        moveX = InputManager.instance.Horizontal*curspeed;
+        moveZ = InputManager.instance.Vertical*curspeed;
         Vector3 moveVec = new Vector3(moveX,0f,moveZ);
 
         player.Animator.SetFloat("HorizonSpeed",moveX);
         player.Animator.SetFloat("VerticalSpeed", moveZ);
 
-        if (player.PlayerInput.Run)
+        if (InputManager.instance.Run)
         {
             curspeed += Time.deltaTime;
             if (curspeed > 1f)
@@ -75,9 +74,9 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(SoundGenerate());
             }
             moveY = 0;
-            if(player.PlayerInput.Jump)
+            if(InputManager.instance.Jump)
             {
-                moveY = 4f;
+                moveY = 6f;
                 player.Animator.SetTrigger("Jump");
             }
         }
@@ -86,11 +85,6 @@ public class PlayerMovement : MonoBehaviour
             moveY += Physics.gravity.y * Time.deltaTime;
         }
         player.CharacterController.Move(Vector3.up * moveY*Time.deltaTime);
-    }
-    private void Roration()
-    {
-        mouseX = player.PlayerInput.MouseX * player.MouseSensitive * Time.deltaTime;
-        player.gameObject.transform.Rotate(Vector3.up * mouseX);
     }
     IEnumerator SoundGenerate()
     {

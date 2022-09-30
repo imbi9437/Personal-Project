@@ -7,7 +7,6 @@ public class Item
 {
     public int count;
     public ItemData itemData;
-
     public int curAmmo;
     public bool coolTime = true;
 
@@ -18,7 +17,7 @@ public class Item
             case ItemData.ITEMTYPE.USED:
                 if(count > 0)
                 {
-                    SoundManager.instance.SetClip(itemData.UsingSound);
+                    player.PlayerHand.SetClip(itemData.UsingSound);
                 }
                 itemData.Use(player);
                 count--;
@@ -29,13 +28,13 @@ public class Item
                 if(curAmmo > 0)
                 {
                     itemData.Use(player);
-                    SoundManager.instance.SetClip(itemData.UsingSound);
+                    player.PlayerHand.SetClip(itemData.UsingSound);
                     curAmmo--;
                 }
                 break;
             case ItemData.ITEMTYPE.SWORD:
                 itemData.Use(player);
-                SoundManager.instance.SetClip(itemData.UsingSound);
+                player.PlayerHand.SetClip(itemData.UsingSound);
                 break;
         }
         

@@ -61,7 +61,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
         {
             if(slotItem.itemData != null)
             {
-                GameManager.instance.player.Inventory.DropItem(slotItem);
+                GameManager.instance.curSceneData.player.Inventory.DropItem(slotItem);
             }    
         }
         if(eventData.button == PointerEventData.InputButton.Left)
@@ -70,7 +70,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             {
                 if(slotItem.itemData.CanUseInventory)
                 {
-                    slotItem.Use(GameManager.instance.player);
+                    slotItem.Use(GameManager.instance.curSceneData.player);
                 }
             }
         }

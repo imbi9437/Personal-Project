@@ -10,15 +10,12 @@ public class Player : MonoBehaviour
     public CharacterController CharacterController { get { return characterController; } set { characterController = value; } }
     private Animator animator;
     public Animator Animator { get { return animator; } set { animator = value; } }
-    private PlayerInput playerInput;
-    public PlayerInput PlayerInput { get { return playerInput; } }
     private PlayerAction playerAction;
     public PlayerAction PlayerAction { get { return playerAction; } set { playerAction = value; } }
     private PlayerHand playerHand;
-    public PlayerHand PlayerHand {get;set;}
+    public PlayerHand PlayerHand { get { return playerHand; } set { playerHand = value; } }
     private AudioSource audioSource;
     public AudioSource AudioSource { get { return audioSource; } set { audioSource = value; } }
-    [SerializeField]
     private Camera playerCam;
     public Camera PlayerCam { get { return playerCam; } set { playerCam = value; } }
     private GroundChecker _playerGroundChecker;
@@ -31,6 +28,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Inventory quickSlot;
     public Inventory QuickSlot { get { return quickSlot; }set { quickSlot = value; } }
+
+
     private int quickSlotNum = 1;
     public int QuickSlotNum { get { return quickSlotNum; } set { quickSlotNum = value; QuickSlotChange(quickSlotNum); } }
 
@@ -68,18 +67,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float def;
     public float Def { get { return def; } set { def = value; } }
-    [SerializeField, Range(0f, 200f)]
-    private float mouseSensitive;
-    public float MouseSensitive { get { return mouseSensitive; } set { mouseSensitive = value; } }
     private void Awake()
     {
         CharacterController = GetComponent<CharacterController>();
         Animator = GetComponent<Animator>();
-        playerInput = GetComponent<PlayerInput>();
         playerAction = GetComponent<PlayerAction>();
         playerGroundChecker = GetComponent<GroundChecker>();
         playerSoundGenerator = GetComponent<SoundGenerator>();
         playerHand = GetComponent<PlayerHand>();
         audioSource = GetComponent<AudioSource>();
+        playerCam = GetComponentInChildren<Camera>();
     }
 }

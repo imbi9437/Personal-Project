@@ -6,7 +6,6 @@ using UnityEngine;
 public class SoundManager : Singleton<SoundManager>
 {
     public AudioSource bgmAudioSource;
-    public AudioSource effectAudioSource;
 
     public AudioClip[] bgmClips;
 
@@ -14,25 +13,10 @@ public class SoundManager : Singleton<SoundManager>
     {
         bgmAudioSource = GetComponent<AudioSource>();
     }
-    public void Play()
-    {
-        effectAudioSource.Play();
-    }
-    public void SetClip(AudioClip clip)
-    {
-        if (effectAudioSource.clip == clip)
-        {
-            Play();
-        }
-        else
-        {
-            effectAudioSource.clip = clip;
-            Play();
-        }
-    }
     public void SetBGM(int soundNum)
     {
         bgmAudioSource.clip = bgmClips[soundNum];
+        bgmAudioSource.Play();
     }
 
 }

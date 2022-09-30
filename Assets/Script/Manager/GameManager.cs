@@ -7,43 +7,16 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    public Player player;   
-    public Airplane airplane;
-    public int drop;
-    public Image startImage;
-    public void ChangeTimeScale()
+    public GameObject dataObject;
+    public CurSceneData curSceneData;
+
+    public override void Awake()
     {
-        if(Time.timeScale ==1)
-        {
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        base.Awake();
+        dataObject = GameObject.Find("DataObject");
+        curSceneData = dataObject.GetComponent<CurSceneData>();
     }
-    public void Start()
-    {
-        StartCoroutine(StartAirplane());
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-    IEnumerator StartAirplane()
-    {
-        while(true)
-        {
-            yield return new WaitForSeconds(30f);
-            if(airplane.gameObject.activeSelf == false)
-            {
-                drop = Random.Range(1, 10);
-                airplane.gameObject.SetActive(true);
-            }
-            yield return new WaitForSeconds(Random.Range(30f, 120f));
-        }
-    }
+
+
 
 }

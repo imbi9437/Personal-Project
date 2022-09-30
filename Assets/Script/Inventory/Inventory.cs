@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviour
         {
             if (items[i]==item)
             {
-                items[i].Drop(GameManager.instance.player.transform);
+                items[i].Drop(GameManager.instance.curSceneData.player.transform);
                 items[i].itemData = null;
                 items[i].count = 0;
                 items[i].curAmmo = 0;

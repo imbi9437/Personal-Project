@@ -14,7 +14,6 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         slots = GetComponentsInChildren<InventorySlot>();
-
     }
     private void Update()
     {
