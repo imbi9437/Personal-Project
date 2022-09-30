@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
     public Player player;   
     public Airplane airplane;
     public int drop;
+    public Image startImage;
     public void ChangeTimeScale()
     {
         if(Time.timeScale ==1)
@@ -44,8 +46,4 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void ChangeScene(string name)
-    {
-        SceneManager.LoadScene(name);
-    }
 }

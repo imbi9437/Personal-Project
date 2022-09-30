@@ -68,8 +68,8 @@ public class ItemBox : MonoBehaviour, IInteratable
     IEnumerator DestroyInteractionBox()
     {
         yield return new WaitUntil(() => !UIManager.instance.UI[2].activeSelf);
-        yield return new WaitForSeconds(10f);
         InventoryManager.instance.interactionSlot.gameObject.SetActive(false);
+        yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);
     }
     IEnumerator SlowFall()

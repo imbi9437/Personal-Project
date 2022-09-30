@@ -44,16 +44,16 @@ public class ZombieStates : MonoBehaviour
                 ChangeState(owner, Zombie.States.Idle);
                 return;
             }
-            if(owner.GroundChecker.isGround)
+            if (owner.ZombieAction.IsDelay)
+            {
+                return;
+            }
+            if (owner.GroundChecker.isGround)
             {
                 owner.Animator.SetBool("Fall", false);
                 owner.ZombieAudio.clip = owner.zombieSound[0];
                 owner.ZombieAudio.Play();
                 owner.ZombieAction.TimeDelay(7f);
-            }
-            if(owner.ZombieAction.IsDelay)
-            {
-                return;
             }
         }
         public override void Exit(Zombie owner)
@@ -187,7 +187,7 @@ public class ZombieStates : MonoBehaviour
             owner.ZombieAudio.loop = false;
             owner.ZombieAudio.Play();
             owner.CurHp = owner.Hp;
-            owner.ZombieAction.TimeDelay(2f);
+            owner.ZombieAction.TimeDelay(3f);
         }
         public override void Update(Zombie owner)
         {

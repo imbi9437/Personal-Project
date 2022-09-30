@@ -10,7 +10,7 @@ public class Sword : Weapon
     public float Damage { get { return damage; } }
     public override void Use(Player player)
     {
-        Collider[] colliders = Physics.OverlapSphere(player.transform.position, 1f);
+        Collider[] colliders = Physics.OverlapSphere(player.transform.position, 2f);
 
         for (int i = 0; i < colliders.Length; i++)
         {
