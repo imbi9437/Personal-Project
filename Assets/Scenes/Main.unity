@@ -31827,6 +31827,18 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: -2862165849118800340, guid: b488d31376145484681503d4ed7f7804, type: 2}
+    - target: {fileID: 130421489250771605, guid: 8d9038a8f914ec148a2b319cbcf838b8, type: 3}
+      propertyPath: soundRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 130421489250771605, guid: 8d9038a8f914ec148a2b319cbcf838b8, type: 3}
+      propertyPath: remainSound
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 130421489250771605, guid: 8d9038a8f914ec148a2b319cbcf838b8, type: 3}
+      propertyPath: remainLayer.m_Bits
+      value: 537
+      objectReference: {fileID: 0}
     - target: {fileID: 8226382128137501515, guid: 8d9038a8f914ec148a2b319cbcf838b8, type: 3}
       propertyPath: m_RootOrder
       value: 5

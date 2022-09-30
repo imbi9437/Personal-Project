@@ -16,4 +16,5 @@ public class MoveSlot : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI countText;
     public TextMeshProUGUI CountText { get { return countText; } set { countText = value; } }
+    public string name;
 }

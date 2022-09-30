@@ -970,11 +970,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f63ffc918eebe84bbcd33d0dff02114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundRange: 30
-  remainSound: 0
+  soundRange: 80
+  remainSound: 5
   remainLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 536
 --- !u!54 &6253780022681275603
 Rigidbody:
   m_ObjectHideFlags: 0

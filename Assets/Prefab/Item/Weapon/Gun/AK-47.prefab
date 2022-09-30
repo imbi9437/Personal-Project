@@ -203,6 +203,7 @@ MonoBehaviour:
     count: 0
     itemData: {fileID: 11400000, guid: 1933f7f9865101640baebac29bc3181a, type: 2}
     curAmmo: 0
+    coolTime: 1
 --- !u!114 &-4203099411870543888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,11 +216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f63ffc918eebe84bbcd33d0dff02114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundRange: 50
-  remainSound: 0
+  soundRange: 100
+  remainSound: 5
   remainLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 536
 --- !u!54 &-5325162124221955003
 Rigidbody:
   m_ObjectHideFlags: 0

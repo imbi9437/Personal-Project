@@ -85,6 +85,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             InventoryManager.instance.usingSlot.transform.position = eventData.position;
             InventoryManager.instance.usingSlot.Image.sprite = slotItem.itemData.ItemImage;
             InventoryManager.instance.usingSlot.CountText.text = slotItem.count.ToString();
+            InventoryManager.instance.usingSlot.name = gameObject.name;
             InventoryManager.instance.usingSlot.gameObject.SetActive(true);
         }
     }
@@ -125,7 +126,7 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
                 InventoryManager.instance.usingSlot.SlotItem.count = temp.count;
                 InventoryManager.instance.usingSlot.SlotItem.curAmmo = temp.curAmmo;
             }
-            else
+            else if (slotItem.itemData == item.itemData)
             {
                 if(item.itemData.MaxCount == 1)
                 {
@@ -140,13 +141,16 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
                     temp.count = item.itemData.MaxCount;
                     SetItem(temp);
                 }
-                else
+                else if (slotItem.count+item.count<=item.itemData.MaxCount)
                 {
-                    temp.count += item.count;
-                    SetItem(temp);
-                    InventoryManager.instance.usingSlot.SlotItem.itemData = null;
-                    InventoryManager.instance.usingSlot.SlotItem.curAmmo = 0;
-                    InventoryManager.instance.usingSlot.SlotItem.count = 0;
+                    if (InventoryManager.instance.usingSlot.name != gameObject.name)
+                    {
+                        temp.count += item.count;
+                        SetItem(temp);
+                        InventoryManager.instance.usingSlot.SlotItem.itemData = null;
+                        InventoryManager.instance.usingSlot.SlotItem.curAmmo = 0;
+                        InventoryManager.instance.usingSlot.SlotItem.count = 0;
+                    }
                 }
             }
         }

@@ -27,6 +27,7 @@ public class SoundManager : Singleton<SoundManager>
         else
         {
             effectAudioSource.clip = clip;
+            Play();
         }
     }
     public void SetBGM(int soundNum)
