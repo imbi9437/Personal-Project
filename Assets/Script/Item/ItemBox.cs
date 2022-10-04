@@ -29,14 +29,12 @@ public class ItemBox : MonoBehaviour, IInteratable
         transform.parent = null;
         itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
         StartCoroutine(SlowFall());
-        StartCoroutine(SetItemCo());
+        SetItem();
 
     }
     public void Interaction(Player player)
     {
-        InventoryManager.instance.interactionSlot.CurMapping = inventory;
-        
-        //UIManager.instance.InteractionUImanage();
+        GameManager.instance.curSceneData.uiChange.interactionSlot.CurMapping = inventory;
         StartCoroutine(DestroyInteractionBox());
     }
     public void OnFoucus()
@@ -53,12 +51,10 @@ public class ItemBox : MonoBehaviour, IInteratable
         int itemCount = Random.Range(0, inventory.SlotCount);
         for (int i = 0; i < inventory.items.Length; i++)
         {
-            int rarity = level + Random.Range(0, 100);
-            rarity = Mathf.Clamp(rarity, 0, 100);
-            item.itemData = itemList.ChooseItem(rarity).itemData;
-            item.count = itemList.ChooseItem(rarity).count;
-            item.curAmmo = itemList.ChooseItem(rarity).curAmmo;
-            if (item.itemData != null)
+            int rarity = level + Random.Range(1, 50);
+            rarity = Mathf.Clamp(rarity, 1, 100);
+            item = itemList.ChooseItem(rarity);
+            if (item != null)
             {
                 inventory.items[i].itemData = item.itemData;
                 inventory.items[i].count = Random.Range(0, item.itemData.MaxCount/4 + 1);
@@ -72,8 +68,8 @@ public class ItemBox : MonoBehaviour, IInteratable
     }
     IEnumerator DestroyInteractionBox()
     {
-        //yield return new WaitUntil(() => !GameManager.instance.curSceneData.uiChange.ui[2].activeSelf);
-        InventoryManager.instance.interactionSlot.gameObject.SetActive(false);
+        yield return new WaitUntil(() => !GameManager.instance.curSceneData.uiChange.UiOutside.activeSelf);
+        GameManager.instance.curSceneData.uiChange.interactionSlot.gameObject.SetActive(false);
         yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);
     }
@@ -87,10 +83,5 @@ public class ItemBox : MonoBehaviour, IInteratable
         yield return new WaitUntil(() => groundChecker.isGround);
         Parachute.SetActive(false);
         rigidBody.drag = 0;
-    }
-    IEnumerator SetItemCo()
-    {
-        yield return new WaitForSeconds(2f);
-        SetItem();
     }
 }

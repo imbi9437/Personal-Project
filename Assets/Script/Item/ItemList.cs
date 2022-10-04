@@ -23,9 +23,13 @@ public class ItemList : MonoBehaviour
         {
             return rareItems[Random.Range(0, rareItems.Length)];
         }
-        else if (rarity >= 0)
+        else if (rarity >= 30)
         {
             return normalItems[Random.Range(0, normalItems.Length)];
+        }
+        else if (rarity < 30)
+        {
+            return null;
         }
         return null;
     }

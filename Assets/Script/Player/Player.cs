@@ -18,8 +18,8 @@ public class Player : MonoBehaviour
     public AudioSource AudioSource { get { return audioSource; } set { audioSource = value; } }
     private Camera playerCam;
     public Camera PlayerCam { get { return playerCam; } set { playerCam = value; } }
-    private GroundChecker _playerGroundChecker;
-    public GroundChecker playerGroundChecker { get; set; }
+    private GroundChecker playerGroundChecker;
+    public GroundChecker PlayerGroundChecker { get { return playerGroundChecker; } set { playerGroundChecker = value; } }
     private SoundGenerator playerSoundGenerator;
     public SoundGenerator PlayerSoundGenerator { get { return playerSoundGenerator; } set { playerSoundGenerator = value; } }
     [SerializeField]
@@ -72,10 +72,11 @@ public class Player : MonoBehaviour
         CharacterController = GetComponent<CharacterController>();
         Animator = GetComponent<Animator>();
         playerAction = GetComponent<PlayerAction>();
-        playerGroundChecker = GetComponent<GroundChecker>();
+        PlayerGroundChecker = GetComponent<GroundChecker>();
         playerSoundGenerator = GetComponent<SoundGenerator>();
         playerHand = GetComponent<PlayerHand>();
         audioSource = GetComponent<AudioSource>();
         playerCam = GetComponentInChildren<Camera>();
+        
     }
 }

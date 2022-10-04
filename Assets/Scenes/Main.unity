@@ -16544,13 +16544,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5bb80dd34ce9b4780c1c97e7362d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UiOutside: {fileID: 1961419538}
+  uiOutside: {fileID: 1961419538}
   ui:
   - {fileID: 51155543}
   - {fileID: 2069403442}
   - {fileID: 1425744126}
   UiSound: []
-  interactionUi: {fileID: 0}
+  interactionUi: {fileID: 1291207056}
+  playerInventory: {fileID: 51155546}
+  quickSlot: {fileID: 192714217}
+  armorSlot: {fileID: 0}
+  interactionSlot: {fileID: 1291207058}
+  usingSlot: {fileID: 1476989703}
   ItemCheckEffect: {fileID: 158012858}
   hpText: {fileID: 1326961635}
   hpSlider: {fileID: 325685340}
@@ -24917,7 +24922,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1697232056}
   - component: {fileID: 1697232055}
-  - component: {fileID: 1697232053}
   - component: {fileID: 1697232061}
   - component: {fileID: 1697232058}
   - component: {fileID: 1697232060}
@@ -24931,23 +24935,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1697232053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697232052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076dfe52de0a6b44292c28e26dde6bee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInventory: {fileID: 51155546}
-  quickSlot: {fileID: 192714217}
-  armorSlot: {fileID: 0}
-  interactionSlot: {fileID: 1291207058}
-  usingSlot: {fileID: 1476989703}
 --- !u!114 &1697232055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25141,6 +25128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitive: 389
+  curCrossHair: {fileID: 0}
+  crossHair:
+  - {fileID: 21300000, guid: 30964a85ebe23da4ab2ff3450a591aaa, type: 3}
 --- !u!4 &1698840097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4228315601439626, guid: 5a255a12ee34f3b4d979b7662aa64608, type: 3}

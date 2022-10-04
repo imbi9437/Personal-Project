@@ -21,7 +21,6 @@ public class PlayerAction : MonoBehaviour, IDamagable
     }
     private void Update()
     {
-        CheckInteraction();
         Interaction();
         ItemUse();
         ChangeQuickSlot(player.QuickSlotNum);
@@ -30,35 +29,31 @@ public class PlayerAction : MonoBehaviour, IDamagable
 
     private void Interaction()
     {
-        if (!InputManager.instance.InterAction)
+        RaycastHit hit;
+        Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out hit, 2f, targetLayer);
+        if(hit.collider == null)
+        {
+            GameManager.instance.curSceneData.uiChange.CheckOutInteraction(false);
             return;
-        Collider[] collider = Physics.OverlapSphere(interactionPoint.position, 1.5f, targetLayer);
-        for (int i = 0; i < collider.Length; i++)
-        {
-            RaycastHit hit;
-            Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out hit, 2f, targetLayer);
-            if (collider[i] == hit.collider)
-            {
-                IInteratable target = collider[i].GetComponent<IInteratable>();
-                target?.Interaction(player);
-            }
         }
-    }
-    private void CheckInteraction()
-    {
-        RaycastHit check;
-        Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out check, 2f, targetLayer);
-        if (check.collider != null)
+        else
         {
-            IInteratable target = check.collider.GetComponent<IInteratable>();
+            IInteratable target = hit.collider.GetComponent<IInteratable>();
             if (target != null)
             {
                 GameManager.instance.curSceneData.uiChange.CheckOutInteraction(true);
             }
         }
-        else
+        if (!InputManager.instance.InterAction)
+            return;
+        Collider[] collider = Physics.OverlapSphere(interactionPoint.position, 1.5f, targetLayer);
+        for (int i = 0; i < collider.Length; i++)
         {
-            GameManager.instance.curSceneData.uiChange.CheckOutInteraction(false);
+            if (collider[i] == hit.collider)
+            {
+                IInteratable target = collider[i].GetComponent<IInteratable>();
+                target?.Interaction(player);
+            }
         }
     }
     private void ItemUse()

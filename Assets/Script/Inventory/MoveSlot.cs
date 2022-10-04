@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MoveSlot : MonoBehaviour
@@ -16,5 +15,20 @@ public class MoveSlot : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI countText;
     public TextMeshProUGUI CountText { get { return countText; } set { countText = value; } }
-    public string name;
+    public string itemName;
+
+
+    public void SaveData(Item item)
+    {
+        slotItem.itemData = item.itemData;
+        slotItem.count = item.count;
+        slotItem.curAmmo = item.curAmmo;
+    }
+    public void SaveData()
+    {
+        slotItem.itemData = null;
+        slotItem.count = 0;
+        slotItem.curAmmo = 0;
+    }
+
 }

@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private float moveX;
     private float moveY;
     private float moveZ;
-    private float mouseX;
     private bool sound;
     private bool footStep = true;
 
@@ -58,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(SoundGenerate());
         }
         moveVec = transform.forward * moveZ + transform.right * moveX;
-        if (moveVec.magnitude>0.3f && footStep&&player.playerGroundChecker.isGround)
+        if (moveVec.magnitude>0.3f && footStep&&player.PlayerGroundChecker.isGround)
         {
             StartCoroutine(FootSteps(0.25f/curspeed));
         }
@@ -67,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void MoveY()
     {
-        if(player.playerGroundChecker.isGround)
+        if(player.PlayerGroundChecker.isGround)
         {
             if(moveY<-2f)
             {

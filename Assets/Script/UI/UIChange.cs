@@ -9,13 +9,21 @@ public class UIChange : MonoBehaviour
     private GameObject curUi;
 
     [SerializeField]
-    private GameObject UiOutside;
+    private GameObject uiOutside;
+    public GameObject UiOutside { get { return uiOutside; } }
     [SerializeField]
     private GameObject[] ui;
     [SerializeField]
     private AudioClip[] UiSound;
 
     public GameObject interactionUi;
+
+    [SerializeField, Header("UIscript")]
+    public InventoryUI playerInventory;
+    public InventoryUI quickSlot;
+    public InventoryUI armorSlot;
+    public InventoryUI interactionSlot;
+    public MoveSlot usingSlot;
 
     [SerializeField]
     private TextMeshProUGUI ItemCheckEffect;
@@ -96,7 +104,7 @@ public class UIChange : MonoBehaviour
     private void ActiveUI(bool value)
     {
         curUi.SetActive(value);
-        UiOutside.SetActive(value);
+        uiOutside.SetActive(value);
     }
     public void CheckOutInteraction(bool value)
     {
