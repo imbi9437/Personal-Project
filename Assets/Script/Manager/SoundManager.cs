@@ -6,17 +6,21 @@ using UnityEngine;
 public class SoundManager : Singleton<SoundManager>
 {
     public AudioSource bgmAudioSource;
+    public AudioSource effectSound;
+
 
     public AudioClip[] bgmClips;
+    public AudioClip[] effectClips;
 
-    private void Start()
-    {
-        bgmAudioSource = GetComponent<AudioSource>();
-    }
     public void SetBGM(int soundNum)
     {
         bgmAudioSource.clip = bgmClips[soundNum];
         bgmAudioSource.Play();
+    }
+    public void SetEffect(int soundNum)
+    {
+        effectSound.clip = bgmClips[soundNum];
+        effectSound.Play();
     }
 
 }

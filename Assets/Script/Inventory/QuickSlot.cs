@@ -12,6 +12,6 @@ public class QuickSlot : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.instance.curSceneData.player.QuickSlotChange += ShowCurSlot;
+        CurSceneData.instance.player.QuickSlotChange += ShowCurSlot;
     }
 }

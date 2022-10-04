@@ -33,7 +33,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
         Physics.SphereCast(player.PlayerCam.transform.position, 0.3f, player.PlayerCam.transform.forward, out hit, 2f, targetLayer);
         if(hit.collider == null)
         {
-            GameManager.instance.curSceneData.uiChange.CheckOutInteraction(false);
+            CurSceneData.instance.uiChange.CheckOutInteraction(false);
             return;
         }
         else
@@ -41,7 +41,7 @@ public class PlayerAction : MonoBehaviour, IDamagable
             IInteratable target = hit.collider.GetComponent<IInteratable>();
             if (target != null)
             {
-                GameManager.instance.curSceneData.uiChange.CheckOutInteraction(true);
+                CurSceneData.instance.uiChange.CheckOutInteraction(true);
             }
         }
         if (!InputManager.instance.InterAction)

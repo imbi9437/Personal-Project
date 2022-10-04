@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEndDragHandler,IBeginDragHandler,IDropHandler,IPointerEnterHandler,IPointerExitHandler
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, IEndDragHandler, IBeginDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Item slotItem;
@@ -25,14 +25,14 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
 
     public void SetItem(Item item)
     {
-        if(item == null)
+        if (item == null)
         {
             slotItem.itemData = null;
             slotItem.count = 0;
             image.sprite = empty;
             countText.text = "";
         }
-        else if(item.itemData == null||item.count<=0)
+        else if (item.itemData == null || item.count <= 0)
         {
             slotItem.itemData = null;
             slotItem.count = 0;
@@ -51,65 +51,62 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             }
             else
             {
-            countText.text = ""+item.count;
+                countText.text = "" + item.count;
             }
         }
     }
     public void OnPointerClick(PointerEventData eventData) // 클릭이벤트
     {
-        if(eventData.button == PointerEventData.InputButton.Right)
-        {
-            if(slotItem.itemData != null)
-            {
-                GameManager.instance.curSceneData.player.Inventory.DropItem(slotItem);
-            }    
-        }
-        if(eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (slotItem.itemData != null)
             {
-                if(slotItem.itemData.CanUseInventory)
+                CurSceneData.instance.player.Inventory.DropItem(slotItem);
+            }
+        }
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (slotItem.itemData != null)
+            {
+                if (slotItem.itemData.CanUseInventory)
                 {
-                    slotItem.Use(GameManager.instance.curSceneData.player);
+                    slotItem.Use(CurSceneData.instance.player);
                 }
             }
         }
     }
     public void OnBeginDrag(PointerEventData eventData) // 드래그 시작 이벤트
     {
-        if(slotItem.itemData !=null)
+        if (slotItem.itemData != null)
         {
-            GameManager.instance.curSceneData.uiChange.usingSlot.SaveData(slotItem);
-            GameManager.instance.curSceneData.uiChange.usingSlot.transform.position = eventData.position;
-            GameManager.instance.curSceneData.uiChange.usingSlot.Image.sprite = slotItem.itemData.ItemImage;
-            GameManager.instance.curSceneData.uiChange.usingSlot.CountText.text = slotItem.count.ToString();
-            GameManager.instance.curSceneData.uiChange.usingSlot.itemName = gameObject.name;
-            GameManager.instance.curSceneData.uiChange.usingSlot.gameObject.SetActive(true);
+            CurSceneData.instance.uiChange.usingSlot.SaveData(slotItem);
+            CurSceneData.instance.uiChange.usingSlot.transform.position = eventData.position;
+            CurSceneData.instance.uiChange.usingSlot.gameObject.SetActive(true);
         }
     }
     public void OnDrag(PointerEventData eventData) //드래그중 이벤트
     {
-        if(slotItem.itemData!=null)
+        if (slotItem.itemData != null)
         {
-            GameManager.instance.curSceneData.uiChange.usingSlot.gameObject.transform.position = eventData.position;
+            CurSceneData.instance.uiChange.usingSlot.gameObject.transform.position = eventData.position;
         }
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        Item item = GameManager.instance.curSceneData.uiChange.usingSlot.SlotItem;
-        GameManager.instance.curSceneData.uiChange.usingSlot.gameObject.SetActive(false);
+        Item item = CurSceneData.instance.uiChange.usingSlot.SlotItem;
+        CurSceneData.instance.uiChange.usingSlot.gameObject.SetActive(false);
         SetItem(item);
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        Item item = GameManager.instance.curSceneData.uiChange.usingSlot.SlotItem;
-        if(slotItem.itemData == null&&item.itemData != null)
+        Item item = CurSceneData.instance.uiChange.usingSlot.SlotItem;
+        if (slotItem.itemData == null && item.itemData != null)
         {
             SetItem(item);
-            GameManager.instance.curSceneData.uiChange.usingSlot.SaveData();
+            CurSceneData.instance.uiChange.usingSlot.SaveData();
         }
-        else if(slotItem.itemData !=null&&item.itemData !=null)
+        else if (slotItem.itemData != null && item.itemData != null)
         {
             Item temp = new Item();
             temp.count = slotItem.count;
@@ -118,29 +115,28 @@ public class InventorySlot : MonoBehaviour,IPointerClickHandler,IDragHandler,IEn
             if (slotItem.itemData != item.itemData)
             {
                 SetItem(item);
-                GameManager.instance.curSceneData.uiChange.usingSlot.SaveData(temp);
+                CurSceneData.instance.uiChange.usingSlot.SaveData(temp);
             }
             else if (slotItem.itemData == item.itemData)
             {
-                if(item.itemData.MaxCount == 1)
+                if (item.itemData.MaxCount == 1)
                 {
+                    Debug.Log("Asd");
                     SetItem(item);
-                    GameManager.instance.curSceneData.uiChange.usingSlot.SaveData(temp);
+                    CurSceneData.instance.uiChange.usingSlot.SaveData(temp);
                 }
-                else if(slotItem.count+item.count>item.itemData.MaxCount)
+                else if (slotItem.count + item.count > item.itemData.MaxCount)
                 {
-                    GameManager.instance.curSceneData.uiChange.usingSlot.SlotItem.count = slotItem.itemData.MaxCount-temp.count;
+                    Debug.Log("Asd");
+                    CurSceneData.instance.uiChange.usingSlot.SlotItem.count = slotItem.itemData.MaxCount - temp.count;
                     temp.count = item.itemData.MaxCount;
                     SetItem(temp);
                 }
-                else if (slotItem.count+item.count<=item.itemData.MaxCount)
+                else if (slotItem.count + item.count <= item.itemData.MaxCount)
                 {
-                    if (GameManager.instance.curSceneData.uiChange.usingSlot.itemName != gameObject.name)
-                    {
-                        temp.count += item.count;
-                        SetItem(temp);
-                        GameManager.instance.curSceneData.uiChange.usingSlot.SaveData();
-                    }
+                    temp.count += item.count;
+                    SetItem(temp);
+                    CurSceneData.instance.uiChange.usingSlot.SaveData();
                 }
             }
         }

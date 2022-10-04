@@ -40,8 +40,10 @@ public class UIChange : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.curSceneData.player.StatusUpdate += HpTextUPdate;
-        GameManager.instance.curSceneData.player.StatusUpdate += HpSliderUpdate;
+        CurSceneData.instance.player.StatusUpdate += HpTextUPdate;
+        CurSceneData.instance.player.StatusUpdate += HpSliderUpdate;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -69,25 +71,27 @@ public class UIChange : MonoBehaviour
         if (name == "Escape" && curUi.activeSelf)
         {
             ActiveUI(false);
+            GameManager.instance.TimeScaleChange();
+            ShowCursor();
         }
         else if (name == curUi.name)
         {
             ActiveUI(!curUi.activeSelf);
+            GameManager.instance.TimeScaleChange();
+            ShowCursor();
         }
         else if (name != curUi.name && !curUi.activeSelf)
         {
             ChangeCurUI(name);
             ActiveUI(true);
+            ShowCursor();
+            GameManager.instance.TimeScaleChange();
         }
         else if (name != curUi.name && curUi.activeSelf)
         {
             curUi.SetActive(false);
-            ChangeUI(name);
+            ChangeCurUI(name);
             curUi.SetActive(true);
-        }
-        if (interactionUi.activeSelf)
-        {
-            interactionUi.SetActive(false);
         }
     }
     private void ChangeCurUI(string name)
@@ -122,5 +126,25 @@ public class UIChange : MonoBehaviour
     private void HpSliderUpdate(float value)
     {
         hpSlider.value = value / 500;
+    }
+
+    private void ShowCursor()
+    {
+        if(Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if(Cursor.lockState == CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    public void Interaction()
+    {
+        interactionUi.SetActive(true);
+        ChangeUI("Inventory");
     }
 }

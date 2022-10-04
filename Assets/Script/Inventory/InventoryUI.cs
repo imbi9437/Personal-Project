@@ -14,11 +14,11 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         slots = GetComponentsInChildren<InventorySlot>();
+        SettingInventoryUI();
     }
     private void Update()
     {
         SettingInventoryUI();
-        
     }
     private void LateUpdate()
     {

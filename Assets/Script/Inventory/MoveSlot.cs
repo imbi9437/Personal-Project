@@ -17,6 +17,12 @@ public class MoveSlot : MonoBehaviour
     public TextMeshProUGUI CountText { get { return countText; } set { countText = value; } }
     public string itemName;
 
+    private void OnEnable()
+    {
+        image.sprite = slotItem.itemData.ItemImage;
+        countText.text = "" + slotItem.count;
+        itemName = slotItem.itemData.ItemName;
+    }
 
     public void SaveData(Item item)
     {

@@ -78,12 +78,12 @@ public class Airplane : MonoBehaviour
         Collider[] drop = dropObject.GetComponentsInChildren<Collider>(true);
         for (int i = 0; i < drop.Length; i++)
         {
-            yield return new WaitForSeconds(Random.Range(0, 2f));
             drop[i].gameObject.SetActive(true);
             if(!groundChecker.isGround)
             {
                 break;
             }
+            yield return new WaitForSeconds(Random.Range(0, 2f));
         }
         animator.SetTrigger("Close");
         yield return new WaitUntil(() => groundChecker.isGround == false);

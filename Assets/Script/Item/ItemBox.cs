@@ -19,6 +19,7 @@ public class ItemBox : MonoBehaviour, IInteratable
 
     private void Awake()
     {
+        itemList = ItemList.instance;
         inventory = GetComponent<Inventory>();
         rigidBody = GetComponent<Rigidbody>();
         groundChecker = GetComponent<GroundChecker>();
@@ -27,14 +28,15 @@ public class ItemBox : MonoBehaviour, IInteratable
     private void OnEnable()
     {
         transform.parent = null;
-        itemList = GameObject.Find("ItemList").GetComponent<ItemList>();
         StartCoroutine(SlowFall());
-        SetItem();
+        //SetItem();
+        StartCoroutine(asdasd());
 
     }
     public void Interaction(Player player)
     {
-        GameManager.instance.curSceneData.uiChange.interactionSlot.CurMapping = inventory;
+        CurSceneData.instance.uiChange.interactionSlot.CurMapping = inventory;
+        CurSceneData.instance.uiChange.Interaction();
         StartCoroutine(DestroyInteractionBox());
     }
     public void OnFoucus()
@@ -51,7 +53,7 @@ public class ItemBox : MonoBehaviour, IInteratable
         int itemCount = Random.Range(0, inventory.SlotCount);
         for (int i = 0; i < inventory.items.Length; i++)
         {
-            int rarity = level + Random.Range(1, 50);
+            int rarity = level + Random.Range(1, 70);
             rarity = Mathf.Clamp(rarity, 1, 100);
             item = itemList.ChooseItem(rarity);
             if (item != null)
@@ -68,8 +70,8 @@ public class ItemBox : MonoBehaviour, IInteratable
     }
     IEnumerator DestroyInteractionBox()
     {
-        yield return new WaitUntil(() => !GameManager.instance.curSceneData.uiChange.UiOutside.activeSelf);
-        GameManager.instance.curSceneData.uiChange.interactionSlot.gameObject.SetActive(false);
+        yield return new WaitUntil(() => !CurSceneData.instance.uiChange.UiOutside.activeSelf);
+        CurSceneData.instance.uiChange.interactionSlot.gameObject.SetActive(false);
         yield return new WaitForSeconds(10f);
         Destroy(this.gameObject);
     }
@@ -82,6 +84,11 @@ public class ItemBox : MonoBehaviour, IInteratable
         }
         yield return new WaitUntil(() => groundChecker.isGround);
         Parachute.SetActive(false);
-        rigidBody.drag = 0;
+        rigidBody.drag = 2;
+    }
+    IEnumerator asdasd()
+    {
+        yield return new WaitForSeconds(1f);
+        SetItem();
     }
 }
