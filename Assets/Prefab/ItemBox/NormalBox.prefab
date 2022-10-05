@@ -215,9 +215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2f0e957b9272549ac917f9af701865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 6934398425961221363, guid: c0d945ce5023a31469b5ffc0cce401d1, type: 3}
   level: 0
   Parachute: {fileID: 6674081983766588907}
-  itemList: {fileID: 0}
+  itemFist: {fileID: 0}
 --- !u!114 &4595260136019234003
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,12 +13,10 @@ public class CurSceneData : MonoBehaviour
     {
         instance = this;
     }
-
     private void Start()
     {
         StartCoroutine(AirplaneAcitve());
     }
-
     IEnumerator AirplaneAcitve()
     {
         yield return new WaitForSeconds(2f);

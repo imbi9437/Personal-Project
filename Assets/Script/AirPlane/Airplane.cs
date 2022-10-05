@@ -40,11 +40,6 @@ public class Airplane : MonoBehaviour
         lookTarget.y = 0;
         transform.forward = lookTarget;
         audioSource.Play();
-        if (random == 10)
-        {
-            GameObject itemBox = Instantiate(supplyItem, dropObject.transform, false);
-            itemBox.SetActive(false);
-        }
         CheckOut();
         StartCoroutine(Drop());
     }
@@ -75,10 +70,14 @@ public class Airplane : MonoBehaviour
         yield return new WaitUntil(() => groundChecker.isGround==true);
         yield return new WaitForSeconds(2f);
         animator.SetTrigger("Open");
-        Collider[] drop = dropObject.GetComponentsInChildren<Collider>(true);
+        Zombie[] drop = dropObject.GetComponentsInChildren<Zombie>(true);
         for (int i = 0; i < drop.Length; i++)
         {
             drop[i].gameObject.SetActive(true);
+            if(random == 10&&i == drop.Length/2)
+            {
+                supplyItem.SetActive(true);
+            }
             if(!groundChecker.isGround)
             {
                 break;

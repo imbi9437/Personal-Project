@@ -33,6 +33,8 @@ public class UIChange : MonoBehaviour
     [SerializeField]
     private Slider hpSlider;
 
+    public Image crossHair;
+
     private void Awake()
     {
         curUi = ui[0];

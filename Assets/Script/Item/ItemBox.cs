@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class ItemBox : MonoBehaviour, IInteratable
 {
+    [SerializeField]
+    private GameObject parent;
     [SerializeField]
     private int level;
     [SerializeField]
     private GameObject Parachute;
     [SerializeField]
-    private ItemList itemList;
+    private ItemFunc itemFist;
     private Inventory inventory;
     private Rigidbody rigidBody;
     private GroundChecker groundChecker;
@@ -19,7 +22,7 @@ public class ItemBox : MonoBehaviour, IInteratable
 
     private void Awake()
     {
-        itemList = ItemList.instance;
+        itemFist = ItemFunc.instance;
         inventory = GetComponent<Inventory>();
         rigidBody = GetComponent<Rigidbody>();
         groundChecker = GetComponent<GroundChecker>();
@@ -29,8 +32,7 @@ public class ItemBox : MonoBehaviour, IInteratable
     {
         transform.parent = null;
         StartCoroutine(SlowFall());
-        //SetItem();
-        StartCoroutine(asdasd());
+        StartCoroutine(Setting());
 
     }
     public void Interaction(Player player)
@@ -55,7 +57,7 @@ public class ItemBox : MonoBehaviour, IInteratable
         {
             int rarity = level + Random.Range(1, 70);
             rarity = Mathf.Clamp(rarity, 1, 100);
-            item = itemList.ChooseItem(rarity);
+            item = itemFist.ChooseItem(rarity);
             if (item != null)
             {
                 inventory.items[i].itemData = item.itemData;
@@ -72,8 +74,9 @@ public class ItemBox : MonoBehaviour, IInteratable
     {
         yield return new WaitUntil(() => !CurSceneData.instance.uiChange.UiOutside.activeSelf);
         CurSceneData.instance.uiChange.interactionSlot.gameObject.SetActive(false);
-        yield return new WaitForSeconds(10f);
-        Destroy(this.gameObject);
+        transform.SetParent(parent.transform);
+        transform.position = parent.transform.position;
+        this.gameObject.SetActive(false);
     }
     IEnumerator SlowFall()
     {
@@ -86,7 +89,7 @@ public class ItemBox : MonoBehaviour, IInteratable
         Parachute.SetActive(false);
         rigidBody.drag = 2;
     }
-    IEnumerator asdasd()
+    IEnumerator Setting()
     {
         yield return new WaitForSeconds(1f);
         SetItem();

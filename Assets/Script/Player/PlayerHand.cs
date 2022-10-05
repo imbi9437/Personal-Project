@@ -17,6 +17,8 @@ public class PlayerHand : MonoBehaviour
     private GameObject[] hand;
     public GameObject[] Hand { get { return hand; } }
 
+
+
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -24,23 +26,23 @@ public class PlayerHand : MonoBehaviour
     private void Update()
     {
         ChangeCurHand();
-        //CheckCrossHair();
+        CheckCrossHair();
         //HandAnimation();
     }
     private void CheckCrossHair()
     {
         if(player.PlayerAction.CurItem.itemData==null||Time.timeScale==0)
         {
-            UIManager.instance.crossHair.sprite = UIManager.instance.crossHairImages[0];
+            CurSceneData.instance.uiChange.crossHair.sprite = SettingManager.instance.crossHair[0];
             return;
         }
         if(player.PlayerAction.CurItem.itemData.ItemType == ItemData.ITEMTYPE.GUN)
         {
-            UIManager.instance.crossHair.sprite = UIManager.instance.curCrossHair;
+            CurSceneData.instance.uiChange.crossHair.sprite = SettingManager.instance.curCrossHair;
         }
         else
         {
-            UIManager.instance.crossHair.sprite = UIManager.instance.crossHairImages[0];
+            CurSceneData.instance.uiChange.crossHair.sprite = SettingManager.instance.crossHair[0];
         }
     }
     private void HandAnimation()

@@ -29,6 +29,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
         {
             slotItem.itemData = null;
             slotItem.count = 0;
+            slotItem.curAmmo = 0;
             image.sprite = empty;
             countText.text = "";
         }
@@ -36,6 +37,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
         {
             slotItem.itemData = null;
             slotItem.count = 0;
+            slotItem.curAmmo = 0;
             image.sprite = empty;
             countText.text = "";
         }
@@ -121,13 +123,11 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
             {
                 if (item.itemData.MaxCount == 1)
                 {
-                    Debug.Log("Asd");
                     SetItem(item);
                     CurSceneData.instance.uiChange.usingSlot.SaveData(temp);
                 }
                 else if (slotItem.count + item.count > item.itemData.MaxCount)
                 {
-                    Debug.Log("Asd");
                     CurSceneData.instance.uiChange.usingSlot.SlotItem.count = slotItem.itemData.MaxCount - temp.count;
                     temp.count = item.itemData.MaxCount;
                     SetItem(temp);

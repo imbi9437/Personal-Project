@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using System;
 
 public abstract class ItemData : ScriptableObject
 {
-    public enum ITEMTYPE { GUN, SWORD, ARMOR, USED, INGERDIENT }
+    public enum ITEMTYPE { GUN, SWORD, USED, ARMOR, INGERDIENT }
 
 
     [SerializeField]
@@ -37,7 +38,15 @@ public abstract class ItemData : ScriptableObject
     private AudioClip usingSound;
     public AudioClip UsingSound { get { return usingSound; } }
 
+    //public static Dictionary<string, Action> customFuncDic = new Dictionary<string, Action>();
+
     public abstract void Use(Player player);
+
+    //public void UseFunc(string funcName)
+    //{
+    //    if (customFuncDic.ContainsKey(funcName))
+    //        customFuncDic[funcName]?.Invoke();
+    //}
     public void Drop(Transform value,int count,int ammo)
     {
         Vector3 point = value.position + value.forward + value.up;

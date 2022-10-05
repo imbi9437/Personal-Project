@@ -17,9 +17,17 @@ public class Gun : Weapon
     private Used needAmmo;
     public Used NeedAmmo { get { return needAmmo; } }
 
+    //public Gun()
+    //{
+    //    if(customFuncDic.ContainsKey("Reload") == false)
+    //        customFuncDic.Add("Reload", () => { ; });
+    //}
+
     public override void Use(Player player)
     {
+     
         Shoot(player);
+     
     }
     private void Shoot(Player player)
     {
@@ -30,4 +38,5 @@ public class Gun : Weapon
             target?.GetDamage(needAmmo.damage);
         }
     }
+
 }

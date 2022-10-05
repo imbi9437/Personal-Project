@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : Singleton<SoundManager>
@@ -12,6 +13,19 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip[] bgmClips;
     public AudioClip[] effectClips;
 
+    public GameObject soundPrafab;
+
+    public override void Awake()
+    {
+        base.Awake();
+        SetBGM(0);
+    }
+
+
+    //public void Play(AudioClip clip)
+    //{
+    //    Instantiate(soundPrafab, transform).GetComponent<SoundPlayer>().Play(clip);
+    //}
     public void SetBGM(int soundNum)
     {
         bgmAudioSource.clip = bgmClips[soundNum];

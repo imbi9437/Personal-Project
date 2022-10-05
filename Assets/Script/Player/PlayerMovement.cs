@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator FootSteps(float value)
     {
         footStep = false;
+        //SoundManager.instance.Play(player.PlayerAudio[0]);
         player.AudioSource.clip = player.PlayerAudio[0];
         player.AudioSource.Play();
         yield return new WaitForSeconds(value);

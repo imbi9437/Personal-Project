@@ -40,8 +40,9 @@ public class Player : MonoBehaviour
     public Action<float> StatusUpdate;
     public Action<int> QuickSlotChange;
 
-    [SerializeField, Range(0f, 500f)]
-    private float hp = 500f;
+    private const float maxHp = 500f;
+    [SerializeField]
+    private float hp;
     public float Hp 
     { 
         get
@@ -49,9 +50,9 @@ public class Player : MonoBehaviour
         set 
         { 
             hp = value;
-            if (hp > 500)
+            if (hp > maxHp)
             { 
-                hp = 500f;
+                hp = maxHp;
             }
             else if (hp<=0)
             {
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
         playerHand = GetComponent<PlayerHand>();
         audioSource = GetComponent<AudioSource>();
         playerCam = GetComponentInChildren<Camera>();
+        hp = maxHp;
         
     }
 }

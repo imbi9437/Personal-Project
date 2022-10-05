@@ -1,38 +1,33 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    private Scene curScene;
+
+    private bool isTimeZero;
+    public bool IsTimeZero
+    {
+        get { return isTimeZero; }
+        set
+        {
+            isTimeZero = value;
+            Time.timeScale = isTimeZero ? 0:1;
+        }
+    }
+    public Scene CurScene { get { return curScene; } set { curScene = value; } }
     public override void Awake()
     {
         base.Awake();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SceneManager.LoadScene("Test");
-        }
-        else if (Input.GetKeyDown(KeyCode.V))
-        {
-            SceneManager.LoadScene("Main");
-        }
-    }
     public void TimeScaleChange()
     {
-        if(Time.timeScale == 0)
-        {
-            Time.timeScale = 1;
-        }
-        else if(Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
-        }
+        IsTimeZero = !IsTimeZero;
+    }
+    public void Update()
+    {
+        curScene = SceneManager.GetActiveScene();
     }
 }

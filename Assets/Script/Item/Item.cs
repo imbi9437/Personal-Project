@@ -12,10 +12,10 @@ public class Item
 
     public void Use(Player player)
     {
-        switch(itemData.ItemType)
+        switch (itemData.ItemType)
         {
             case ItemData.ITEMTYPE.USED:
-                if(count > 0)
+                if (count > 0)
                 {
                     player.PlayerHand.SetClip(itemData.UsingSound);
                 }
@@ -25,7 +25,7 @@ public class Item
             case ItemData.ITEMTYPE.ARMOR:
                 break;
             case ItemData.ITEMTYPE.GUN:
-                if(curAmmo > 0)
+                if (curAmmo > 0)
                 {
                     itemData.Use(player);
                     player.PlayerHand.SetClip(itemData.UsingSound);
@@ -37,8 +37,8 @@ public class Item
                 player.PlayerHand.SetClip(itemData.UsingSound);
                 break;
         }
-        
-        ItemManager.instance.StartCoolTime(this);
+
+        ItemFunc.instance.StartCoolTime(this);
     }
     public void Drop(Transform parent)
     {
@@ -46,46 +46,51 @@ public class Item
     }
     public void Reroad(Player player)
     {
-        if(itemData.ItemType == ItemData.ITEMTYPE.GUN)
+        if (itemData.ItemType != ItemData.ITEMTYPE.GUN)
         {
-            Gun gundata = (Gun)itemData;
-            for (int i = 0; i < player.Inventory.items.Length; i++)
+            return;
+        }
+        Gun gundata = (Gun)itemData;
+        for (int i = 0; i < player.Inventory.items.Length; i++)
+        {
+            if (player.Inventory.items[i].itemData != gundata.NeedAmmo)
             {
-                if (player.Inventory.items[i].itemData == gundata.NeedAmmo)
-                {
-                    if (player.Inventory.items[i].count+curAmmo>=gundata.MaxMagazine)
-                    {
-                        player.Inventory.items[i].count -= gundata.MaxMagazine - curAmmo;
-                        curAmmo = gundata.MaxMagazine;
-                        return;
-                    }
-                    else
-                    {
-                        curAmmo += player.Inventory.items[i].count;
-                        player.Inventory.items[i].itemData = null;
-                        player.Inventory.items[i].count = 0;
-                    }
-                }
+                continue;
             }
-            for (int i = 0; i < player.QuickSlot.items.Length; i++)
+
+            if (player.Inventory.items[i].count + curAmmo >= gundata.MaxMagazine)
             {
-                if (player.QuickSlot.items[i].itemData == gundata.NeedAmmo)
-                {
-                    if (player.QuickSlot.items[i].count + curAmmo >= gundata.MaxMagazine)
-                    {
-                        player.QuickSlot.items[i].count -= gundata.MaxMagazine - curAmmo;
-                        curAmmo = gundata.MaxMagazine;
-                        return;
-                    }
-                    else
-                    {
-                        curAmmo += player.QuickSlot.items[i].count;
-                        player.QuickSlot.items[i].itemData = null;
-                        player.QuickSlot.items[i].count = 0;
-                    }
-                }
+                player.Inventory.items[i].count -= gundata.MaxMagazine - curAmmo;
+                curAmmo = gundata.MaxMagazine;
+                return;
+            }
+            else
+            {
+                curAmmo += player.Inventory.items[i].count;
+                player.Inventory.items[i].itemData = null;
+                player.Inventory.items[i].count = 0;
+            }
+
+        }
+        for (int i = 0; i < player.QuickSlot.items.Length; i++)
+        {
+            if (player.QuickSlot.items[i].itemData != gundata.NeedAmmo)
+            {
+                continue;
+            }
+
+            if (player.QuickSlot.items[i].count + curAmmo >= gundata.MaxMagazine)
+            {
+                player.QuickSlot.items[i].count -= gundata.MaxMagazine - curAmmo;
+                curAmmo = gundata.MaxMagazine;
+                return;
+            }
+            else
+            {
+                curAmmo += player.QuickSlot.items[i].count;
+                player.QuickSlot.items[i].itemData = null;
+                player.QuickSlot.items[i].count = 0;
             }
         }
     }
-    
 }
